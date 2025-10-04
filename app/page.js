@@ -1513,8 +1513,13 @@ export default function App() {
                               {new Date(match.createdAt).toLocaleDateString()}
                             </p>
                           </div>
-                          <Button size="sm" variant="outline">
-                            Message
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => startDirectMessage(match.otherUser?.id)}
+                          >
+                            <MessageCircle className="h-3 w-3 mr-1" />
+                            Chat
                           </Button>
                         </div>
                       ))}
