@@ -1388,46 +1388,240 @@ export default function App() {
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="p-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold text-center mb-6">Overview</h2>
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-2xl font-bold text-center mb-6">Your Dashboard</h2>
               
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
+              {/* Stats Grid */}
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+                <Card className="text-center">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center justify-center text-lg">
                       <Heart className="h-5 w-5 mr-2 text-red-500" />
                       Matches
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-3xl font-bold">{matches.length}</p>
+                    <p className="text-3xl font-bold text-red-500">{matches.length}</p>
                     <p className="text-sm text-gray-600">Total matches</p>
                   </CardContent>
                 </Card>
                 
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Compass className="h-5 w-5 mr-2 text-blue-500" />
+                <Card className="text-center">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center justify-center text-lg">
+                      <TrendingUp className="h-5 w-5 mr-2 text-blue-500" />
+                      Posts
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-3xl font-bold text-blue-500">{userPosts.length}</p>
+                    <p className="text-sm text-gray-600">Your posts</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="text-center">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center justify-center text-lg">
+                      <Compass className="h-5 w-5 mr-2 text-green-500" />
                       Discovered
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-3xl font-bold">{currentPersonIndex}</p>
-                    <p className="text-sm text-gray-600">People viewed</p>
+                    <p className="text-3xl font-bold text-green-500">{overviewStats.totalSwipes || 0}</p>
+                    <p className="text-sm text-gray-600">People/posts viewed</p>
                   </CardContent>
                 </Card>
                 
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <User className="h-5 w-5 mr-2 text-green-500" />
-                      Profile
+                <Card className="text-center">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center justify-center text-lg">
+                      <Star className="h-5 w-5 mr-2 text-yellow-500" />
+                      Streak
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-lg font-semibold">{user.name}</p>
-                    <p className="text-sm text-gray-600">{profile?.skills?.length || 0} skills</p>
+                    <p className="text-3xl font-bold text-yellow-500">{loginStreak}</p>
+                    <p className="text-sm text-gray-600">Daily login streak</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* Your Posts Section */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Building className="h-5 w-5 mr-2" />
+                        Your Posts
+                      </div>
+                      <Badge variant="outline">{userPosts.length}</Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {userPosts.length > 0 ? (
+                      <div className="space-y-3">
+                        {userPosts.slice(0, 3).map(post => (
+                          <div key={post.id} className="border rounded-lg p-3">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <h4 className="font-medium">{post.title}</h4>
+                                <div className="flex items-center space-x-2 mt-1">
+                                  <Badge variant={post.type === 'HACKATHON' ? 'default' : 'secondary'} className="text-xs">
+                                    {post.type}
+                                  </Badge>
+                                  <span className="text-xs text-gray-500">
+                                    {post.inquiryCount || 0} inquiries
+                                  </span>
+                                </div>
+                                <p className="text-sm text-gray-600 mt-1">
+                                  {post.acceptedCount || 0} accepted • {post.location}
+                                </p>
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                {new Date(post.createdAt).toLocaleDateString()}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        {userPosts.length > 3 && (
+                          <Button variant="outline" size="sm" className="w-full">
+                            View All Posts ({userPosts.length})
+                          </Button>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="text-center py-6">
+                        <Building className="h-8 w-8 mx-auto text-gray-300 mb-2" />
+                        <p className="text-gray-500">No posts yet</p>
+                        <Button 
+                          size="sm" 
+                          className="mt-2"
+                          onClick={() => setShowPostDialog(true)}
+                        >
+                          Create Your First Post
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Activity & Matches Section */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <MessageCircle className="h-5 w-5 mr-2" />
+                      Recent Activity
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {matches.slice(0, 3).map(match => (
+                        <div key={match.id} className="flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                            <Heart className="h-4 w-4 text-red-500" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm font-medium">New match with {match.otherUser?.name}</p>
+                            <p className="text-xs text-gray-600">
+                              {new Date(match.createdAt).toLocaleDateString()}
+                            </p>
+                          </div>
+                          <Button size="sm" variant="outline">
+                            Message
+                          </Button>
+                        </div>
+                      ))}
+                      
+                      {inquiries.slice(0, 2).map(inquiry => (
+                        <div key={inquiry.id} className="flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <Mail className="h-4 w-4 text-blue-500" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm font-medium">
+                              {inquiry.user?.name} interested in {inquiry.post?.title}
+                            </p>
+                            <p className="text-xs text-gray-600">
+                              Status: {inquiry.status.toLowerCase()}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+
+                      {matches.length === 0 && inquiries.length === 0 && (
+                        <div className="text-center py-4">
+                          <MessageCircle className="h-8 w-8 mx-auto text-gray-300 mb-2" />
+                          <p className="text-gray-500">No recent activity</p>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Projects Ongoing */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <Code className="h-5 w-5 mr-2" />
+                      Ongoing Projects
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {inquiries.filter(i => i.status === 'ACCEPTED').slice(0, 3).map(project => (
+                        <div key={project.id} className="border rounded-lg p-3">
+                          <h4 className="font-medium">{project.post?.title}</h4>
+                          <div className="flex items-center justify-between mt-2">
+                            <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">
+                              Active
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              Joined {new Date(project.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                      
+                      {inquiries.filter(i => i.status === 'ACCEPTED').length === 0 && (
+                        <div className="text-center py-4">
+                          <Code className="h-8 w-8 mx-auto text-gray-300 mb-2" />
+                          <p className="text-gray-500">No ongoing projects</p>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Match Statistics */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <BarChart3 className="h-5 w-5 mr-2" />
+                      Match Breakdown
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">People Matched</span>
+                        <span className="font-semibold">{matches.filter(m => m.context === 'PEOPLE').length}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">Projects Liked</span>
+                        <span className="font-semibold">{projects.length}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">Hackathons Joined</span>
+                        <span className="font-semibold">{hackathons.length}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">Success Rate</span>
+                        <span className="font-semibold text-green-500">
+                          {matches.length > 0 ? Math.round((matches.length / Math.max(currentPersonIndex, 1)) * 100) : 0}%
+                        </span>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
