@@ -1230,26 +1230,47 @@ export default function App() {
               
               {hackathons[currentHackathonIndex] ? (
                 <div className="relative">
-                  {/* Next hackathon preview (background card) */}
-                  {hackathons[currentHackathonIndex + 1] && (
-                    <div className="absolute -top-2 -left-2 -right-2 -bottom-2 bg-white rounded-2xl shadow-xl z-0 transform rotate-1 scale-98 opacity-80 border border-gray-300">
-                    <div className="h-48 bg-gradient-to-br from-orange-300 to-red-300 rounded-t-2xl flex items-center justify-center">
-                      <div className="text-white text-sm font-medium bg-black bg-opacity-30 px-2 py-1 rounded">Next Hackathon</div>
+                  {/* Multiple stacked cards in background */}
+                  
+                  {/* Third card (deepest) */}
+                  {hackathons[currentHackathonIndex + 2] && (
+                    <div className="absolute -top-1 -left-1 -right-1 -bottom-1 bg-white rounded-2xl shadow-md z-0 transform rotate-2 scale-94 opacity-40 border border-gray-200">
+                      <div className="h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-t-2xl"></div>
                     </div>
-                    <div className="p-4">
-                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                      <div className="h-3 bg-gray-200 rounded w-3/4"></div>
-                    </div>
-                  </div>
                   )}
                   
-                  {/* Current hackathon (foreground card) */}
-                  <motion.div
-                    key={currentHackathonIndex}
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden"
-                  >
+                  {/* Second card (middle) */}
+                  {hackathons[currentHackathonIndex + 1] && (
+                    <div className="absolute -top-2 -left-2 -right-2 -bottom-2 bg-white rounded-2xl shadow-lg z-1 transform rotate-1 scale-96 opacity-60 border border-gray-300">
+                      <div className="h-48 bg-gradient-to-br from-orange-300 to-red-300 rounded-t-2xl flex items-center justify-center">
+                        <div className="text-white text-xs font-medium bg-black bg-opacity-30 px-2 py-1 rounded">Next Hackathon</div>
+                      </div>
+                      <div className="p-4">
+                        <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                        <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Current hackathon (foreground card) with swipe animation */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentHackathonIndex}
+                      initial={{ scale: 0.8, opacity: 0, x: 0 }}
+                      animate={{ 
+                        scale: 1, 
+                        opacity: 1, 
+                        x: 0,
+                        rotate: 0
+                      }}
+                      exit={{ 
+                        x: swipeDirection === 'right' ? 300 : -300,
+                        rotate: swipeDirection === 'right' ? 15 : -15,
+                        opacity: 0,
+                        transition: { duration: 0.3 }
+                      }}
+                      className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
+                    >
                   <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center relative">
                     <div className="text-center text-white">
                       <Target className="h-12 w-12 mx-auto mb-2" />
