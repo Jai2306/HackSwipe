@@ -1768,6 +1768,226 @@ export default function App() {
         </Tabs>
       </div>
 
+      {/* Profile View Dialog */}
+      <Dialog open={showProfileDialog} onOpenChange={setShowProfileDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Profile</DialogTitle>
+          </DialogHeader>
+          
+          {selectedUserProfile && (
+            <div className="space-y-6">
+              {/* Profile Header */}
+              <div className="text-center">
+                <div className="w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-12 w-12 text-white" />
+                </div>
+                <h2 className="text-2xl font-bold">{selectedUserProfile.name}</h2>
+                <p className="text-gray-600">{selectedUserProfile.roleHeadline || 'Developer'}</p>
+                <p className="text-sm text-gray-500">{selectedUserProfile.location}</p>
+              </div>
+
+              {/* Profile Content */}
+              <div className="grid gap-4 md:grid-cols-2">
+                {selectedUserProfile.profile?.bio && (
+                  <div className="md:col-span-2">
+                    <h4 className="font-semibold mb-2">About</h4>
+                    <p className="text-gray-700 text-sm">{selectedUserProfile.profile.bio}</p>
+                  </div>
+                )}
+
+                {selectedUserProfile.profile?.looksToConnect && (
+                  <div className="md:col-span-2">
+                    <h4 className="font-semibold mb-2">Looking For</h4>
+                    <p className="text-gray-700 text-sm">{selectedUserProfile.profile.looksToConnect}</p>
+                  </div>
+                )}
+
+                {selectedUserProfile.profile?.skills && selectedUserProfile.profile.skills.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold mb-2">Skills</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedUserProfile.profile.skills.map(skill => (
+                        <Badge key={skill} variant="secondary" className="text-xs">
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {selectedUserProfile.profile?.interests && selectedUserProfile.profile.interests.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold mb-2">Interests</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedUserProfile.profile.interests.map(interest => (
+                        <Badge key={interest} variant="outline" className="text-xs">
+                          {interest}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {selectedUserProfile.profile?.projects && selectedUserProfile.profile.projects.length > 0 && (
+                  <div className="md:col-span-2">
+                    <h4 className="font-semibold mb-2">Projects</h4>
+                    <div className="space-y-2">
+                      {selectedUserProfile.profile.projects.map((project, index) => (
+                        <div key={index} className="border rounded-lg p-3">
+                          <h5 className="font-medium">{project.name}</h5>
+                          <p className="text-sm text-gray-600">{project.description}</p>
+                          <div className="flex space-x-2 mt-2">
+                            {project.repoUrl && (
+                              <a 
+                                href={project.repoUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-xs text-blue-600 hover:underline flex items-center"
+                              >
+                                <Github className="h-3 w-3 mr-1" />
+                                Code
+                              </a>
+                            )}
+                            {project.demoUrl && (
+                              <a 
+                                href={project.demoUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-xs text-blue-600 hover:underline flex items-center"
+                              >
+                                <ExternalLink className="h-3 w-3 mr-1" />
+                                Demo
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex space-x-3">
+                <Button 
+                  onClick={() => {
+                    startDirectMessage(selectedUserProfile.id);
+                    setShowProfileDialog(false);
+                  }}
+                  className="flex-1"
+                >
+                  <MessageCircle className="h-4 w-4 mr-2" />
+                  Send Message
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => setShowProfileDialog(false)}
+                  className="flex-1"
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Group Chat Creation Dialog */}
+      <Dialog open={showGroupChatDialog} onOpenChange={setShowGroupChatDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Create Group Chat</DialogTitle>
+            <DialogDescription>
+              Create a group chat with your matches
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label>Group Name</Label>
+              <Input
+                placeholder="Enter group name..."
+                value={groupChatName}
+                onChange={(e) => setGroupChatName(e.target.value)}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label>Select Participants</Label>
+              <div className="space-y-2 max-h-40 overflow-y-auto">
+                {matches.map(match => (
+                  <div key={match.id} className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      id={`match-${match.id}`}
+                      checked={selectedMatches.includes(match.otherUser.id)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedMatches(prev => [...prev, match.otherUser.id]);
+                        } else {
+                          setSelectedMatches(prev => prev.filter(id => id !== match.otherUser.id));
+                        }
+                      }}
+                      className="rounded"
+                    />
+                    <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
+                      <User className="h-4 w-4 text-white" />
+                    </div>
+                    <label htmlFor={`match-${match.id}`} className="flex-1 cursor-pointer">
+                      <p className="text-sm font-medium">{match.otherUser?.name}</p>
+                      <p className="text-xs text-gray-600">{match.otherUser?.roleHeadline}</p>
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowGroupChatDialog(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={async () => {
+                if (groupChatName && selectedMatches.length > 0) {
+                  const token = localStorage.getItem('token');
+                  try {
+                    const response = await fetch('/api/conversations', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                      },
+                      body: JSON.stringify({
+                        participantIds: selectedMatches,
+                        isGroup: true,
+                        name: groupChatName
+                      })
+                    });
+
+                    if (response.ok) {
+                      const data = await response.json();
+                      setSelectedConversation(data.conversation);
+                      setShowGroupChatDialog(false);
+                      setShowMessageDialog(true);
+                      setGroupChatName('');
+                      setSelectedMatches([]);
+                      loadMessages(data.conversation.id);
+                    }
+                  } catch (error) {
+                    console.error('Group chat creation error:', error);
+                  }
+                }
+              }}
+              disabled={!groupChatName || selectedMatches.length === 0}
+            >
+              Create Group
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 px-4 py-2 z-50">
         <div className="flex justify-around max-w-lg mx-auto">
