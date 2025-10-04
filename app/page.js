@@ -1514,25 +1514,25 @@ export default function App() {
                   </CardContent>
                 </Card>
 
-                {/* Activity & Matches Section */}
+                {/* Recent Connects & Activity */}
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center">
-                      <MessageCircle className="h-5 w-5 mr-2" />
-                      Recent Activity
+                      <Users className="h-5 w-5 mr-2" />
+                      Recent Connects
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {matches.slice(0, 3).map(match => (
+                      {matches.slice(0, 2).map(match => (
                         <div key={match.id} className="flex items-center space-x-3">
-                          <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                            <Heart className="h-4 w-4 text-red-500" />
+                          <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
+                            <User className="h-4 w-4 text-white" />
                           </div>
                           <div className="flex-1">
-                            <p className="text-sm font-medium">New match with {match.otherUser?.name}</p>
+                            <p className="text-sm font-medium">{match.otherUser?.name}</p>
                             <p className="text-xs text-gray-600">
-                              {new Date(match.createdAt).toLocaleDateString()}
+                              Connected {new Date(match.createdAt).toLocaleDateString()}
                             </p>
                           </div>
                           <Button 
@@ -1546,17 +1546,15 @@ export default function App() {
                         </div>
                       ))}
                       
-                      {inquiries.slice(0, 2).map(inquiry => (
+                      {inquiries.slice(0, 1).map(inquiry => (
                         <div key={inquiry.id} className="flex items-center space-x-3">
                           <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                             <Mail className="h-4 w-4 text-blue-500" />
                           </div>
                           <div className="flex-1">
-                            <p className="text-sm font-medium">
-                              {inquiry.user?.name} interested in {inquiry.post?.title}
-                            </p>
+                            <p className="text-sm font-medium">{inquiry.user?.name}</p>
                             <p className="text-xs text-gray-600">
-                              Status: {inquiry.status.toLowerCase()}
+                              Interested in {inquiry.post?.title}
                             </p>
                           </div>
                         </div>
@@ -1564,8 +1562,72 @@ export default function App() {
 
                       {matches.length === 0 && inquiries.length === 0 && (
                         <div className="text-center py-4">
-                          <MessageCircle className="h-8 w-8 mx-auto text-gray-300 mb-2" />
-                          <p className="text-gray-500">No recent activity</p>
+                          <Users className="h-8 w-8 mx-auto text-gray-300 mb-2" />
+                          <p className="text-gray-500">No recent connects</p>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Your Matches Section */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Heart className="h-5 w-5 mr-2" />
+                        Your Matches
+                      </div>
+                      <Badge variant="outline">{matches.length}</Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {matches.slice(0, 3).map(match => (
+                        <div key={match.id} className="flex items-center justify-between p-2 border rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-gradient-to-br from-red-400 to-pink-400 rounded-full flex items-center justify-center">
+                              <User className="h-4 w-4 text-white" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-medium">{match.otherUser?.name}</p>
+                              <p className="text-xs text-gray-600">
+                                {match.otherUser?.roleHeadline || 'Developer'}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex space-x-1">
+                            <Button 
+                              size="sm" 
+                              variant="ghost"
+                              onClick={() => {
+                                setSelectedUserProfile(match.otherUser);
+                                setShowProfileDialog(true);
+                              }}
+                            >
+                              View
+                            </Button>
+                            <Button 
+                              size="sm"
+                              onClick={() => startDirectMessage(match.otherUser?.id)}
+                            >
+                              <MessageCircle className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                      
+                      {matches.length > 3 && (
+                        <Button variant="outline" size="sm" className="w-full">
+                          View All Matches ({matches.length})
+                        </Button>
+                      )}
+
+                      {matches.length === 0 && (
+                        <div className="text-center py-4">
+                          <Heart className="h-8 w-8 mx-auto text-gray-300 mb-2" />
+                          <p className="text-gray-500">No matches yet</p>
+                          <p className="text-xs text-gray-400">Keep swiping!</p>
                         </div>
                       )}
                     </div>
