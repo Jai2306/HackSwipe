@@ -838,13 +838,69 @@ export default function App() {
             Hackathon Tinder
           </h1>
           
-          <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon">
+          <div className="flex items-center space-x-3">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => setShowMessageDialog(true)}
+              className="relative"
+            >
               <MessageCircle className="h-5 w-5" />
+              {conversations.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {conversations.length}
+                </span>
+              )}
             </Button>
-            <Button variant="ghost" size="icon">
-              <Bell className="h-5 w-5" />
-            </Button>
+            
+            <div className="relative">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setShowNotifications(!showNotifications)}
+                className="relative"
+              >
+                <Bell className="h-5 w-5" />
+                {notifications.filter(n => !n.read).length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                    {notifications.filter(n => !n.read).length}
+                  </span>
+                )}
+              </Button>
+              
+              {showNotifications && (
+                <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border z-50">
+                  <div className="p-3 border-b">
+                    <h3 className="font-semibold">Notifications</h3>
+                  </div>
+                  <ScrollArea className="max-h-64">
+                    {notifications.length > 0 ? (
+                      <div className="p-2">
+                        {notifications.map(notification => (
+                          <div key={notification.id} className={`p-2 rounded-lg mb-2 ${notification.read ? 'bg-gray-50' : 'bg-blue-50'}`}>
+                            <div className="flex items-start justify-between">
+                              <div>
+                                <p className="text-sm font-medium">{notification.message}</p>
+                                <p className="text-xs text-gray-500">
+                                  {new Date(notification.createdAt).toLocaleDateString()} {new Date(notification.createdAt).toLocaleTimeString()}
+                                </p>
+                              </div>
+                              {!notification.read && (
+                                <div className="w-2 h-2 bg-blue-500 rounded-full mt-1"></div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-4 text-center text-gray-500">
+                        No notifications yet
+                      </div>
+                    )}
+                  </ScrollArea>
+                </div>
+              )}
+            </div>
             <Button variant="ghost" onClick={handleLogout}>
               Logout
             </Button>
