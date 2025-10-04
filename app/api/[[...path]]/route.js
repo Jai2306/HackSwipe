@@ -795,6 +795,137 @@ async function handleAuth(request, { params }) {
       return NextResponse.json({ notifications });
     }
 
+    // Create dummy data for demo
+    if (path === 'dummy-data' && method === 'POST') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      try {
+        // Create dummy users with profiles
+        const dummyUsers = [
+          {
+            id: uuidv4(),
+            email: "sarah.chen@example.com",
+            name: "Sarah Chen",
+            username: "sarah_chen",
+            passwordHash: await bcrypt.hash("dummy123", 10),
+            imageUrl: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw1fHx3b21hbiUyMGRldmVsb3BlcnxlbnwwfHx8fDE3NTk2MDg5NzZ8MA&ixlib=rb-4.1.0&q=85',
+            roleHeadline: "AI/ML Engineer & Full-Stack Developer",
+            location: "San Francisco, CA",
+            timezone: "PST",
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            id: uuidv4(),
+            email: "alex.rodriguez@example.com",
+            name: "Alex Rodriguez",
+            username: "alex_rodriguez", 
+            passwordHash: await bcrypt.hash("dummy123", 10),
+            imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw3fHxtYW4lMjBkZXZlbG9wZXJ8ZW58MHx8fHwxNzU5NjA4OTc2fDA&ixlib=rb-4.1.0&q=85',
+            roleHeadline: "Mobile App Developer & UI/UX Enthusiast",
+            location: "Austin, TX",
+            timezone: "CST",
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            id: uuidv4(),
+            email: "maya.patel@example.com",
+            name: "Maya Patel",
+            username: "maya_patel",
+            passwordHash: await bcrypt.hash("dummy123", 10),
+            imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw5fHx3b21hbiUyMGRldmVsb3BlcnxlbnwwfHx8fDE3NTk2MDg5NzZ8MA&ixlib=rb-4.1.0&q=85',
+            roleHeadline: "DevOps Engineer & Climate Tech Advocate",
+            location: "Seattle, WA", 
+            timezone: "PST",
+            createdAt: new Date(),
+            updatedAt: new Date()
+          }
+        ];
+
+        // Insert dummy users
+        for (const dummyUser of dummyUsers) {
+          const existingUser = await db.collection('users').findOne({ email: dummyUser.email });
+          if (!existingUser) {
+            await db.collection('users').insertOne(dummyUser);
+
+            // Create profiles for dummy users
+            const profiles = {
+              [dummyUser.email]: {
+                id: uuidv4(),
+                userId: dummyUser.id,
+                bio: dummyUser.email === "sarah.chen@example.com" 
+                  ? "AI/ML engineer passionate about using technology for social good. 5+ years building intelligent systems."
+                  : dummyUser.email === "alex.rodriguez@example.com"
+                  ? "Mobile developer creating intuitive user experiences. Love React Native and Flutter!"
+                  : "DevOps engineer focused on sustainable technology. Building green infrastructure for the future.",
+                looksToConnect: dummyUser.email === "sarah.chen@example.com"
+                  ? "Looking for backend developers and data scientists for an AI-powered social impact project"
+                  : dummyUser.email === "alex.rodriguez@example.com" 
+                  ? "Seeking UI/UX designers and frontend developers for a mobile gaming startup"
+                  : "Need full-stack developers for climate action platform",
+                skills: dummyUser.email === "sarah.chen@example.com"
+                  ? ["Python", "TensorFlow", "React", "Node.js", "PostgreSQL", "AWS"]
+                  : dummyUser.email === "alex.rodriguez@example.com"
+                  ? ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "JavaScript"]
+                  : ["Docker", "Kubernetes", "AWS", "Python", "Vue.js", "PostgreSQL"],
+                interests: dummyUser.email === "sarah.chen@example.com"
+                  ? ["AI/ML", "Social Impact", "FinTech", "Data Science"]
+                  : dummyUser.email === "alex.rodriguez@example.com"
+                  ? ["Mobile Development", "Gaming", "AR/VR", "UI/UX Design"]
+                  : ["DevOps", "Climate Tech", "Web Development", "Cloud Computing"],
+                experience: [{
+                  title: dummyUser.email === "sarah.chen@example.com" ? "Senior AI Engineer" : 
+                         dummyUser.email === "alex.rodriguez@example.com" ? "Mobile Developer" : "DevOps Engineer",
+                  org: dummyUser.email === "sarah.chen@example.com" ? "TechForGood Inc" :
+                       dummyUser.email === "alex.rodriguez@example.com" ? "AppCraft Studios" : "GreenTech Solutions",
+                  startDate: "2022-01-01",
+                  endDate: null,
+                  description: "Building innovative solutions"
+                }],
+                projects: [{
+                  name: dummyUser.email === "sarah.chen@example.com" ? "EcoPredict AI" :
+                        dummyUser.email === "alex.rodriguez@example.com" ? "GameHub Mobile" : "Carbon Tracker",
+                  description: "Innovative project making impact",
+                  tech: [],
+                  repoUrl: "https://github.com/example",
+                  demoUrl: "https://demo.example.com"
+                }],
+                awards: [],
+                socials: [{
+                  type: "GITHUB",
+                  url: `https://github.com/${dummyUser.username}`
+                }],
+                preferences: {
+                  desiredRoles: ["Developer", "Engineer"],
+                  techStack: [],
+                  interestTags: [],
+                  locationRadiusKm: 50,
+                  remoteOk: true,
+                  availabilityHrs: 20,
+                  searchPeople: true,
+                  searchProjects: true,
+                  searchHackathons: true
+                },
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }
+            };
+
+            await db.collection('profiles').insertOne(profiles[dummyUser.email]);
+          }
+        }
+
+        return NextResponse.json({ success: true, message: 'Dummy data created' });
+      } catch (error) {
+        console.error('Dummy data creation error:', error);
+        return NextResponse.json({ error: 'Failed to create dummy data' }, { status: 500 });
+      }
+    }
+
     // Get login streak
     if (path === 'streak' && method === 'GET') {
       const user = await getCurrentUser(request);
