@@ -1750,6 +1750,220 @@ export default function App() {
           </Button>
         </div>
       </div>
+
+      {/* Enhanced Messages Dialog */}
+      <Dialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
+        <DialogContent className="max-w-5xl max-h-[85vh]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              <div className="flex items-center">
+                <MessageCircle className="h-5 w-5 mr-2" />
+                Messages
+              </div>
+              <Badge variant="outline">{conversations.length} conversations</Badge>
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="flex h-[600px]">
+            {/* Enhanced Conversations List */}
+            <div className="w-1/3 border-r pr-4">
+              <div className="mb-4">
+                <Button
+                  size="sm"
+                  className="w-full"
+                  onClick={() => {
+                    // Create a new conversation with available users
+                    if (people.length > 0) {
+                      startDirectMessage(people[0].id);
+                    }
+                  }}
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  New Chat
+                </Button>
+              </div>
+              
+              <ScrollArea className="h-[520px]">
+                <div className="space-y-2">
+                  {conversations.map(conv => (
+                    <div
+                      key={conv.id}
+                      className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+                        selectedConversation?.id === conv.id 
+                          ? 'bg-blue-100 border-l-4 border-blue-500' 
+                          : 'hover:bg-gray-50 border-l-4 border-transparent'
+                      }`}
+                      onClick={() => {
+                        setSelectedConversation(conv);
+                        loadMessages(conv.id);
+                      }}
+                    >
+                      <div className="flex items-start space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
+                          <User className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium truncate">
+                            {conv.isGroup ? conv.name : conv.participants[0]?.name || 'Unknown'}
+                          </h4>
+                          <p className="text-sm text-gray-600 truncate">
+                            {conv.latestMessage?.content || 'Start a conversation...'}
+                          </p>
+                          <p className="text-xs text-gray-400">
+                            {conv.latestMessage ? new Date(conv.latestMessage.createdAt).toLocaleDateString() : 'New'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {conversations.length === 0 && (
+                    <div className="text-center py-12">
+                      <MessageCircle className="h-12 w-12 mx-auto text-gray-300 mb-4" />
+                      <p className="text-gray-500">No conversations yet</p>
+                      <p className="text-sm text-gray-400">Start chatting with your matches!</p>
+                    </div>
+                  )}
+                </div>
+              </ScrollArea>
+            </div>
+            
+            {/* Enhanced Messages Panel */}
+            <div className="flex-1 flex flex-col">
+              {selectedConversation ? (
+                <>
+                  {/* Chat Header */}
+                  <div className="p-4 border-b bg-gray-50">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
+                          <User className="h-5 w-5 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium">
+                            {selectedConversation.isGroup 
+                              ? selectedConversation.name 
+                              : selectedConversation.participants[0]?.name || 'Unknown'
+                            }
+                          </h3>
+                          <p className="text-sm text-gray-600">
+                            {selectedConversation.isGroup ? 'Group chat' : 'Direct message'}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Button size="sm" variant="outline">
+                          <Users className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Messages Area */}
+                  <ScrollArea className="flex-1 p-4">
+                    <div className="space-y-4">
+                      {messages.length === 0 && (
+                        <div className="text-center py-8">
+                          <MessageCircle className="h-8 w-8 mx-auto text-gray-300 mb-2" />
+                          <p className="text-gray-500">No messages yet</p>
+                          <p className="text-sm text-gray-400">Start the conversation!</p>
+                        </div>
+                      )}
+                      
+                      {messages.map(message => (
+                        <div
+                          key={message.id}
+                          className={`flex ${message.senderId === user.id ? 'justify-end' : 'justify-start'}`}
+                        >
+                          <div className={`flex items-end space-x-2 max-w-xs`}>
+                            {message.senderId !== user.id && (
+                              <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                                <User className="h-4 w-4 text-gray-600" />
+                              </div>
+                            )}
+                            <div>
+                              <div
+                                className={`px-4 py-2 rounded-2xl ${
+                                  message.senderId === user.id
+                                    ? 'bg-blue-500 text-white rounded-br-sm'
+                                    : 'bg-gray-100 text-gray-800 rounded-bl-sm'
+                                }`}
+                              >
+                                {message.senderId !== user.id && selectedConversation.isGroup && (
+                                  <p className="text-xs font-medium mb-1 opacity-70">
+                                    {message.sender?.name}
+                                  </p>
+                                )}
+                                <p className="text-sm">{message.content}</p>
+                              </div>
+                              <p className={`text-xs mt-1 ${
+                                message.senderId === user.id ? 'text-right' : 'text-left'
+                              } text-gray-400`}>
+                                {new Date(message.createdAt).toLocaleTimeString([], {
+                                  hour: '2-digit',
+                                  minute: '2-digit'
+                                })}
+                              </p>
+                            </div>
+                            {message.senderId === user.id && (
+                              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                <User className="h-4 w-4 text-white" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                  
+                  {/* Message Input */}
+                  <div className="p-4 border-t bg-gray-50">
+                    <div className="flex space-x-3">
+                      <Input
+                        placeholder="Type your message..."
+                        value={messageInput}
+                        onChange={(e) => setMessageInput(e.target.value)}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            sendMessage();
+                          }
+                        }}
+                        className="flex-1"
+                      />
+                      <Button 
+                        onClick={sendMessage} 
+                        disabled={!messageInput.trim()}
+                        className="px-4"
+                      >
+                        <Send className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-2">
+                      Press Enter to send, Shift+Enter for new line
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <div className="flex-1 flex items-center justify-center bg-gray-50">
+                  <div className="text-center">
+                    <MessageCircle className="h-16 w-16 mx-auto text-gray-300 mb-4" />
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">Welcome to Messages</h3>
+                    <p className="text-gray-500 mb-4">Select a conversation or start a new chat</p>
+                    <Button onClick={() => {
+                      if (people.length > 0) {
+                        startDirectMessage(people[0].id);
+                      }
+                    }}>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Start New Chat
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
