@@ -306,6 +306,124 @@ async function handleAuth(request, { params }) {
       });
     }
 
+    // Posts endpoints
+    if (path === 'posts' && method === 'POST') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const postData = await request.json();
+      const post = {
+        id: uuidv4(),
+        type: postData.type, // HACKATHON or PROJECT
+        leaderId: user.id,
+        title: postData.title,
+        location: postData.location || null,
+        websiteUrl: postData.websiteUrl || null,
+        skillsNeeded: postData.skillsNeeded || [],
+        notes: postData.notes || null,
+        status: 'OPEN',
+        visibility: 'PUBLIC',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+
+      await db.collection('posts').insertOne(post);
+      return NextResponse.json({ post });
+    }
+
+    // Get posts
+    if (path.startsWith('explore/') && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const type = path.split('/')[1]; // hackathons, projects, people
+
+      if (type === 'hackathons' || type === 'projects') {
+        // Get posts (hackathons or projects)
+        const postType = type === 'hackathons' ? 'HACKATHON' : 'PROJECT';
+        
+        const swipes = await db.collection('swipes').find({ 
+          swiperId: user.id,
+          targetType: postType.toUpperCase()
+        }).toArray();
+        
+        const swipedPostIds = swipes.map(s => s.targetId);
+        
+        const posts = await db.collection('posts').find({
+          type: postType,
+          id: { $nin: swipedPostIds },
+          leaderId: { $ne: user.id }
+        }).limit(10).toArray();
+
+        // Get leader info for posts
+        const postsWithLeaders = await Promise.all(
+          posts.map(async (post) => {
+            const leader = await db.collection('users').findOne({ id: post.leaderId });
+            const leaderProfile = await db.collection('profiles').findOne({ userId: post.leaderId });
+            
+            if (leader) {
+              const { passwordHash, ...leaderWithoutPassword } = leader;
+              return {
+                ...post,
+                leader: {
+                  ...leaderWithoutPassword,
+                  profile: leaderProfile || null
+                }
+              };
+            }
+            return post;
+          })
+        );
+
+        return NextResponse.json({ posts: postsWithLeaders });
+      }
+    }
+
+    // Random project matcher
+    if (path === 'random-project' && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const swipes = await db.collection('swipes').find({ 
+        swiperId: user.id,
+        targetType: 'PROJECT'
+      }).toArray();
+      
+      const swipedPostIds = swipes.map(s => s.targetId);
+      
+      const projects = await db.collection('posts').find({
+        type: 'PROJECT',
+        id: { $nin: swipedPostIds },
+        leaderId: { $ne: user.id }
+      }).toArray();
+
+      if (projects.length === 0) {
+        return NextResponse.json({ project: null });
+      }
+
+      const randomProject = projects[Math.floor(Math.random() * projects.length)];
+      
+      // Get leader info
+      const leader = await db.collection('users').findOne({ id: randomProject.leaderId });
+      const leaderProfile = await db.collection('profiles').findOne({ userId: randomProject.leaderId });
+      
+      if (leader) {
+        const { passwordHash, ...leaderWithoutPassword } = leader;
+        randomProject.leader = {
+          ...leaderWithoutPassword,
+          profile: leaderProfile || null
+        };
+      }
+
+      return NextResponse.json({ project: randomProject });
+    }
+
     // Get matches endpoint
     if (path === 'matches' && method === 'GET') {
       const user = await getCurrentUser(request);
