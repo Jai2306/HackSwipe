@@ -1170,6 +1170,7 @@ export default function App() {
               )}
             </div>
           </TabsContent>
+        </Tabs>
           {/* Matches Tab */}
           <TabsContent value="matches" className="p-4">
             <div className="max-w-4xl mx-auto">
