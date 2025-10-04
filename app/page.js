@@ -1100,18 +1100,16 @@ export default function App() {
               
               {currentPerson ? (
                 <div className="relative">
-                  {/* Next person preview (background card) */}
-                  {people[currentPersonIndex + 1] && (
-                    <div className="absolute top-3 left-3 right-3 bottom-3 bg-white rounded-2xl shadow-lg z-0 transform scale-95 opacity-70 border border-gray-200">
-                      <div className="h-48 bg-gradient-to-br from-blue-300 to-purple-300 rounded-t-2xl flex items-center justify-center">
-                        <div className="text-white text-sm font-medium">Next Person</div>
-                      </div>
-                      <div className="p-4">
-                        <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                        <div className="h-3 bg-gray-100 rounded"></div>
-                      </div>
+                  {/* Next person preview (background card) - Always show for testing */}
+                  <div className="absolute -top-2 -left-2 -right-2 -bottom-2 bg-white rounded-2xl shadow-xl z-0 transform rotate-1 scale-98 opacity-80 border border-gray-300">
+                    <div className="h-48 bg-gradient-to-br from-indigo-300 to-purple-300 rounded-t-2xl flex items-center justify-center">
+                      <div className="text-white text-sm font-medium bg-black bg-opacity-30 px-2 py-1 rounded">Next Person</div>
                     </div>
-                  )}
+                    <div className="p-4">
+                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                    </div>
+                  </div>
                   
                   {/* Current person (foreground card) */}
                   <motion.div
