@@ -1168,7 +1168,6 @@ export default function App() {
                     </div>
                   </div>
                 </motion.div>
-                </div>
               ) : (
                 <Card>
                   <CardContent className="text-center py-12">
