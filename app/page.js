@@ -1854,6 +1854,72 @@ export default function App() {
                       </div>
                     </div>
                   )}
+                  
+                  {profile?.experience && profile.experience.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold mb-2">Work Experience</h4>
+                      <div className="space-y-3">
+                        {profile.experience.map((exp, index) => (
+                          <div key={index} className="border rounded-lg p-3">
+                            <div className="flex items-start justify-between">
+                              <div>
+                                <h5 className="font-medium">{exp.title}</h5>
+                                <p className="text-sm text-gray-600">{exp.org}</p>
+                                <p className="text-xs text-gray-500">
+                                  {exp.startDate} - {exp.endDate || 'Present'}
+                                </p>
+                              </div>
+                            </div>
+                            {exp.description && (
+                              <p className="text-sm text-gray-700 mt-2">{exp.description}</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {profile?.projects && profile.projects.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold mb-2">Projects</h4>
+                      <div className="space-y-3">
+                        {profile.projects.map((project, index) => (
+                          <div key={index} className="border rounded-lg p-3">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <h5 className="font-medium">{project.name}</h5>
+                                <p className="text-sm text-gray-600 mt-1">{project.description}</p>
+                              </div>
+                            </div>
+                            <div className="flex gap-2 mt-2">
+                              {project.repoUrl && (
+                                <a 
+                                  href={project.repoUrl} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="text-xs text-blue-600 hover:underline flex items-center"
+                                >
+                                  <Github className="h-3 w-3 mr-1" />
+                                  Code
+                                </a>
+                              )}
+                              {project.demoUrl && (
+                                <a 
+                                  href={project.demoUrl} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="text-xs text-blue-600 hover:underline flex items-center"
+                                >
+                                  <ExternalLink className="h-3 w-3 mr-1" />
+                                  Demo
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
