@@ -1,16 +1,16 @@
-import './globals.css'
+import "./globals.css";
 
 export const metadata = {
-  title: 'Next.js MongoDB Template',
-  description: 'A simple template with App Router, MongoDB, and shadcn/ui',
-}
+  title: "Hackathon Tinder",
+  description: "Connect with developers, find projects, join hackathons",
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="antialiased">
         {children}
       </body>
     </html>
-  )
+  );
 }
