@@ -1601,6 +1601,27 @@ export default function App() {
                   </div>
                 </motion.div>
                   </AnimatePresence>
+                  
+                  {/* Undo mini preview (bottom-left) */}
+                  {showUndo.projects && lastRejectedProject && (
+                    <motion.div
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      className="absolute bottom-4 left-4 z-20"
+                    >
+                      <div className="bg-white rounded-lg shadow-lg border-2 border-red-200 p-2 w-20 h-24 cursor-pointer hover:shadow-xl transition-all duration-200"
+                           onClick={() => handleUndo('PROJECT')}>
+                        <div className="h-12 bg-gradient-to-br from-green-300 to-teal-400 rounded flex items-center justify-center mb-1">
+                          <Code className="h-4 w-4 text-white" />
+                        </div>
+                        <div className="text-xs text-center text-gray-600 truncate">{lastRejectedProject.title}</div>
+                        <div className="flex items-center justify-center mt-1">
+                          <Undo className="h-3 w-3 text-red-500" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               ) : (
                 <Card>
