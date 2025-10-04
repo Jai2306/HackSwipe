@@ -1512,8 +1512,31 @@ export default function App() {
                                   {post.acceptedCount || 0} accepted • {post.location}
                                 </p>
                               </div>
-                              <div className="text-xs text-gray-500">
-                                {new Date(post.createdAt).toLocaleDateString()}
+                              <div className="flex flex-col items-end space-y-1">
+                                <div className="text-xs text-gray-500">
+                                  {new Date(post.createdAt).toLocaleDateString()}
+                                </div>
+                                <div className="flex space-x-1">
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="h-6 px-2 text-xs"
+                                    onClick={() => {
+                                      setEditingPost({...post});
+                                      setShowEditPostDialog(true);
+                                    }}
+                                  >
+                                    Edit
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="h-6 px-2 text-xs text-red-600 hover:text-red-700"
+                                    onClick={() => deletePost(post.id)}
+                                  >
+                                    Delete
+                                  </Button>
+                                </div>
                               </div>
                             </div>
                           </div>
