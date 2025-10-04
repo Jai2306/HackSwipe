@@ -561,6 +561,72 @@ export default function App() {
     }
   };
 
+  const editPost = async () => {
+    if (!editingPost) return;
+    
+    // Validate required fields
+    if (!editingPost.title?.trim()) {
+      alert('Title is required');
+      return;
+    }
+    if (!editingPost.location?.trim()) {
+      alert('Location is required');
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch(`/api/posts/${editingPost.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(editingPost)
+      });
+
+      if (response.ok) {
+        setShowEditPostDialog(false);
+        setEditingPost(null);
+        loadAppData();
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || 'Failed to update post');
+      }
+    } catch (error) {
+      console.error('Edit post error:', error);
+      alert('An error occurred while updating the post');
+    }
+  };
+
+  const deletePost = async (postId) => {
+    if (!confirm('Are you sure you want to delete this post? This action cannot be undone.')) {
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch(`/api/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        loadAppData();
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || 'Failed to delete post');
+      }
+    } catch (error) {
+      console.error('Delete post error:', error);
+      alert('An error occurred while deleting the post');
+    }
+  };
+
   const toggleSkill = (skill) => {
     setProfileData(prev => ({
       ...prev,
