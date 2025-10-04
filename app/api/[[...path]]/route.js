@@ -63,7 +63,7 @@ async function handleAuth(request, { params }) {
         name,
         username: email.split('@')[0] + '_' + userId.slice(0, 8),
         passwordHash: hashedPassword,
-        imageUrl: null,
+        imageUrl: 'https://images.unsplash.com/photo-1623479322729-28b25c16b011?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwzfHxkZXZlbG9wZXJzfGVufDB8fHx8MTc1OTYwODk3Nnww&ixlib=rb-4.1.0&q=85',
         roleHeadline: null,
         location: null,
         timezone: null,
