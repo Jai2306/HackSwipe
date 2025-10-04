@@ -132,66 +132,81 @@ export default function App() {
     if (!token) return;
 
     try {
-      // Create dummy users with profiles
-      const dummyUsers = [
-        {
-          name: "Sarah Chen",
-          email: "sarah.chen@example.com",
-          skills: ["React", "Node.js", "Python", "Machine Learning"],
-          interests: ["AI/ML", "FinTech", "Social Impact"],
-          bio: "Full-stack developer passionate about AI and social impact. Looking to build the next generation of intelligent applications.",
-          looksToConnect: "Seeking backend developers for a fintech AI project"
-        },
-        {
-          name: "Alex Rodriguez",
-          email: "alex.rodriguez@example.com", 
-          skills: ["Flutter", "Swift", "Kotlin", "Firebase"],
-          interests: ["Mobile Development", "Gaming", "AR/VR"],
-          bio: "Mobile app developer with 5+ years experience. Love creating immersive gaming experiences.",
-          looksToConnect: "Looking for UI/UX designers for a mobile gaming startup"
-        },
-        {
-          name: "Maya Patel",
-          email: "maya.patel@example.com",
-          skills: ["Vue.js", "PostgreSQL", "Docker", "AWS"],
-          interests: ["Web Development", "DevOps", "Climate Tech"],
-          bio: "DevOps engineer focused on sustainable technology solutions. Building green tech for a better future.",
-          looksToConnect: "Need frontend developers for climate action platform"
+      // Create dummy data via API
+      await fetch('/api/dummy-data', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-      ];
-
-      // Create dummy posts
-      const dummyPosts = [
-        {
-          type: "HACKATHON",
-          title: "AI for Good Hackathon 2024",
-          location: "San Francisco",
-          websiteUrl: "https://ai4good.org",
-          skillsNeeded: ["Python", "TensorFlow", "React", "Node.js"],
-          notes: "48-hour hackathon focused on using AI to solve social problems. $50K in prizes!"
-        },
-        {
-          type: "PROJECT", 
-          title: "EcoTrack - Carbon Footprint Tracker",
-          location: "Remote",
-          websiteUrl: "https://ecotrack.dev",
-          skillsNeeded: ["React Native", "Python", "Machine Learning"],
-          notes: "Open-source mobile app to help users track and reduce their carbon footprint. Looking for passionate developers!"
-        },
-        {
-          type: "HACKATHON",
-          title: "FinTech Innovation Challenge",
-          location: "New York",
-          websiteUrl: "https://fintechhack.com",
-          skillsNeeded: ["Blockchain", "Solidity", "React", "Node.js"],
-          notes: "Revolutionary hackathon for the future of finance. Build the next DeFi protocol!"
-        }
-      ];
-
-      // Note: In a real app, these would be created via API calls
-      // For now, we'll just add them to local state when data loads
+      });
     } catch (error) {
       console.error('Error initializing dummy data:', error);
+    }
+  };
+
+  // Auto-login for local development
+  const autoLogin = async () => {
+    if (process.env.NODE_ENV === 'development' || window.location.hostname === 'localhost') {
+      try {
+        // Try to login with demo account
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: 'demo@hackathon.com',
+            password: 'password123'
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('token', data.token);
+          setUser(data.user);
+          
+          // Check if profile exists
+          const profileResponse = await fetch('/api/auth/me', {
+            headers: {
+              'Authorization': `Bearer ${data.token}`
+            }
+          });
+          
+          if (profileResponse.ok) {
+            const profileData = await profileResponse.json();
+            setProfile(profileData.profile);
+            
+            if (!profileData.profile) {
+              setShowOnboarding(true);
+            } else {
+              loadAppData();
+            }
+          }
+        } else {
+          // If demo account doesn't exist, create it
+          const registerResponse = await fetch('/api/auth/register', {
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: 'demo@hackathon.com',
+              password: 'password123',
+              name: 'Demo User'
+            })
+          });
+
+          if (registerResponse.ok) {
+            const data = await registerResponse.json();
+            localStorage.setItem('token', data.token);
+            setUser(data.user);
+            setProfile(null);
+            setShowOnboarding(true);
+          }
+        }
+      } catch (error) {
+        console.error('Auto-login failed:', error);
+      }
     }
   };
 
