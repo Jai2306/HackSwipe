@@ -767,32 +767,93 @@ async function handleAuth(request, { params }) {
         return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
       }
 
-      // Generate some dummy notifications based on user activity
-      const notifications = [
-        {
-          id: uuidv4(),
-          type: 'MATCH',
-          message: 'You have a new match!',
-          createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-          read: false
-        },
-        {
-          id: uuidv4(),
-          type: 'INQUIRY',
-          message: 'Someone is interested in your project',
-          createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
-          read: false
-        },
-        {
-          id: uuidv4(),
-          type: 'MESSAGE',
-          message: 'New message from Alex Rodriguez',
-          createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
-          read: true
-        }
-      ];
+      const notifications = [];
 
-      return NextResponse.json({ notifications });
+      // Get real matches for notifications
+      const userMatches = await db.collection('matches').find({
+        $or: [{ aId: user.id }, { bId: user.id }]
+      }).sort({ createdAt: -1 }).limit(3).toArray();
+
+      for (const match of userMatches) {
+        const otherUserId = match.aId === user.id ? match.bId : match.aId;
+        const otherUser = await db.collection('users').findOne({ id: otherUserId });
+        
+        if (otherUser) {
+          notifications.push({
+            id: uuidv4(),
+            type: 'MATCH',
+            message: `You matched with ${otherUser.name}!`,
+            createdAt: match.createdAt,
+            read: false,
+            userId: otherUser.id,
+            userName: otherUser.name
+          });
+        }
+      }
+
+      // Get real inquiries for notifications
+      const userPosts = await db.collection('posts').find({ leaderId: user.id }).toArray();
+      const postIds = userPosts.map(p => p.id);
+
+      const recentInquiries = await db.collection('inquiries').find({
+        postId: { $in: postIds },
+        status: 'PENDING'
+      }).sort({ createdAt: -1 }).limit(2).toArray();
+
+      for (const inquiry of recentInquiries) {
+        const inquiryUser = await db.collection('users').findOne({ id: inquiry.userId });
+        const post = userPosts.find(p => p.id === inquiry.postId);
+        
+        if (inquiryUser && post) {
+          notifications.push({
+            id: uuidv4(),
+            type: 'INQUIRY',
+            message: `${inquiryUser.name} is interested in your ${post.type.toLowerCase()}: ${post.title}`,
+            createdAt: inquiry.createdAt,
+            read: false,
+            userId: inquiryUser.id,
+            userName: inquiryUser.name,
+            postId: post.id,
+            postTitle: post.title
+          });
+        }
+      }
+
+      // Get recent conversations for message notifications
+      const participants = await db.collection('conversationParticipants').find({
+        userId: user.id
+      }).limit(2).toArray();
+
+      for (const participant of participants) {
+        const recentMessage = await db.collection('messages').findOne(
+          { 
+            conversationId: participant.conversationId,
+            senderId: { $ne: user.id }
+          },
+          { sort: { createdAt: -1 } }
+        );
+
+        if (recentMessage && new Date() - new Date(recentMessage.createdAt) < 24 * 60 * 60 * 1000) {
+          const sender = await db.collection('users').findOne({ id: recentMessage.senderId });
+          if (sender) {
+            notifications.push({
+              id: uuidv4(),
+              type: 'MESSAGE',
+              message: `New message from ${sender.name}`,
+              createdAt: recentMessage.createdAt,
+              read: false,
+              userId: sender.id,
+              userName: sender.name,
+              conversationId: participant.conversationId
+            });
+          }
+        }
+      }
+
+      // Sort notifications by date (newest first)
+      notifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      return NextResponse.json({ notifications: notifications.slice(0, 5) });
     }
 
     // Create dummy data for demo
