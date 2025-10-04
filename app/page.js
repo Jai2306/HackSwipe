@@ -50,6 +50,12 @@ export default function App() {
   const [currentHackathonIndex, setCurrentHackathonIndex] = useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [swipeDirection, setSwipeDirection] = useState(null);
+  
+  // Undo functionality state
+  const [lastRejectedPerson, setLastRejectedPerson] = useState(null);
+  const [lastRejectedHackathon, setLastRejectedHackathon] = useState(null);
+  const [lastRejectedProject, setLastRejectedProject] = useState(null);
+  const [showUndo, setShowUndo] = useState({ people: false, hackathons: false, projects: false });
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showPostDialog, setShowPostDialog] = useState(false);
   const [showMessageDialog, setShowMessageDialog] = useState(false);
