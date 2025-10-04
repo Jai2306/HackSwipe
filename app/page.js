@@ -947,7 +947,233 @@ export default function App() {
             </div>
           </TabsContent>
 
-          {/* Matches Tab */}
+          {/* Hackathons Tab */}
+          <TabsContent value="hackathons">
+            <div className="max-w-md mx-auto">
+              <h3 className="text-xl font-bold text-center mb-4">Discover Hackathons</h3>
+              
+              {hackathons[currentHackathonIndex] ? (
+                <motion.div
+                  key={currentHackathonIndex}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="bg-white rounded-2xl shadow-xl overflow-hidden"
+                >
+                  <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center relative">
+                    <div className="text-center text-white">
+                      <Target className="h-12 w-12 mx-auto mb-2" />
+                      <h3 className="text-lg font-bold">Hackathon</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{hackathons[currentHackathonIndex].title}</h3>
+                    
+                    {hackathons[currentHackathonIndex].location && (
+                      <p className="text-gray-600 mb-2 flex items-center">
+                        <MapPin className="h-4 w-4 mr-1" />
+                        {hackathons[currentHackathonIndex].location}
+                      </p>
+                    )}
+                    
+                    {hackathons[currentHackathonIndex].websiteUrl && (
+                      <a 
+                        href={hackathons[currentHackathonIndex].websiteUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline mb-2 flex items-center"
+                      >
+                        <ExternalLink className="h-4 w-4 mr-1" />
+                        Visit Website
+                      </a>
+                    )}
+                    
+                    {hackathons[currentHackathonIndex].skillsNeeded && hackathons[currentHackathonIndex].skillsNeeded.length > 0 && (
+                      <div className="mb-4">
+                        <p className="text-sm font-medium text-gray-800 mb-2">Skills Needed</p>
+                        <div className="flex flex-wrap gap-1">
+                          {hackathons[currentHackathonIndex].skillsNeeded.slice(0, 6).map(skill => (
+                            <Badge key={skill} variant="secondary" className="text-xs">
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {hackathons[currentHackathonIndex].notes && (
+                      <div className="mb-4">
+                        <p className="text-sm text-gray-600">{hackathons[currentHackathonIndex].notes}</p>
+                      </div>
+                    )}
+                    
+                    <div className="flex justify-center space-x-4 mt-6">
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="rounded-full w-16 h-16 border-red-300 text-red-500 hover:bg-red-50"
+                        onClick={() => handleSwipe('left', 'HACKATHON')}
+                      >
+                        <X className="h-6 w-6" />
+                      </Button>
+                      
+                      <Button
+                        size="lg"
+                        className="rounded-full w-16 h-16 bg-green-500 hover:bg-green-600 text-white"
+                        onClick={() => handleSwipe('right', 'HACKATHON')}
+                      >
+                        <Heart className="h-6 w-6" />
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              ) : (
+                <Card>
+                  <CardContent className="text-center py-12">
+                    <Target className="h-12 w-12 mx-auto text-gray-300 mb-4" />
+                    <p className="text-gray-500">No more hackathons to discover!</p>
+                    <Button 
+                      onClick={loadAppData} 
+                      className="mt-4"
+                      variant="outline"
+                    >
+                      Refresh
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          </TabsContent>
+
+          {/* Projects Tab */}
+          <TabsContent value="projects">
+            <div className="max-w-md mx-auto">
+              <div className="mb-4 text-center">
+                <Button
+                  onClick={async () => {
+                    const token = localStorage.getItem('token');
+                    try {
+                      const response = await fetch('/api/random-project', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                      });
+                      
+                      if (response.ok) {
+                        const data = await response.json();
+                        if (data.project) {
+                          setProjects(prev => [data.project, ...prev]);
+                          setCurrentProjectIndex(0);
+                        }
+                      }
+                    } catch (error) {
+                      console.error('Random project error:', error);
+                    }
+                  }}
+                  variant="outline"
+                  className="mb-4"
+                >
+                  <Search className="h-4 w-4 mr-2" />
+                  Random Project Matcher
+                </Button>
+              </div>
+              
+              <h3 className="text-xl font-bold text-center mb-4">Discover Projects</h3>
+              
+              {projects[currentProjectIndex] ? (
+                <motion.div
+                  key={currentProjectIndex}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="bg-white rounded-2xl shadow-xl overflow-hidden"
+                >
+                  <div className="h-48 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
+                    <div className="text-center text-white">
+                      <Code className="h-12 w-12 mx-auto mb-2" />
+                      <h3 className="text-lg font-bold">Project</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{projects[currentProjectIndex].title}</h3>
+                    
+                    {projects[currentProjectIndex].location && (
+                      <p className="text-gray-600 mb-2 flex items-center">
+                        <MapPin className="h-4 w-4 mr-1" />
+                        {projects[currentProjectIndex].location}
+                      </p>
+                    )}
+                    
+                    {projects[currentProjectIndex].websiteUrl && (
+                      <a 
+                        href={projects[currentProjectIndex].websiteUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline mb-2 flex items-center"
+                      >
+                        <ExternalLink className="h-4 w-4 mr-1" />
+                        View Project
+                      </a>
+                    )}
+                    
+                    {projects[currentProjectIndex].skillsNeeded && projects[currentProjectIndex].skillsNeeded.length > 0 && (
+                      <div className="mb-4">
+                        <p className="text-sm font-medium text-gray-800 mb-2">Skills Needed</p>
+                        <div className="flex flex-wrap gap-1">
+                          {projects[currentProjectIndex].skillsNeeded.slice(0, 6).map(skill => (
+                            <Badge key={skill} variant="secondary" className="text-xs">
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {projects[currentProjectIndex].notes && (
+                      <div className="mb-4">
+                        <p className="text-sm text-gray-600">{projects[currentProjectIndex].notes}</p>
+                      </div>
+                    )}
+                    
+                    <div className="flex justify-center space-x-4 mt-6">
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="rounded-full w-16 h-16 border-red-300 text-red-500 hover:bg-red-50"
+                        onClick={() => handleSwipe('left', 'PROJECT')}
+                      >
+                        <X className="h-6 w-6" />
+                      </Button>
+                      
+                      <Button
+                        size="lg"
+                        className="rounded-full w-16 h-16 bg-green-500 hover:bg-green-600 text-white"
+                        onClick={() => handleSwipe('right', 'PROJECT')}
+                      >
+                        <Heart className="h-6 w-6" />
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              ) : (
+                <Card>
+                  <CardContent className="text-center py-12">
+                    <Code className="h-12 w-12 mx-auto text-gray-300 mb-4" />
+                    <p className="text-gray-500">No more projects to discover!</p>
+                    <Button 
+                      onClick={loadAppData} 
+                      className="mt-4"
+                      variant="outline"
+                    >
+                      Refresh
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      {/* Matches Tab */}
           <TabsContent value="matches" className="p-4">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl font-bold text-center mb-6">Your Matches</h2>
