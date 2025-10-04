@@ -1073,26 +1073,32 @@ async function handleAuth(request, { params }) {
             // Create comprehensive profiles for dummy users
             const profilesData = {
               "aisha.kandhari@gmail.com": {
-                bio: "AI/ML engineer passionate about using technology for social good. 5+ years building intelligent systems and predictive models.",
-                looksToConnect: "Looking for backend developers and data scientists for an AI-powered social impact project",
-                skills: ["Python", "TensorFlow", "React", "Node.js", "PostgreSQL", "AWS", "Docker", "Pandas"],
-                interests: ["AI/ML", "Social Impact", "FinTech", "Data Science", "Healthcare"],
+                bio: "Senior AI/ML Engineer with 8+ years of experience at top tech companies. Passionate about building ethical AI systems that make a real-world impact. Previously led ML infrastructure at Meta and currently consulting for healthcare startups.",
+                looksToConnect: "Seeking passionate backend engineers and data scientists to revolutionize healthcare AI diagnostics",
+                skills: ["Python", "TensorFlow", "PyTorch", "React", "Node.js", "PostgreSQL", "AWS", "Docker", "Kubernetes", "MLOps", "Computer Vision", "NLP"],
+                interests: ["AI/ML", "Healthcare Tech", "Social Impact", "Computer Vision", "Ethics in AI", "MLOps"],
                 experience: [{
-                  title: "Senior AI Engineer",
-                  org: "TechForGood Inc",
-                  startDate: "2022-01-01",
+                  title: "Senior AI/ML Engineer",
+                  org: "Meta (Facebook)",
+                  startDate: "2019-03-01",
+                  endDate: "2023-12-01",
+                  description: "Led computer vision team for Instagram content moderation, scaled ML models to billions of users"
+                }, {
+                  title: "ML Engineering Consultant",
+                  org: "HealthTech Ventures",
+                  startDate: "2024-01-01",
                   endDate: null,
-                  description: "Building ML models for social impact initiatives"
+                  description: "Building AI diagnostic tools for early disease detection"
                 }],
                 projects: [{
-                  name: "EcoPredict AI",
-                  description: "Machine learning platform for environmental predictions",
-                  tech: ["Python", "TensorFlow", "React"],
-                  repoUrl: "https://github.com/sarah/ecopredict",
-                  demoUrl: "https://ecopredict.ai"
+                  name: "MediScan AI",
+                  description: "Deep learning platform for medical image analysis and early disease detection",
+                  tech: ["PyTorch", "FastAPI", "React", "Docker"],
+                  repoUrl: "https://github.com/aisha/mediscan",
+                  demoUrl: "https://mediscan.health"
                 }]
               },
-              "alex.rodriguez@example.com": {
+              "alejandro.rivera@outlook.com": {
                 bio: "Mobile developer creating intuitive user experiences. Love React Native and Flutter! 6 years of cross-platform development.",
                 looksToConnect: "Seeking UI/UX designers and frontend developers for a mobile gaming startup",
                 skills: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "JavaScript", "TypeScript", "Unity"],
