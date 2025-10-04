@@ -1170,10 +1170,7 @@ export default function App() {
               )}
             </div>
           </TabsContent>
-        </Tabs>
-      </div>
-
-      {/* Matches Tab */}
+          {/* Matches Tab */}
           <TabsContent value="matches" className="p-4">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl font-bold text-center mb-6">Your Matches</h2>
