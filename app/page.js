@@ -818,7 +818,7 @@ export default function App() {
                   <CardContent className="text-center py-12">
                     <p className="text-gray-500">No more people to discover!</p>
                     <Button 
-                      onClick={loadExploreData} 
+                      onClick={loadAppData} 
                       className="mt-4"
                     >
                       Refresh
