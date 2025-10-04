@@ -2637,7 +2637,7 @@ export default function App() {
                       <div className="space-y-1">
                         <Label className="text-sm">Start Date</Label>
                         <Input
-                          type="month"
+                          type="date"
                           value={exp.startDate || ''}
                           onChange={(e) => {
                             const currentExp = [...(editingProfile.experience || [])];
@@ -2649,7 +2649,7 @@ export default function App() {
                       <div className="space-y-1">
                         <Label className="text-sm">End Date</Label>
                         <Input
-                          type="month"
+                          type="date"
                           value={exp.endDate || ''}
                           onChange={(e) => {
                             const currentExp = [...(editingProfile.experience || [])];
