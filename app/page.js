@@ -1454,7 +1454,7 @@ export default function App() {
                 </Card>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-3">
                 {/* Your Posts Section */}
                 <Card>
                   <CardHeader>
