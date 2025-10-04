@@ -1405,58 +1405,30 @@ export default function App() {
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl font-bold text-center mb-6">Your Dashboard</h2>
               
-              {/* Stats Grid */}
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-                <Card className="text-center">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center justify-center text-lg">
-                      <Heart className="h-5 w-5 mr-2 text-red-500" />
-                      Matches
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-3xl font-bold text-red-500">{matches.length}</p>
-                    <p className="text-sm text-gray-600">Total matches</p>
-                  </CardContent>
+              {/* Compact Stats Grid */}
+              <div className="grid gap-4 grid-cols-2 lg:grid-cols-4 mb-6">
+                <Card className="text-center aspect-square flex flex-col justify-center p-3">
+                  <Heart className="h-6 w-6 mx-auto text-red-500 mb-2" />
+                  <p className="text-2xl font-bold text-red-500">{matches.length}</p>
+                  <p className="text-xs text-gray-600">Matches</p>
                 </Card>
                 
-                <Card className="text-center">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center justify-center text-lg">
-                      <TrendingUp className="h-5 w-5 mr-2 text-blue-500" />
-                      Posts
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-3xl font-bold text-blue-500">{userPosts.length}</p>
-                    <p className="text-sm text-gray-600">Your posts</p>
-                  </CardContent>
+                <Card className="text-center aspect-square flex flex-col justify-center p-3">
+                  <TrendingUp className="h-6 w-6 mx-auto text-blue-500 mb-2" />
+                  <p className="text-2xl font-bold text-blue-500">{userPosts.length}</p>
+                  <p className="text-xs text-gray-600">Posts</p>
                 </Card>
                 
-                <Card className="text-center">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center justify-center text-lg">
-                      <Compass className="h-5 w-5 mr-2 text-green-500" />
-                      Discovered
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-3xl font-bold text-green-500">{overviewStats.totalSwipes || 0}</p>
-                    <p className="text-sm text-gray-600">People/posts viewed</p>
-                  </CardContent>
+                <Card className="text-center aspect-square flex flex-col justify-center p-3">
+                  <Compass className="h-6 w-6 mx-auto text-green-500 mb-2" />
+                  <p className="text-2xl font-bold text-green-500">{overviewStats.totalSwipes || 0}</p>
+                  <p className="text-xs text-gray-600">Discovered</p>
                 </Card>
                 
-                <Card className="text-center">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center justify-center text-lg">
-                      <Star className="h-5 w-5 mr-2 text-yellow-500" />
-                      Streak
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-3xl font-bold text-yellow-500">{loginStreak}</p>
-                    <p className="text-sm text-gray-600">Daily login streak</p>
-                  </CardContent>
+                <Card className="text-center aspect-square flex flex-col justify-center p-3">
+                  <Star className="h-6 w-6 mx-auto text-yellow-500 mb-2" />
+                  <p className="text-2xl font-bold text-yellow-500">{loginStreak}</p>
+                  <p className="text-xs text-gray-600">Streak</p>
                 </Card>
               </div>
 
