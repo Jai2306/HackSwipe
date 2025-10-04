@@ -1700,7 +1700,7 @@ export default function App() {
             variant={activeTab === 'explore' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setActiveTab('explore')}
-            className="flex flex-col items-center space-y-1"
+            className="flex flex-col items-center space-y-1 h-auto py-2 px-3 relative"
           >
             <Compass className="h-5 w-5" />
             <span className="text-xs">Explore</span>
@@ -1710,17 +1710,22 @@ export default function App() {
             variant={activeTab === 'matches' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setActiveTab('matches')}
-            className="flex flex-col items-center space-y-1"
+            className="flex flex-col items-center space-y-1 h-auto py-2 px-3 relative"
           >
             <Heart className="h-5 w-5" />
             <span className="text-xs">Matches</span>
+            {(matches.length > 0 || inquiries.length > 0) && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                {matches.length + inquiries.length}
+              </span>
+            )}
           </Button>
           
           <Button
             variant={activeTab === 'overview' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setActiveTab('overview')}
-            className="flex flex-col items-center space-y-1"
+            className="flex flex-col items-center space-y-1 h-auto py-2 px-3"
           >
             <BarChart3 className="h-5 w-5" />
             <span className="text-xs">Overview</span>
@@ -1730,7 +1735,7 @@ export default function App() {
             variant={activeTab === 'profile' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setActiveTab('profile')}
-            className="flex flex-col items-center space-y-1"
+            className="flex flex-col items-center space-y-1 h-auto py-2 px-3"
           >
             <User className="h-5 w-5" />
             <span className="text-xs">Profile</span>
