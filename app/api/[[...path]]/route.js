@@ -1389,7 +1389,7 @@ async function handleAuth(request, { params }) {
               await db.collection('posts').insertOne(post1);
             }
 
-            if (dummyUser.email === "alex.rodriguez@example.com") {
+            if (dummyUser.email === "alejandro.rivera@outlook.com") {
               const post2 = {
                 id: uuidv4(),
                 type: "PROJECT",
