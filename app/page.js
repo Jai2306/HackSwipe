@@ -925,7 +925,7 @@ export default function App() {
                     
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <Label>Type</Label>
+                        <Label>Type <span className="text-red-500">*</span></Label>
                         <Select
                           value={postData.type}
                           onValueChange={(value) => setPostData(prev => ({ ...prev, type: value }))}
@@ -941,20 +941,22 @@ export default function App() {
                       </div>
                       
                       <div className="space-y-2">
-                        <Label>Title</Label>
+                        <Label>Title <span className="text-red-500">*</span></Label>
                         <Input
                           placeholder="Enter title..."
                           value={postData.title}
                           onChange={(e) => setPostData(prev => ({ ...prev, title: e.target.value }))}
+                          className={!postData.title.trim() ? 'border-red-300' : ''}
                         />
                       </div>
                       
                       <div className="space-y-2">
-                        <Label>Location</Label>
+                        <Label>Location <span className="text-red-500">*</span></Label>
                         <Input
                           placeholder="City or Remote"
                           value={postData.location}
                           onChange={(e) => setPostData(prev => ({ ...prev, location: e.target.value }))}
+                          className={!postData.location.trim() ? 'border-red-300' : ''}
                         />
                       </div>
                       
