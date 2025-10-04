@@ -149,71 +149,7 @@ export default function App() {
     }
   };
 
-  // Auto-login for local development
-  const autoLogin = async () => {
-    if (process.env.NODE_ENV === 'development' || window.location.hostname === 'localhost') {
-      try {
-        // Try to login with demo account
-        const response = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: 'demo@hackathon.com',
-            password: 'password123'
-          })
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem('token', data.token);
-          setUser(data.user);
-          
-          // Check if profile exists
-          const profileResponse = await fetch('/api/auth/me', {
-            headers: {
-              'Authorization': `Bearer ${data.token}`
-            }
-          });
-          
-          if (profileResponse.ok) {
-            const profileData = await profileResponse.json();
-            setProfile(profileData.profile);
-            
-            if (!profileData.profile) {
-              setShowOnboarding(true);
-            } else {
-              loadAppData();
-            }
-          }
-        } else {
-          // If demo account doesn't exist, create it
-          const registerResponse = await fetch('/api/auth/register', {
-            method: 'POST', 
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email: 'demo@hackathon.com',
-              password: 'password123',
-              name: 'Demo User'
-            })
-          });
-
-          if (registerResponse.ok) {
-            const data = await registerResponse.json();
-            localStorage.setItem('token', data.token);
-            setUser(data.user);
-            setProfile(null);
-            setShowOnboarding(true);
-          }
-        }
-      } catch (error) {
-        console.error('Auto-login failed:', error);
-      }
-    }
-  };
+  // Removed auto-login to prevent duplicate demo users
 
   const checkAuth = async () => {
     const token = localStorage.getItem('token');
