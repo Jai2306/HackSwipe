@@ -11,7 +11,7 @@ import os
 from datetime import datetime
 
 # Get base URL from environment
-BASE_URL = "https://project-match-2.preview.emergentagent.com/api"
+BASE_URL = "https://hackmate-4.preview.emergentagent.com/api"
 
 class HackathonTinderTester:
     def __init__(self):
