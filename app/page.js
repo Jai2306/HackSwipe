@@ -423,6 +423,23 @@ export default function App() {
     }
   };
 
+  // Undo functionality
+  const handleUndo = (type) => {
+    if (type === 'PERSON' && lastRejectedPerson) {
+      setCurrentPersonIndex(lastRejectedPerson.index);
+      setLastRejectedPerson(null);
+      setShowUndo(prev => ({ ...prev, people: false }));
+    } else if (type === 'HACKATHON' && lastRejectedHackathon) {
+      setCurrentHackathonIndex(lastRejectedHackathon.index);
+      setLastRejectedHackathon(null);
+      setShowUndo(prev => ({ ...prev, hackathons: false }));
+    } else if (type === 'PROJECT' && lastRejectedProject) {
+      setCurrentProjectIndex(lastRejectedProject.index);
+      setLastRejectedProject(null);
+      setShowUndo(prev => ({ ...prev, projects: false }));
+    }
+  };
+
   const completeOnboarding = async () => {
     const token = localStorage.getItem('token');
 
