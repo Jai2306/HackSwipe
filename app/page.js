@@ -71,7 +71,30 @@ export default function App() {
     skills: [],
     interests: [],
     experience: [],
-    projects: []
+    projects: [],
+    awards: [],
+    socials: [],
+    preferences: {
+      desiredRoles: [],
+      techStack: [],
+      interestTags: [],
+      locationRadiusKm: 50,
+      remoteOk: true,
+      availabilityHrs: 20,
+      searchPeople: true,
+      searchProjects: true,
+      searchHackathons: true
+    }
+  });
+
+  // Post form states
+  const [postData, setPostData] = useState({
+    type: 'HACKATHON',
+    title: '',
+    location: '',
+    websiteUrl: '',
+    skillsNeeded: [],
+    notes: ''
   });
 
   // Check authentication on load
