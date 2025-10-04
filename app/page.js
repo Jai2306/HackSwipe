@@ -306,7 +306,7 @@ export default function App() {
         const data = await response.json();
         setProfile(data.profile);
         setShowOnboarding(false);
-        loadExploreData();
+        loadAppData();
       }
     } catch (error) {
       console.error('Profile update error:', error);
