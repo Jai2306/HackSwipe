@@ -1351,6 +1351,7 @@ export default function App() {
                       <div className="h-3 bg-gray-200 rounded w-3/4"></div>
                     </div>
                   </div>
+                  )}
                   
                   {/* Current project (foreground card) */}
                   <motion.div
