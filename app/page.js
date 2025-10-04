@@ -332,6 +332,133 @@ export default function App() {
     }
   };
 
+  const createPost = async () => {
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch('/api/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(postData)
+      });
+
+      if (response.ok) {
+        setShowPostDialog(false);
+        setPostData({
+          type: 'HACKATHON',
+          title: '',
+          location: '',
+          websiteUrl: '',
+          skillsNeeded: [],
+          notes: ''
+        });
+        // Reload data
+        loadAppData();
+      }
+    } catch (error) {
+      console.error('Post creation error:', error);
+    }
+  };
+
+  const startDirectMessage = async (otherUserId) => {
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch('/api/conversations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          participantIds: [otherUserId],
+          isGroup: false
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSelectedConversation(data.conversation);
+        setShowMessageDialog(true);
+        loadMessages(data.conversation.id);
+      }
+    } catch (error) {
+      console.error('DM creation error:', error);
+    }
+  };
+
+  const loadMessages = async (conversationId) => {
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch(`/api/conversations/${conversationId}/messages`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessages(data.messages || []);
+      }
+    } catch (error) {
+      console.error('Messages load error:', error);
+    }
+  };
+
+  const sendMessage = async () => {
+    if (!messageInput.trim() || !selectedConversation) return;
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch('/api/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          conversationId: selectedConversation.id,
+          content: messageInput
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessages(prev => [...prev, data.message]);
+        setMessageInput('');
+      }
+    } catch (error) {
+      console.error('Send message error:', error);
+    }
+  };
+
+  const acceptInquiry = async (inquiryId) => {
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch(`/api/inquiries/${inquiryId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: 'ACCEPTED' })
+      });
+
+      if (response.ok) {
+        // Reload inquiries
+        loadAppData();
+      }
+    } catch (error) {
+      console.error('Accept inquiry error:', error);
+    }
+  };
+
   const toggleSkill = (skill) => {
     setProfileData(prev => ({
       ...prev,
