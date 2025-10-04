@@ -1485,19 +1485,24 @@ export default function App() {
               <h3 className="text-xl font-bold text-center mb-4">Discover Projects</h3>
               
               {projects[currentProjectIndex] ? (
-                <div className="relative">
-                  {/* Multiple stacked cards in background */}
+                <div className="relative overflow-visible">
+                  {/* Next card peek from right side (5-10% visible) */}
+                  {projects[currentProjectIndex + 1] && (
+                    <div className="absolute top-0 -right-6 w-full h-full bg-white rounded-2xl shadow-lg z-0 transform rotate-2 scale-95 opacity-30 border border-gray-200">
+                      <div className="h-48 bg-gradient-to-br from-green-200 to-teal-200 rounded-t-2xl"></div>
+                    </div>
+                  )}
                   
-                  {/* Third card (deepest) */}
+                  {/* Third card (deepest background) */}
                   {projects[currentProjectIndex + 2] && (
-                    <div className="absolute -top-1 -left-1 -right-1 -bottom-1 bg-white rounded-2xl shadow-md z-0 transform rotate-2 scale-94 opacity-40 border border-gray-200">
+                    <div className="absolute -top-1 -left-1 -right-1 -bottom-1 bg-white rounded-2xl shadow-md z-1 transform rotate-1 scale-97 opacity-50 border border-gray-200">
                       <div className="h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-t-2xl"></div>
                     </div>
                   )}
                   
                   {/* Second card (middle) */}
                   {projects[currentProjectIndex + 1] && (
-                    <div className="absolute -top-2 -left-2 -right-2 -bottom-2 bg-white rounded-2xl shadow-lg z-1 transform rotate-1 scale-96 opacity-60 border border-gray-300">
+                    <div className="absolute -top-2 -left-2 -right-2 -bottom-2 bg-white rounded-2xl shadow-lg z-2 transform rotate-0.5 scale-98 opacity-70 border border-gray-300">
                       <div className="h-48 bg-gradient-to-br from-green-300 to-teal-300 rounded-t-2xl flex items-center justify-center">
                         <div className="text-white text-xs font-medium bg-black bg-opacity-30 px-2 py-1 rounded">Next Project</div>
                       </div>
