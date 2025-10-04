@@ -18,7 +18,7 @@ import {
   Building, Send, Users, Search, Target,
   Briefcase, Star, Mail, TrendingUp
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Available skills and interests
 const SKILLS = [
