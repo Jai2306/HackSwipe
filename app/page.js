@@ -1143,8 +1143,8 @@ export default function App() {
                       rotate: 0
                     }}
                     exit={{ 
-                      x: window.swipeDirection === 'right' ? 300 : -300,
-                      rotate: window.swipeDirection === 'right' ? 15 : -15,
+                      x: swipeDirection === 'right' ? 300 : -300,
+                      rotate: swipeDirection === 'right' ? 15 : -15,
                       opacity: 0,
                       transition: { duration: 0.3 }
                     }}
