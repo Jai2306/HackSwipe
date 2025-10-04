@@ -749,8 +749,126 @@ export default function App() {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Explore Tab */}
           <TabsContent value="explore" className="p-4">
-            <div className="max-w-md mx-auto">
-              <h2 className="text-2xl font-bold text-center mb-6">Discover People</h2>
+            <div className="max-w-6xl mx-auto">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">Discover & Explore</h2>
+                <Dialog open={showPostDialog} onOpenChange={setShowPostDialog}>
+                  <DialogTrigger asChild>
+                    <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create Post
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Create New Post</DialogTitle>
+                      <DialogDescription>
+                        Share a hackathon or project with the community
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label>Type</Label>
+                        <Select
+                          value={postData.type}
+                          onValueChange={(value) => setPostData(prev => ({ ...prev, type: value }))}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="HACKATHON">Hackathon</SelectItem>
+                            <SelectItem value="PROJECT">Project</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label>Title</Label>
+                        <Input
+                          placeholder="Enter title..."
+                          value={postData.title}
+                          onChange={(e) => setPostData(prev => ({ ...prev, title: e.target.value }))}
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label>Location</Label>
+                        <Input
+                          placeholder="City or Remote"
+                          value={postData.location}
+                          onChange={(e) => setPostData(prev => ({ ...prev, location: e.target.value }))}
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label>Website/Link</Label>
+                        <Input
+                          placeholder="https://..."
+                          value={postData.websiteUrl}
+                          onChange={(e) => setPostData(prev => ({ ...prev, websiteUrl: e.target.value }))}
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label>Skills Needed</Label>
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {SKILLS.slice(0, 15).map(skill => (
+                            <Badge
+                              key={skill}
+                              variant={postData.skillsNeeded.includes(skill) ? 'default' : 'outline'}
+                              className="cursor-pointer text-xs"
+                              onClick={() => togglePostSkill(skill)}
+                            >
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label>Notes</Label>
+                        <Textarea
+                          placeholder="Additional details..."
+                          value={postData.notes}
+                          onChange={(e) => setPostData(prev => ({ ...prev, notes: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+                    
+                    <DialogFooter>
+                      <Button variant="outline" onClick={() => setShowPostDialog(false)}>
+                        Cancel
+                      </Button>
+                      <Button onClick={createPost}>
+                        Create Post
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
+              
+              <Tabs value={exploreTab} onValueChange={setExploreTab}>
+                <TabsList className="grid w-full grid-cols-3 mb-6">
+                  <TabsTrigger value="hackathons" className="flex items-center">
+                    <Target className="h-4 w-4 mr-2" />
+                    Hackathons
+                  </TabsTrigger>
+                  <TabsTrigger value="projects" className="flex items-center">
+                    <Code className="h-4 w-4 mr-2" />
+                    Projects
+                  </TabsTrigger>
+                  <TabsTrigger value="people" className="flex items-center">
+                    <Users className="h-4 w-4 mr-2" />
+                    People
+                  </TabsTrigger>
+                </TabsList>
+
+                {/* People Tab */}
+                <TabsContent value="people">
+                  <div className="max-w-md mx-auto">
+                    <h3 className="text-xl font-bold text-center mb-4">Discover People</h3>
               
               {currentPerson ? (
                 <motion.div
