@@ -67,6 +67,8 @@ export default function App() {
   const [groupChatName, setGroupChatName] = useState('');
   const [showEditPostDialog, setShowEditPostDialog] = useState(false);
   const [editingPost, setEditingPost] = useState(null);
+  const [showEditProfileDialog, setShowEditProfileDialog] = useState(false);
+  const [editingProfile, setEditingProfile] = useState(null);
 
   // Auth form states
   const [email, setEmail] = useState('');
