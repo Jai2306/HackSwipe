@@ -1142,6 +1142,9 @@ async function handleAuth(request, { params }) {
 
             await db.collection('profiles').insertOne(profiles[dummyUser.email]);
 
+            // Clear existing posts from dummy users to prevent duplicates
+            await db.collection('posts').deleteMany({ leaderId: dummyUser.id });
+
             // Create posts for some users
             if (dummyUser.email === "sarah.chen@example.com") {
               const post1 = {
