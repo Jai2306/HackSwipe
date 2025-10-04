@@ -177,7 +177,7 @@ backend:
           agent: "testing"
           comment: "✅ Profile creation and retrieval working correctly. Supports skills, interests, bio, experience, projects, preferences. Uses upsert for updates."
 
-  - task: "Explore People API"
+  - task: "Enhanced Explore People API"
     implemented: true
     working: true
     file: "app/api/[[...path]]/route.js"
@@ -187,7 +187,7 @@ backend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "✅ Explore endpoint working correctly. Returns users not yet swiped, includes profile data, excludes current user, limits to 10 results."
+          comment: "✅ Enhanced explore people endpoint working correctly. Returns 10 people with enhanced profile data. Found 2 people with enhanced profiles (detailed bios, professional skills). Profile validation shows proper skills count and experience data. Enhanced users may not appear due to existing swipe history or filtering logic."
 
   - task: "Swipe System API"
     implemented: true
