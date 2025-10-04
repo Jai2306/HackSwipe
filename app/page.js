@@ -60,6 +60,11 @@ export default function App() {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [loginStreak, setLoginStreak] = useState(0);
+  const [showProfileDialog, setShowProfileDialog] = useState(false);
+  const [selectedUserProfile, setSelectedUserProfile] = useState(null);
+  const [showGroupChatDialog, setShowGroupChatDialog] = useState(false);
+  const [selectedMatches, setSelectedMatches] = useState([]);
+  const [groupChatName, setGroupChatName] = useState('');
 
   // Auth form states
   const [email, setEmail] = useState('');
