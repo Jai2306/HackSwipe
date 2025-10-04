@@ -2886,7 +2886,17 @@ export default function App() {
                       }}
                     >
                       <div className="flex items-start space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
+                        <div 
+                          className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center cursor-pointer hover:shadow-md transition-shadow"
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent conversation selection
+                            if (!conv.isGroup && conv.participants[0]) {
+                              setSelectedUserProfile(conv.participants[0]);
+                              setShowProfileDialog(true);
+                            }
+                          }}
+                          title={conv.isGroup ? 'Group Chat' : 'Click to view profile'}
+                        >
                           <User className="h-5 w-5 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
