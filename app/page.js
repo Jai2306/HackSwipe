@@ -56,6 +56,10 @@ export default function App() {
   const [messageInput, setMessageInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [overviewStats, setOverviewStats] = useState({});
+  const [userPosts, setUserPosts] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [loginStreak, setLoginStreak] = useState(0);
 
   // Auth form states
   const [email, setEmail] = useState('');
