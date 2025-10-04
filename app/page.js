@@ -176,33 +176,77 @@ export default function App() {
     setActiveTab('explore');
   };
 
-  const loadExploreData = async () => {
+  const loadAppData = async () => {
     const token = localStorage.getItem('token');
     if (!token) return;
 
     try {
-      // Load people for swiping
-      const peopleResponse = await fetch('/api/explore/people', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      // Load all data in parallel
+      const [
+        peopleResponse,
+        hackathonsResponse,
+        projectsResponse,
+        matchesResponse,
+        inquiriesResponse,
+        conversationsResponse,
+        overviewResponse
+      ] = await Promise.all([
+        fetch('/api/explore/people', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch('/api/explore/hackathons', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch('/api/explore/projects', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch('/api/matches', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch('/api/inquiries', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch('/api/conversations', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch('/api/overview', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+      ]);
 
       if (peopleResponse.ok) {
         const peopleData = await peopleResponse.json();
         setPeople(peopleData.people || []);
       }
 
-      // Load matches
-      const matchesResponse = await fetch('/api/matches', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      if (hackathonsResponse.ok) {
+        const hackathonData = await hackathonsResponse.json();
+        setHackathons(hackathonData.posts || []);
+      }
+
+      if (projectsResponse.ok) {
+        const projectData = await projectsResponse.json();
+        setProjects(projectData.posts || []);
+      }
 
       if (matchesResponse.ok) {
         const matchesData = await matchesResponse.json();
         setMatches(matchesData.matches || []);
+      }
+
+      if (inquiriesResponse.ok) {
+        const inquiriesData = await inquiriesResponse.json();
+        setInquiries(inquiriesData.inquiries || []);
+      }
+
+      if (conversationsResponse.ok) {
+        const conversationsData = await conversationsResponse.json();
+        setConversations(conversationsData.conversations || []);
+      }
+
+      if (overviewResponse.ok) {
+        const overviewData = await overviewResponse.json();
+        setOverviewStats(overviewData.stats || {});
       }
     } catch (error) {
       console.error('Error loading data:', error);
