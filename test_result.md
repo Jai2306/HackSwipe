@@ -354,9 +354,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Enhanced Dummy Data Creation"
-    - "Enhanced Explore Endpoints"
-    - "Enhanced Profile Data Quality"
+    - "Enhanced Profile Editing API"
+    - "Enhanced Profile Retrieval API"
+    - "Enhanced Profile Data Persistence"
+    - "Enhanced Profile Structure Validation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
