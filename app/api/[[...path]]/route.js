@@ -300,6 +300,20 @@ async function handleAuth(request, { params }) {
         }
       }
 
+      // If it's a right swipe on a post, create an inquiry
+      if (direction === 'RIGHT' && (targetType === 'HACKATHON' || targetType === 'PROJECT')) {
+        const inquiry = {
+          id: uuidv4(),
+          postId: targetId,
+          userId: user.id,
+          message: null,
+          status: 'PENDING',
+          createdAt: new Date()
+        };
+
+        await db.collection('inquiries').insertOne(inquiry);
+      }
+
       return NextResponse.json({ 
         swipe,
         match: match ? { ...match, isNew: true } : null
