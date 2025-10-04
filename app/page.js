@@ -477,6 +477,52 @@ export default function App() {
     }));
   };
 
+  const togglePostSkill = (skill) => {
+    setPostData(prev => ({
+      ...prev,
+      skillsNeeded: prev.skillsNeeded.includes(skill)
+        ? prev.skillsNeeded.filter(s => s !== skill)
+        : [...prev.skillsNeeded, skill]
+    }));
+  };
+
+  const addExperience = () => {
+    setProfileData(prev => ({
+      ...prev,
+      experience: [...prev.experience, {
+        title: '',
+        org: '',
+        startDate: '',
+        endDate: '',
+        description: ''
+      }]
+    }));
+  };
+
+  const addProject = () => {
+    setProfileData(prev => ({
+      ...prev,
+      projects: [...prev.projects, {
+        name: '',
+        description: '',
+        tech: [],
+        repoUrl: '',
+        demoUrl: ''
+      }]
+    }));
+  };
+
+  const addAward = () => {
+    setProfileData(prev => ({
+      ...prev,
+      awards: [...prev.awards, {
+        title: '',
+        issuer: '',
+        year: ''
+      }]
+    }));
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 flex items-center justify-center">
