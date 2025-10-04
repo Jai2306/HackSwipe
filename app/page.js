@@ -2973,7 +2973,16 @@ export default function App() {
                         >
                           <div className={`flex items-end space-x-2 max-w-xs`}>
                             {message.senderId !== user.id && (
-                              <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                              <div 
+                                className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer hover:shadow-md transition-shadow"
+                                onClick={() => {
+                                  if (message.sender) {
+                                    setSelectedUserProfile(message.sender);
+                                    setShowProfileDialog(true);
+                                  }
+                                }}
+                                title="Click to view profile"
+                              >
                                 <User className="h-4 w-4 text-gray-600" />
                               </div>
                             )}
