@@ -7,10 +7,12 @@ BASE_URL = "https://hackmate-4.preview.emergentagent.com/api"
 
 def debug_dummy_data():
     # Register a new user
+    import time
+    timestamp = int(time.time())
     response = requests.post(f"{BASE_URL}/auth/register", json={
-        "email": "debug.user@example.com",
+        "email": f"debug.user.{timestamp}@example.com",
         "password": "debugpass123",
-        "name": "Debug User"
+        "name": f"Debug User {timestamp}"
     })
     
     if response.status_code == 200:
