@@ -106,6 +106,20 @@ export default function App() {
     checkAuth();
   }, []);
 
+  // Close notifications on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showNotifications && !event.target.closest('.notifications-dropdown')) {
+        setShowNotifications(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showNotifications]);
+
   // Initialize dummy data
   useEffect(() => {
     if (user && profile) {
