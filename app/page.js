@@ -327,6 +327,35 @@ export default function App() {
         const overviewData = await overviewResponse.json();
         setOverviewStats(overviewData.stats || {});
       }
+
+      // Load user's own posts
+      const userPostsResponse = await fetch('/api/posts/my-posts', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (userPostsResponse.ok) {
+        const userPostsData = await userPostsResponse.json();
+        setUserPosts(userPostsData.posts || []);
+      }
+
+      // Load notifications and streaks
+      const notificationsResponse = await fetch('/api/notifications', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (notificationsResponse.ok) {
+        const notificationsData = await notificationsResponse.json();
+        setNotifications(notificationsData.notifications || []);
+      }
+
+      const streakResponse = await fetch('/api/streak', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (streakResponse.ok) {
+        const streakData = await streakResponse.json();
+        setLoginStreak(streakData.streak || 0);
+      }
     } catch (error) {
       console.error('Error loading data:', error);
     }
