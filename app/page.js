@@ -124,7 +124,7 @@ export default function App() {
         if (!data.profile) {
           setShowOnboarding(true);
         } else {
-          loadExploreData();
+          loadAppData();
         }
       } else {
         localStorage.removeItem('token');
