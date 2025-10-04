@@ -1133,7 +1133,8 @@ export default function App() {
                   )}
                   
                   {/* Current person (foreground card) with swipe animation */}
-                  <motion.div
+                  <AnimatePresence mode="wait">
+                    <motion.div
                     key={currentPersonIndex}
                     initial={{ scale: 0.8, opacity: 0, x: 0 }}
                     animate={{ 
