@@ -411,6 +411,20 @@ export default function App() {
   };
 
   const createPost = async () => {
+    // Validate required fields
+    if (!postData.title.trim()) {
+      alert('Title is required');
+      return;
+    }
+    if (!postData.location.trim()) {
+      alert('Location is required');
+      return;
+    }
+    if (!postData.type) {
+      alert('Type is required');
+      return;
+    }
+
     const token = localStorage.getItem('token');
 
     try {
@@ -420,7 +434,11 @@ export default function App() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(postData)
+        body: JSON.stringify({
+          ...postData,
+          title: postData.title.trim(),
+          location: postData.location.trim()
+        })
       });
 
       if (response.ok) {
@@ -435,9 +453,13 @@ export default function App() {
         });
         // Reload data
         loadAppData();
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || 'Failed to create post');
       }
     } catch (error) {
       console.error('Post creation error:', error);
+      alert('An error occurred while creating the post');
     }
   };
 
