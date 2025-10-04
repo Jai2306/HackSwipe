@@ -1371,7 +1371,7 @@ async function handleAuth(request, { params }) {
             await db.collection('posts').deleteMany({ leaderId: dummyUser.id });
 
             // Create posts for some users
-            if (dummyUser.email === "sarah.chen@example.com") {
+            if (dummyUser.email === "aisha.kandhari@gmail.com") {
               const post1 = {
                 id: uuidv4(),
                 type: "HACKATHON",
