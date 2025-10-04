@@ -1824,6 +1824,36 @@ export default function App() {
                       </div>
                     </div>
                   )}
+                  
+                  {profile?.socials && profile.socials.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold mb-2">Connect</h4>
+                      <div className="flex gap-3">
+                        {profile.socials.map((social, index) => (
+                          <a
+                            key={index}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center text-blue-600 hover:text-blue-800 hover:underline"
+                          >
+                            {social.type === 'GITHUB' && (
+                              <>
+                                <Github className="h-4 w-4 mr-1" />
+                                GitHub
+                              </>
+                            )}
+                            {social.type === 'LINKEDIN' && (
+                              <>
+                                <Linkedin className="h-4 w-4 mr-1" />
+                                LinkedIn
+                              </>
+                            )}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
