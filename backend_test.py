@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
-"""
-Hackathon Tinder Backend API Test Suite
-Tests all core functionality including authentication, profiles, swiping, and matching.
-"""
 
 import requests
 import json
-import time
-import os
+import sys
 from datetime import datetime
 
-# Get base URL from environment
+# Configuration
 BASE_URL = "https://hackmate-4.preview.emergentagent.com/api"
+TEST_USER_EMAIL = "test.user.enhanced@example.com"
+TEST_USER_PASSWORD = "testpass123"
+TEST_USER_NAME = "Enhanced Test User"
 
-class HackathonTinderTester:
+class BackendTester:
     def __init__(self):
         self.base_url = BASE_URL
         self.test_users = []
