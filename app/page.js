@@ -946,9 +946,12 @@ export default function App() {
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 px-4 py-3">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Hackathon Tinder
-          </h1>
+          <div className="flex items-center">
+            <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              HackSwipe
+            </h1>
+            <span className="ml-3 text-sm text-gray-500 font-medium">Swipe. Match. Build.</span>
+          </div>
           
           <div className="flex items-center space-x-3">
             <Button 
