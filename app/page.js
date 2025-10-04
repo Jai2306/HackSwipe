@@ -218,8 +218,6 @@ export default function App() {
   const checkAuth = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      // Try auto-login for local development
-      await autoLogin();
       setLoading(false);
       return;
     }
