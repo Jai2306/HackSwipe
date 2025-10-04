@@ -1103,7 +1103,7 @@ export default function App() {
                   animate={{ scale: 1, opacity: 1 }}
                   className="bg-white rounded-2xl shadow-lg overflow-hidden"
                 >
-                  <div className="h-64 bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
+                  <div className="h-48 bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
                     <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
                       <User className="h-12 w-12 text-gray-400" />
                     </div>
