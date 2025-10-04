@@ -1487,7 +1487,7 @@ export default function App() {
                       <Button
                         variant="outline"
                         size="lg"
-                        className="rounded-full w-16 h-16 border-red-300 text-red-500 hover:bg-red-50"
+                        className="rounded-full w-16 h-16 border-red-300 text-red-500 hover:bg-red-50 hover:scale-110 hover:border-red-400 transition-all duration-200"
                         onClick={() => handleSwipe('left', 'PROJECT')}
                       >
                         <X className="h-6 w-6" />
@@ -1495,7 +1495,7 @@ export default function App() {
                       
                       <Button
                         size="lg"
-                        className="rounded-full w-16 h-16 bg-green-500 hover:bg-green-600 text-white"
+                        className="rounded-full w-16 h-16 bg-green-500 hover:bg-green-600 hover:scale-110 text-white transition-all duration-200"
                         onClick={() => handleSwipe('right', 'PROJECT')}
                       >
                         <Heart className="h-6 w-6" />
