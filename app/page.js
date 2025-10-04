@@ -1329,7 +1329,6 @@ export default function App() {
             </div>
           </TabsContent>
         </Tabs>
-      </div>
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200 px-4 py-2">
