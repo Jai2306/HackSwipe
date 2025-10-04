@@ -1488,7 +1488,7 @@ export default function App() {
               <h2 className="text-2xl font-bold text-center mb-6">Your Dashboard</h2>
               
               {/* Ultra Compact Stats Row */}
-              <div className="grid grid-cols-4 gap-3 mb-6">
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mb-6">
                 <Card className="text-center flex flex-col justify-center p-2 h-16">
                   <Heart className="h-4 w-4 mx-auto text-red-500 mb-1" />
                   <p className="text-lg font-bold text-red-500">{matches.length}</p>
@@ -1511,6 +1511,18 @@ export default function App() {
                   <Star className="h-4 w-4 mx-auto text-yellow-500 mb-1" />
                   <p className="text-lg font-bold text-yellow-500">{loginStreak}</p>
                   <p className="text-xs text-gray-600">Streak</p>
+                </Card>
+                
+                <Card className="text-center flex flex-col justify-center p-2 h-16">
+                  <Target className="h-4 w-4 mx-auto text-purple-500 mb-1" />
+                  <p className="text-lg font-bold text-purple-500">{overviewStats.hackathonsJoined || 0}</p>
+                  <p className="text-xs text-gray-600">Hackathons</p>
+                </Card>
+                
+                <Card className="text-center flex flex-col justify-center p-2 h-16">
+                  <Code className="h-4 w-4 mx-auto text-orange-500 mb-1" />
+                  <p className="text-lg font-bold text-orange-500">{overviewStats.projectsJoined || 0}</p>
+                  <p className="text-xs text-gray-600">Projects</p>
                 </Card>
               </div>
 
