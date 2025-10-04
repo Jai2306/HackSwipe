@@ -803,7 +803,7 @@ async function handleAuth(request, { params }) {
       }
 
       try {
-        // Create dummy users with profiles
+        // Create comprehensive dummy users with profiles
         const dummyUsers = [
           {
             id: uuidv4(),
@@ -840,6 +840,58 @@ async function handleAuth(request, { params }) {
             imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw5fHx3b21hbiUyMGRldmVsb3BlcnxlbnwwfHx8fDE3NTk2MDg5NzZ8MA&ixlib=rb-4.1.0&q=85',
             roleHeadline: "DevOps Engineer & Climate Tech Advocate",
             location: "Seattle, WA", 
+            timezone: "PST",
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            id: uuidv4(),
+            email: "james.kim@example.com",
+            name: "James Kim",
+            username: "james_kim",
+            passwordHash: await bcrypt.hash("dummy123", 10),
+            imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxMXx8bWFuJTIwZGV2ZWxvcGVyfGVufDB8fHx8MTc1OTYwODk3Nnww&ixlib=rb-4.1.0&q=85',
+            roleHeadline: "Blockchain Developer & Web3 Enthusiast",
+            location: "New York, NY",
+            timezone: "EST",
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            id: uuidv4(),
+            email: "emily.johnson@example.com",
+            name: "Emily Johnson",
+            username: "emily_johnson",
+            passwordHash: await bcrypt.hash("dummy123", 10),
+            imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxM3x8d29tYW4lMjBkZXZlbG9wZXJ8ZW58MHx8fHwxNzU5NjA4OTc2fDA&ixlib=rb-4.1.0&q=85',
+            roleHeadline: "Data Scientist & ML Researcher",
+            location: "Boston, MA",
+            timezone: "EST",
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            id: uuidv4(),
+            email: "david.martinez@example.com",
+            name: "David Martinez",
+            username: "david_martinez",
+            passwordHash: await bcrypt.hash("dummy123", 10),
+            imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxNXx8bWFuJTIwZGV2ZWxvcGVyfGVufDB8fHx8MTc1OTYwODk3Nnww&ixlib=rb-4.1.0&q=85',
+            roleHeadline: "Cybersecurity Expert & Ethical Hacker",
+            location: "Denver, CO",
+            timezone: "MST",
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          {
+            id: uuidv4(),
+            email: "lisa.wong@example.com",
+            name: "Lisa Wong",
+            username: "lisa_wong",
+            passwordHash: await bcrypt.hash("dummy123", 10),
+            imageUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxN3x8d29tYW4lMjBkZXZlbG9wZXJ8ZW58MHx8fHwxNzU5NjA4OTc2fDA&ixlib=rb-4.1.0&q=85',
+            roleHeadline: "Product Manager & UX Designer",
+            location: "Los Angeles, CA",
             timezone: "PST",
             createdAt: new Date(),
             updatedAt: new Date()
