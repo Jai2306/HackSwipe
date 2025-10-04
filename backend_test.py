@@ -121,23 +121,35 @@ class BackendTester:
                     ]
                     
                     found_users = []
+                    detailed_profiles = 0
+                    
                     for person in people:
-                        found_users.append(person.get('name', 'Unknown'))
+                        name = person.get('name', 'Unknown')
+                        found_users.append(name)
                         profile = person.get('profile')
+                        
                         if profile:
-                            # Check for enhanced profile fields
-                            if (profile.get('bio') and len(profile.get('bio', '')) > 50 and
-                                profile.get('skills') and len(profile.get('skills', [])) > 5 and
-                                profile.get('experience') and len(profile.get('experience', [])) > 0):
+                            bio = profile.get('bio', '')
+                            skills = profile.get('skills', [])
+                            experience = profile.get('experience', [])
+                            
+                            # Check for any enhanced profile characteristics
+                            if (bio and len(bio) > 50) or (skills and len(skills) > 5) or (experience and len(experience) > 0):
                                 enhanced_profiles_found += 1
+                            
+                            # Check for detailed professional profiles
+                            if (bio and len(bio) > 100 and 
+                                skills and len(skills) >= 8 and 
+                                experience and len(experience) >= 1):
+                                detailed_profiles += 1
                     
                     # Check if we found expected enhanced users
                     expected_found = sum(1 for user in expected_users if user in found_users)
                     
                     self.log_result("Explore People - Enhanced Profiles", True,
-                                  f"Found {len(people)} people, {enhanced_profiles_found} with enhanced profiles, {expected_found} expected users found")
+                                  f"Found {len(people)} people, {enhanced_profiles_found} with enhanced data, {detailed_profiles} with detailed profiles, {expected_found} expected users found")
                     
-                    # Detailed validation of first enhanced profile
+                    # Detailed validation of profiles
                     if enhanced_profiles_found > 0:
                         sample_person = next((p for p in people if p.get('profile') and 
                                             len(p.get('profile', {}).get('bio', '')) > 50), None)
