@@ -367,16 +367,16 @@ export default function App() {
       if (type === 'PERSON') {
         setLastRejectedPerson({ ...currentItem, index: currentPersonIndex });
         setShowUndo(prev => ({ ...prev, people: true }));
-        // Auto-hide undo after 8 seconds
-        setTimeout(() => setShowUndo(prev => ({ ...prev, people: false })), 8000);
+        // Auto-hide undo after 3 seconds
+        setTimeout(() => setShowUndo(prev => ({ ...prev, people: false })), 3000);
       } else if (type === 'HACKATHON') {
         setLastRejectedHackathon({ ...currentItem, index: currentHackathonIndex });
         setShowUndo(prev => ({ ...prev, hackathons: true }));
-        setTimeout(() => setShowUndo(prev => ({ ...prev, hackathons: false })), 8000);
+        setTimeout(() => setShowUndo(prev => ({ ...prev, hackathons: false })), 3000);
       } else if (type === 'PROJECT') {
         setLastRejectedProject({ ...currentItem, index: currentProjectIndex });
         setShowUndo(prev => ({ ...prev, projects: true }));
-        setTimeout(() => setShowUndo(prev => ({ ...prev, projects: false })), 8000);
+        setTimeout(() => setShowUndo(prev => ({ ...prev, projects: false })), 3000);
       }
     }
 
