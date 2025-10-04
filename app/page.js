@@ -65,6 +65,8 @@ export default function App() {
   const [showGroupChatDialog, setShowGroupChatDialog] = useState(false);
   const [selectedMatches, setSelectedMatches] = useState([]);
   const [groupChatName, setGroupChatName] = useState('');
+  const [showEditPostDialog, setShowEditPostDialog] = useState(false);
+  const [editingPost, setEditingPost] = useState(null);
 
   // Auth form states
   const [email, setEmail] = useState('');
