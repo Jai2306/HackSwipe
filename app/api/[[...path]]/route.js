@@ -1056,23 +1056,8 @@ async function handleAuth(request, { params }) {
                 looksToConnect: profilesData[dummyUser.email].looksToConnect,
                 skills: profilesData[dummyUser.email].skills,
                 interests: profilesData[dummyUser.email].interests,
-                experience: [{
-                  title: dummyUser.email === "sarah.chen@example.com" ? "Senior AI Engineer" : 
-                         dummyUser.email === "alex.rodriguez@example.com" ? "Mobile Developer" : "DevOps Engineer",
-                  org: dummyUser.email === "sarah.chen@example.com" ? "TechForGood Inc" :
-                       dummyUser.email === "alex.rodriguez@example.com" ? "AppCraft Studios" : "GreenTech Solutions",
-                  startDate: "2022-01-01",
-                  endDate: null,
-                  description: "Building innovative solutions"
-                }],
-                projects: [{
-                  name: dummyUser.email === "sarah.chen@example.com" ? "EcoPredict AI" :
-                        dummyUser.email === "alex.rodriguez@example.com" ? "GameHub Mobile" : "Carbon Tracker",
-                  description: "Innovative project making impact",
-                  tech: [],
-                  repoUrl: "https://github.com/example",
-                  demoUrl: "https://demo.example.com"
-                }],
+                experience: profilesData[dummyUser.email].experience,
+                projects: profilesData[dummyUser.email].projects,
                 awards: [],
                 socials: [{
                   type: "GITHUB",
