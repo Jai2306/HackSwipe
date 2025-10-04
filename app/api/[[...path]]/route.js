@@ -760,6 +760,72 @@ async function handleAuth(request, { params }) {
       return NextResponse.json({ posts: postsWithStats });
     }
 
+    // Update user's post
+    if (path.startsWith('posts/') && method === 'PUT') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const postId = path.split('/')[1];
+      const postData = await request.json();
+
+      // Verify user owns the post
+      const post = await db.collection('posts').findOne({ id: postId, leaderId: user.id });
+      if (!post) {
+        return NextResponse.json({ error: 'Post not found or unauthorized' }, { status: 404 });
+      }
+
+      // Validate required fields
+      if (!postData.title?.trim()) {
+        return NextResponse.json({ error: 'Title is required' }, { status: 400 });
+      }
+      if (!postData.location?.trim()) {
+        return NextResponse.json({ error: 'Location is required' }, { status: 400 });
+      }
+
+      await db.collection('posts').updateOne(
+        { id: postId },
+        { 
+          $set: {
+            title: postData.title.trim(),
+            location: postData.location.trim(),
+            websiteUrl: postData.websiteUrl || null,
+            skillsNeeded: postData.skillsNeeded || [],
+            notes: postData.notes || null,
+            updatedAt: new Date()
+          }
+        }
+      );
+
+      const updatedPost = await db.collection('posts').findOne({ id: postId });
+      return NextResponse.json({ post: updatedPost });
+    }
+
+    // Delete user's post
+    if (path.startsWith('posts/') && method === 'DELETE') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const postId = path.split('/')[1];
+
+      // Verify user owns the post
+      const post = await db.collection('posts').findOne({ id: postId, leaderId: user.id });
+      if (!post) {
+        return NextResponse.json({ error: 'Post not found or unauthorized' }, { status: 404 });
+      }
+
+      // Delete related inquiries
+      await db.collection('inquiries').deleteMany({ postId: postId });
+      
+      // Delete the post
+      await db.collection('posts').deleteOne({ id: postId });
+
+      return NextResponse.json({ success: true });
+    }
+
     // Get notifications
     if (path === 'notifications' && method === 'GET') {
       const user = await getCurrentUser(request);
