@@ -477,6 +477,294 @@ async function handleAuth(request, { params }) {
       return NextResponse.json({ matches: matchesWithUsers });
     }
 
+    // Get inquiries for user's posts
+    if (path === 'inquiries' && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      // Get user's posts
+      const userPosts = await db.collection('posts').find({ leaderId: user.id }).toArray();
+      const postIds = userPosts.map(p => p.id);
+
+      // Get inquiries for these posts
+      const inquiries = await db.collection('inquiries').find({
+        postId: { $in: postIds }
+      }).toArray();
+
+      // Get user details for inquiries
+      const inquiriesWithUsers = await Promise.all(
+        inquiries.map(async (inquiry) => {
+          const inquiryUser = await db.collection('users').findOne({ id: inquiry.userId });
+          const inquiryProfile = await db.collection('profiles').findOne({ userId: inquiry.userId });
+          const post = userPosts.find(p => p.id === inquiry.postId);
+          
+          if (inquiryUser) {
+            const { passwordHash, ...userWithoutPassword } = inquiryUser;
+            return {
+              ...inquiry,
+              user: {
+                ...userWithoutPassword,
+                profile: inquiryProfile || null
+              },
+              post: post || null
+            };
+          }
+          return inquiry;
+        })
+      );
+
+      return NextResponse.json({ inquiries: inquiriesWithUsers });
+    }
+
+    // Accept/Decline inquiry
+    if (path.startsWith('inquiries/') && method === 'PATCH') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const inquiryId = path.split('/')[1];
+      const { status } = await request.json();
+
+      // Verify user owns the post
+      const inquiry = await db.collection('inquiries').findOne({ id: inquiryId });
+      if (!inquiry) {
+        return NextResponse.json({ error: 'Inquiry not found' }, { status: 404 });
+      }
+
+      const post = await db.collection('posts').findOne({ id: inquiry.postId });
+      if (!post || post.leaderId !== user.id) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+      }
+
+      // Update inquiry status
+      await db.collection('inquiries').updateOne(
+        { id: inquiryId },
+        { $set: { status } }
+      );
+
+      // If accepted, create a match
+      if (status === 'ACCEPTED') {
+        const match = {
+          id: uuidv4(),
+          aId: user.id,
+          bId: inquiry.userId,
+          context: 'POST',
+          postId: inquiry.postId,
+          createdAt: new Date()
+        };
+
+        await db.collection('matches').insertOne(match);
+      }
+
+      return NextResponse.json({ success: true });
+    }
+
+    // Messages endpoints
+    if (path === 'conversations' && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      // Get conversations where user is a participant
+      const participants = await db.collection('conversationParticipants').find({
+        userId: user.id
+      }).toArray();
+
+      const conversationIds = participants.map(p => p.conversationId);
+      
+      const conversations = await db.collection('conversations').find({
+        id: { $in: conversationIds }
+      }).toArray();
+
+      // Get latest message for each conversation
+      const conversationsWithMessages = await Promise.all(
+        conversations.map(async (conv) => {
+          const latestMessage = await db.collection('messages').findOne(
+            { conversationId: conv.id },
+            { sort: { createdAt: -1 } }
+          );
+
+          // Get other participants
+          const allParticipants = await db.collection('conversationParticipants').find({
+            conversationId: conv.id
+          }).toArray();
+
+          const otherParticipants = await Promise.all(
+            allParticipants
+              .filter(p => p.userId !== user.id)
+              .map(async (p) => {
+                const participant = await db.collection('users').findOne({ id: p.userId });
+                if (participant) {
+                  const { passwordHash, ...userWithoutPassword } = participant;
+                  return userWithoutPassword;
+                }
+                return null;
+              })
+          );
+
+          return {
+            ...conv,
+            latestMessage: latestMessage || null,
+            participants: otherParticipants.filter(p => p !== null)
+          };
+        })
+      );
+
+      return NextResponse.json({ conversations: conversationsWithMessages });
+    }
+
+    if (path === 'conversations' && method === 'POST') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const { participantIds, isGroup, name, postId } = await request.json();
+
+      const conversationId = uuidv4();
+      const conversation = {
+        id: conversationId,
+        isGroup: isGroup || false,
+        name: name || null,
+        postId: postId || null,
+        createdAt: new Date()
+      };
+
+      await db.collection('conversations').insertOne(conversation);
+
+      // Add participants
+      const allParticipants = [user.id, ...participantIds];
+      const participantDocs = allParticipants.map((userId, index) => ({
+        id: uuidv4(),
+        conversationId: conversationId,
+        userId: userId,
+        role: index === 0 ? 'OWNER' : 'MEMBER'
+      }));
+
+      await db.collection('conversationParticipants').insertMany(participantDocs);
+
+      return NextResponse.json({ conversation });
+    }
+
+    // Get messages for a conversation
+    if (path.startsWith('conversations/') && path.includes('/messages') && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const conversationId = path.split('/')[1];
+
+      // Verify user is participant
+      const participant = await db.collection('conversationParticipants').findOne({
+        conversationId: conversationId,
+        userId: user.id
+      });
+
+      if (!participant) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+      }
+
+      const messages = await db.collection('messages').find({
+        conversationId: conversationId
+      }).sort({ createdAt: 1 }).toArray();
+
+      // Get sender details for messages
+      const messagesWithSenders = await Promise.all(
+        messages.map(async (message) => {
+          const sender = await db.collection('users').findOne({ id: message.senderId });
+          if (sender) {
+            const { passwordHash, ...senderWithoutPassword } = sender;
+            return {
+              ...message,
+              sender: senderWithoutPassword
+            };
+          }
+          return message;
+        })
+      );
+
+      return NextResponse.json({ messages: messagesWithSenders });
+    }
+
+    // Send message
+    if (path === 'messages' && method === 'POST') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const { conversationId, content, attachmentUrl } = await request.json();
+
+      // Verify user is participant
+      const participant = await db.collection('conversationParticipants').findOne({
+        conversationId: conversationId,
+        userId: user.id
+      });
+
+      if (!participant) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+      }
+
+      const message = {
+        id: uuidv4(),
+        conversationId: conversationId,
+        senderId: user.id,
+        content: content || null,
+        attachmentUrl: attachmentUrl || null,
+        createdAt: new Date()
+      };
+
+      await db.collection('messages').insertOne(message);
+
+      // Get sender details
+      const { passwordHash, ...userWithoutPassword } = user;
+      const messageWithSender = {
+        ...message,
+        sender: userWithoutPassword
+      };
+
+      return NextResponse.json({ message: messageWithSender });
+    }
+
+    // Overview statistics
+    if (path === 'overview' && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      // Get user's posts
+      const userPosts = await db.collection('posts').countDocuments({ leaderId: user.id });
+      
+      // Get user's matches
+      const matches = await db.collection('matches').countDocuments({
+        $or: [{ aId: user.id }, { bId: user.id }]
+      });
+
+      // Get user's swipes
+      const swipes = await db.collection('swipes').countDocuments({ swiperId: user.id });
+
+      // Get accepted inquiries (ongoing projects)
+      const acceptedInquiries = await db.collection('inquiries').countDocuments({
+        userId: user.id,
+        status: 'ACCEPTED'
+      });
+
+      return NextResponse.json({
+        stats: {
+          totalPosts: userPosts,
+          totalMatches: matches,
+          totalSwipes: swipes,
+          ongoingProjects: acceptedInquiries
+        }
+      });
+    }
+
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
   } catch (error) {
