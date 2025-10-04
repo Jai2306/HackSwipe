@@ -343,24 +343,42 @@ export default function App() {
   };
 
   const handleSwipe = async (direction, type = 'PERSON') => {
-    let currentItem, index;
+    let targetId, index, currentItem;
     
     if (type === 'PERSON') {
-      if (currentPersonIndex >= people.length) return;
-      currentItem = people[currentPersonIndex];
+      targetId = people[currentPersonIndex]?.id;
       index = currentPersonIndex;
+      currentItem = people[currentPersonIndex];
     } else if (type === 'HACKATHON') {
-      if (currentHackathonIndex >= hackathons.length) return;
-      currentItem = hackathons[currentHackathonIndex];
+      targetId = hackathons[currentHackathonIndex]?.id;
       index = currentHackathonIndex;
+      currentItem = hackathons[currentHackathonIndex];
     } else if (type === 'PROJECT') {
-      if (currentProjectIndex >= projects.length) return;
-      currentItem = projects[currentProjectIndex];
+      targetId = projects[currentProjectIndex]?.id;
       index = currentProjectIndex;
+      currentItem = projects[currentProjectIndex];
     }
 
     // Set swipe direction for animation
     setSwipeDirection(direction);
+
+    // Store rejected item for undo functionality
+    if (direction === 'left' && currentItem) {
+      if (type === 'PERSON') {
+        setLastRejectedPerson({ ...currentItem, index: currentPersonIndex });
+        setShowUndo(prev => ({ ...prev, people: true }));
+        // Auto-hide undo after 8 seconds
+        setTimeout(() => setShowUndo(prev => ({ ...prev, people: false })), 8000);
+      } else if (type === 'HACKATHON') {
+        setLastRejectedHackathon({ ...currentItem, index: currentHackathonIndex });
+        setShowUndo(prev => ({ ...prev, hackathons: true }));
+        setTimeout(() => setShowUndo(prev => ({ ...prev, hackathons: false })), 8000);
+      } else if (type === 'PROJECT') {
+        setLastRejectedProject({ ...currentItem, index: currentProjectIndex });
+        setShowUndo(prev => ({ ...prev, projects: true }));
+        setTimeout(() => setShowUndo(prev => ({ ...prev, projects: false })), 8000);
+      }
+    }
 
     const token = localStorage.getItem('token');
 
@@ -372,16 +390,15 @@ export default function App() {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          targetType: type,
-          targetId: currentItem.id,
-          direction: direction.toUpperCase()
+          targetId,
+          direction,
+          type
         })
       });
 
       if (response.ok) {
         const data = await response.json();
         
-        // If it's a match, update matches
         if (data.match) {
           setMatches(prev => [...prev, data.match]);
         }
