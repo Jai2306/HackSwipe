@@ -355,6 +355,10 @@ class BackendTester:
             if response.status_code == 200:
                 people = response.json().get('people', [])
                 
+                if not people:
+                    self.log_result("Enhanced Profile Fields", False, "No people found to test")
+                    return False
+                
                 # Check for specific enhanced fields
                 enhanced_field_stats = {
                     'detailed_bio': 0,
@@ -369,7 +373,12 @@ class BackendTester:
                 company_mentions = 0
                 
                 for person in people:
-                    profile = person.get('profile', {})
+                    if not person:
+                        continue
+                        
+                    profile = person.get('profile')
+                    if not profile:
+                        continue
                     
                     # Check bio quality (detailed, professional)
                     bio = profile.get('bio', '')
@@ -398,7 +407,7 @@ class BackendTester:
                     
                     # Check experience for company names
                     for exp in experience:
-                        if any(company in exp.get('org', '') for company in expected_companies):
+                        if exp and any(company in exp.get('org', '') for company in expected_companies):
                             company_mentions += 1
                     
                     # Check looksToConnect field
