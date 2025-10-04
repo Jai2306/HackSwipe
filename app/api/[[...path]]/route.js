@@ -1072,7 +1072,7 @@ async function handleAuth(request, { params }) {
 
             // Create comprehensive profiles for dummy users
             const profilesData = {
-              "sarah.chen@example.com": {
+              "aisha.kandhari@gmail.com": {
                 bio: "AI/ML engineer passionate about using technology for social good. 5+ years building intelligent systems and predictive models.",
                 looksToConnect: "Looking for backend developers and data scientists for an AI-powered social impact project",
                 skills: ["Python", "TensorFlow", "React", "Node.js", "PostgreSQL", "AWS", "Docker", "Pandas"],
