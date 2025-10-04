@@ -2244,6 +2244,68 @@ export default function App() {
                     </Badge>
                   ))}
                 </div>
+                <div className="space-y-1">
+                  <Label className="text-sm">Add Custom Skill</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Enter a custom skill..."
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          const customSkill = e.target.value.trim();
+                          if (customSkill && !(editingProfile.skills || []).includes(customSkill)) {
+                            setEditingProfile(prev => ({
+                              ...prev,
+                              skills: [...(prev.skills || []), customSkill]
+                            }));
+                            e.target.value = '';
+                          }
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={(e) => {
+                        const input = e.target.parentElement.querySelector('input');
+                        const customSkill = input.value.trim();
+                        if (customSkill && !(editingProfile.skills || []).includes(customSkill)) {
+                          setEditingProfile(prev => ({
+                            ...prev,
+                            skills: [...(prev.skills || []), customSkill]
+                          }));
+                          input.value = '';
+                        }
+                      }}
+                    >
+                      Add
+                    </Button>
+                  </div>
+                </div>
+                {/* Display custom skills with remove option */}
+                {(editingProfile.skills || []).filter(skill => !SKILLS.includes(skill)).length > 0 && (
+                  <div className="mt-2">
+                    <Label className="text-sm text-gray-600">Custom Skills:</Label>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {(editingProfile.skills || []).filter(skill => !SKILLS.includes(skill)).map(skill => (
+                        <Badge
+                          key={skill}
+                          variant="default"
+                          className="text-xs cursor-pointer bg-purple-100 text-purple-800"
+                          onClick={() => {
+                            const currentSkills = editingProfile.skills || [];
+                            setEditingProfile(prev => ({
+                              ...prev,
+                              skills: currentSkills.filter(s => s !== skill)
+                            }));
+                          }}
+                        >
+                          {skill} ×
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Interests */}
