@@ -904,31 +904,158 @@ async function handleAuth(request, { params }) {
           if (!existingUser) {
             await db.collection('users').insertOne(dummyUser);
 
-            // Create profiles for dummy users
+            // Create comprehensive profiles for dummy users
+            const profilesData = {
+              "sarah.chen@example.com": {
+                bio: "AI/ML engineer passionate about using technology for social good. 5+ years building intelligent systems and predictive models.",
+                looksToConnect: "Looking for backend developers and data scientists for an AI-powered social impact project",
+                skills: ["Python", "TensorFlow", "React", "Node.js", "PostgreSQL", "AWS", "Docker", "Pandas"],
+                interests: ["AI/ML", "Social Impact", "FinTech", "Data Science", "Healthcare"],
+                experience: [{
+                  title: "Senior AI Engineer",
+                  org: "TechForGood Inc",
+                  startDate: "2022-01-01",
+                  endDate: null,
+                  description: "Building ML models for social impact initiatives"
+                }],
+                projects: [{
+                  name: "EcoPredict AI",
+                  description: "Machine learning platform for environmental predictions",
+                  tech: ["Python", "TensorFlow", "React"],
+                  repoUrl: "https://github.com/sarah/ecopredict",
+                  demoUrl: "https://ecopredict.ai"
+                }]
+              },
+              "alex.rodriguez@example.com": {
+                bio: "Mobile developer creating intuitive user experiences. Love React Native and Flutter! 6 years of cross-platform development.",
+                looksToConnect: "Seeking UI/UX designers and frontend developers for a mobile gaming startup",
+                skills: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "JavaScript", "TypeScript", "Unity"],
+                interests: ["Mobile Development", "Gaming", "AR/VR", "UI/UX Design", "EdTech"],
+                experience: [{
+                  title: "Lead Mobile Developer",
+                  org: "AppCraft Studios",
+                  startDate: "2021-03-01",
+                  endDate: null,
+                  description: "Leading mobile development for consumer apps"
+                }],
+                projects: [{
+                  name: "GameHub Mobile",
+                  description: "Cross-platform gaming social network",
+                  tech: ["React Native", "Firebase", "Redux"],
+                  repoUrl: "https://github.com/alex/gamehub",
+                  demoUrl: "https://gamehub.app"
+                }]
+              },
+              "maya.patel@example.com": {
+                bio: "DevOps engineer focused on sustainable technology. Building green infrastructure for the future with 4+ years experience.",
+                looksToConnect: "Need full-stack developers for climate action platform",
+                skills: ["Docker", "Kubernetes", "AWS", "Python", "Vue.js", "PostgreSQL", "Terraform", "Jenkins"],
+                interests: ["DevOps", "Climate Tech", "Web Development", "Cloud Computing", "Sustainability"],
+                experience: [{
+                  title: "Senior DevOps Engineer",
+                  org: "GreenTech Solutions",
+                  startDate: "2020-06-01",
+                  endDate: null,
+                  description: "Building sustainable cloud infrastructure"
+                }],
+                projects: [{
+                  name: "Carbon Tracker",
+                  description: "Platform for tracking and reducing carbon footprints",
+                  tech: ["Vue.js", "Docker", "AWS"],
+                  repoUrl: "https://github.com/maya/carbontracker",
+                  demoUrl: "https://carbontrack.green"
+                }]
+              },
+              "james.kim@example.com": {
+                bio: "Blockchain developer passionate about Web3 and decentralized applications. 3+ years in DeFi and smart contracts.",
+                looksToConnect: "Looking for frontend developers and designers for a DeFi protocol",
+                skills: ["Solidity", "Web3", "React", "Node.js", "Ethereum", "JavaScript", "TypeScript", "Hardhat"],
+                interests: ["Web3", "Blockchain", "FinTech", "Cryptocurrency", "DeFi"],
+                experience: [{
+                  title: "Blockchain Developer",
+                  org: "CryptoVentures LLC",
+                  startDate: "2021-09-01",
+                  endDate: null,
+                  description: "Developing smart contracts and DeFi protocols"
+                }],
+                projects: [{
+                  name: "DeFiSwap Protocol",
+                  description: "Decentralized exchange with automated market making",
+                  tech: ["Solidity", "React", "Web3"],
+                  repoUrl: "https://github.com/james/defiswap",
+                  demoUrl: "https://defiswap.finance"
+                }]
+              },
+              "emily.johnson@example.com": {
+                bio: "Data scientist and ML researcher with expertise in NLP and computer vision. PhD in Computer Science, 7+ years experience.",
+                looksToConnect: "Seeking software engineers for an AI research project in healthcare",
+                skills: ["Python", "PyTorch", "TensorFlow", "R", "SQL", "Pandas", "Jupyter", "Scikit-learn"],
+                interests: ["AI/ML", "Data Science", "Healthcare", "Research", "NLP"],
+                experience: [{
+                  title: "Senior Data Scientist",
+                  org: "BioAI Research Lab",
+                  startDate: "2019-01-01",
+                  endDate: null,
+                  description: "Leading AI research in healthcare applications"
+                }],
+                projects: [{
+                  name: "MedAssist AI",
+                  description: "AI-powered diagnostic assistance tool",
+                  tech: ["Python", "PyTorch", "Flask"],
+                  repoUrl: "https://github.com/emily/medassist",
+                  demoUrl: "https://medassist.ai"
+                }]
+              },
+              "david.martinez@example.com": {
+                bio: "Cybersecurity expert and ethical hacker with 8+ years protecting digital assets. Certified ethical hacker and security consultant.",
+                looksToConnect: "Looking for developers to build secure applications and security tools",
+                skills: ["Python", "JavaScript", "Go", "Kali Linux", "Wireshark", "Metasploit", "AWS Security", "Penetration Testing"],
+                interests: ["Cybersecurity", "Ethical Hacking", "Privacy", "Security Tools", "Penetration Testing"],
+                experience: [{
+                  title: "Senior Security Engineer",
+                  org: "SecureNet Inc",
+                  startDate: "2018-04-01",
+                  endDate: null,
+                  description: "Leading security assessments and penetration testing"
+                }],
+                projects: [{
+                  name: "SecureScan",
+                  description: "Automated vulnerability scanner for web applications",
+                  tech: ["Python", "Go", "Docker"],
+                  repoUrl: "https://github.com/david/securescan",
+                  demoUrl: "https://securescan.tools"
+                }]
+              },
+              "lisa.wong@example.com": {
+                bio: "Product manager and UX designer bridging the gap between user needs and technical solutions. 5+ years in product strategy.",
+                looksToConnect: "Seeking developers and designers for a user-centric productivity app",
+                skills: ["Figma", "Sketch", "JavaScript", "React", "Product Strategy", "User Research", "Prototyping", "A/B Testing"],
+                interests: ["UI/UX Design", "Product Management", "User Research", "Design Systems", "EdTech"],
+                experience: [{
+                  title: "Senior Product Manager",
+                  org: "ProductCorp",
+                  startDate: "2020-02-01",
+                  endDate: null,
+                  description: "Leading product strategy for consumer applications"
+                }],
+                projects: [{
+                  name: "FlowState",
+                  description: "Productivity app with focus-enhancing features",
+                  tech: ["React", "Node.js", "Figma"],
+                  repoUrl: "https://github.com/lisa/flowstate",
+                  demoUrl: "https://flowstate.app"
+                }]
+              }
+            };
+
             const profiles = {
               [dummyUser.email]: {
                 id: uuidv4(),
                 userId: dummyUser.id,
-                bio: dummyUser.email === "sarah.chen@example.com" 
-                  ? "AI/ML engineer passionate about using technology for social good. 5+ years building intelligent systems."
-                  : dummyUser.email === "alex.rodriguez@example.com"
-                  ? "Mobile developer creating intuitive user experiences. Love React Native and Flutter!"
-                  : "DevOps engineer focused on sustainable technology. Building green infrastructure for the future.",
-                looksToConnect: dummyUser.email === "sarah.chen@example.com"
-                  ? "Looking for backend developers and data scientists for an AI-powered social impact project"
-                  : dummyUser.email === "alex.rodriguez@example.com" 
-                  ? "Seeking UI/UX designers and frontend developers for a mobile gaming startup"
-                  : "Need full-stack developers for climate action platform",
-                skills: dummyUser.email === "sarah.chen@example.com"
-                  ? ["Python", "TensorFlow", "React", "Node.js", "PostgreSQL", "AWS"]
-                  : dummyUser.email === "alex.rodriguez@example.com"
-                  ? ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "JavaScript"]
-                  : ["Docker", "Kubernetes", "AWS", "Python", "Vue.js", "PostgreSQL"],
-                interests: dummyUser.email === "sarah.chen@example.com"
-                  ? ["AI/ML", "Social Impact", "FinTech", "Data Science"]
-                  : dummyUser.email === "alex.rodriguez@example.com"
-                  ? ["Mobile Development", "Gaming", "AR/VR", "UI/UX Design"]
-                  : ["DevOps", "Climate Tech", "Web Development", "Cloud Computing"],
+                bio: profilesData[dummyUser.email].bio,
+                looksToConnect: profilesData[dummyUser.email].looksToConnect,
+                skills: profilesData[dummyUser.email].skills,
+                interests: profilesData[dummyUser.email].interests,
                 experience: [{
                   title: dummyUser.email === "sarah.chen@example.com" ? "Senior AI Engineer" : 
                          dummyUser.email === "alex.rodriguez@example.com" ? "Mobile Developer" : "DevOps Engineer",
