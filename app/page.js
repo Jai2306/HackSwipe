@@ -253,10 +253,23 @@ export default function App() {
     }
   };
 
-  const handleSwipe = async (direction) => {
-    if (currentPersonIndex >= people.length) return;
+  const handleSwipe = async (direction, type = 'PERSON') => {
+    let currentItem, index;
+    
+    if (type === 'PERSON') {
+      if (currentPersonIndex >= people.length) return;
+      currentItem = people[currentPersonIndex];
+      index = currentPersonIndex;
+    } else if (type === 'HACKATHON') {
+      if (currentHackathonIndex >= hackathons.length) return;
+      currentItem = hackathons[currentHackathonIndex];
+      index = currentHackathonIndex;
+    } else if (type === 'PROJECT') {
+      if (currentProjectIndex >= projects.length) return;
+      currentItem = projects[currentProjectIndex];
+      index = currentProjectIndex;
+    }
 
-    const currentPerson = people[currentPersonIndex];
     const token = localStorage.getItem('token');
 
     try {
@@ -267,8 +280,8 @@ export default function App() {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          targetType: 'PERSON',
-          targetId: currentPerson.id,
+          targetType: type,
+          targetId: currentItem.id,
           direction: direction.toUpperCase()
         })
       });
@@ -281,8 +294,14 @@ export default function App() {
           setMatches(prev => [...prev, data.match]);
         }
 
-        // Move to next person
-        setCurrentPersonIndex(prev => prev + 1);
+        // Move to next item
+        if (type === 'PERSON') {
+          setCurrentPersonIndex(prev => prev + 1);
+        } else if (type === 'HACKATHON') {
+          setCurrentHackathonIndex(prev => prev + 1);
+        } else if (type === 'PROJECT') {
+          setCurrentProjectIndex(prev => prev + 1);
+        }
       }
     } catch (error) {
       console.error('Swipe error:', error);
