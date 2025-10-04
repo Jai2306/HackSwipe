@@ -909,8 +909,8 @@ export default function App() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 pb-16">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <div className="flex-1 pb-20">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full min-h-screen">
           {/* Explore Tab */}
           <TabsContent value="explore" className="p-4">
             <div className="max-w-6xl mx-auto">
