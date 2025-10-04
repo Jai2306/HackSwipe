@@ -1264,22 +1264,26 @@ export default function App() {
                 </motion.div>
                   </AnimatePresence>
                   
-                  {/* Undo mini preview (bottom-left) */}
+                  {/* PROMINENT Undo Preview (bottom-left) */}
                   {showUndo.people && lastRejectedPerson && (
                     <motion.div
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      className="absolute bottom-4 left-4 z-20"
+                      initial={{ scale: 0, opacity: 0, y: 50 }}
+                      animate={{ scale: 1, opacity: 1, y: 0 }}
+                      exit={{ scale: 0, opacity: 0, y: 50 }}
+                      transition={{ type: "spring", duration: 0.5 }}
+                      className="absolute bottom-6 left-6 z-30"
                     >
-                      <div className="bg-white rounded-lg shadow-lg border-2 border-red-200 p-2 w-20 h-24 cursor-pointer hover:shadow-xl transition-all duration-200"
+                      <div className="bg-white rounded-xl shadow-2xl border-4 border-red-400 p-4 w-32 h-36 cursor-pointer hover:shadow-3xl hover:scale-105 transition-all duration-300 bg-gradient-to-b from-white to-red-50"
                            onClick={() => handleUndo('PERSON')}>
-                        <div className="h-12 bg-gradient-to-br from-red-300 to-red-400 rounded flex items-center justify-center mb-1">
-                          <User className="h-4 w-4 text-white" />
+                        <div className="h-16 bg-gradient-to-br from-red-400 to-red-500 rounded-lg flex items-center justify-center mb-2 shadow-lg">
+                          <User className="h-6 w-6 text-white" />
                         </div>
-                        <div className="text-xs text-center text-gray-600 truncate">{lastRejectedPerson.name}</div>
-                        <div className="flex items-center justify-center mt-1">
-                          <Undo className="h-3 w-3 text-red-500" />
+                        <div className="text-sm text-center font-semibold text-gray-700 truncate mb-1">{lastRejectedPerson.name}</div>
+                        <div className="flex items-center justify-center">
+                          <div className="bg-red-100 rounded-full p-1">
+                            <Undo className="h-4 w-4 text-red-600" />
+                          </div>
+                          <span className="text-xs ml-1 font-medium text-red-600">UNDO</span>
                         </div>
                       </div>
                     </motion.div>
