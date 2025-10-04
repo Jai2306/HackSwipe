@@ -1099,123 +1099,237 @@ async function handleAuth(request, { params }) {
                 }]
               },
               "alejandro.rivera@outlook.com": {
-                bio: "Mobile developer creating intuitive user experiences. Love React Native and Flutter! 6 years of cross-platform development.",
-                looksToConnect: "Seeking UI/UX designers and frontend developers for a mobile gaming startup",
-                skills: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "JavaScript", "TypeScript", "Unity"],
-                interests: ["Mobile Development", "Gaming", "AR/VR", "UI/UX Design", "EdTech"],
+                bio: "Senior React Native architect with 7+ years creating award-winning mobile experiences. Former lead developer at Uber and Airbnb. Passionate about cross-platform development and mobile performance optimization.",
+                looksToConnect: "Seeking talented UI/UX designers and frontend engineers to build the next generation social gaming platform",
+                skills: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "JavaScript", "TypeScript", "Unity", "GraphQL", "Redux"],
+                interests: ["Mobile Development", "Gaming", "AR/VR", "UI/UX Design", "Performance Optimization", "Social Platforms"],
                 experience: [{
-                  title: "Lead Mobile Developer",
-                  org: "AppCraft Studios",
-                  startDate: "2021-03-01",
-                  endDate: null,
-                  description: "Leading mobile development for consumer apps"
+                  title: "Senior Mobile Architect",
+                  org: "Uber Technologies",
+                  startDate: "2020-01-01",
+                  endDate: "2023-11-01",
+                  description: "Led mobile architecture for rider and driver apps, serving millions of users globally"
+                }, {
+                  title: "Mobile Lead",
+                  org: "Airbnb",
+                  startDate: "2018-03-01", 
+                  endDate: "2019-12-01",
+                  description: "Architected host app mobile experience and payment systems integration"
                 }],
                 projects: [{
-                  name: "GameHub Mobile",
-                  description: "Cross-platform gaming social network",
-                  tech: ["React Native", "Firebase", "Redux"],
-                  repoUrl: "https://github.com/alex/gamehub",
-                  demoUrl: "https://gamehub.app"
+                  name: "SocialVR Gaming",
+                  description: "Cross-platform VR gaming social network with real-time multiplayer",
+                  tech: ["React Native", "Unity", "Firebase", "WebRTC"],
+                  repoUrl: "https://github.com/alejandro/socialvr",
+                  demoUrl: "https://socialvr.games"
                 }]
               },
-              "maya.patel@example.com": {
-                bio: "DevOps engineer focused on sustainable technology. Building green infrastructure for the future with 4+ years experience.",
-                looksToConnect: "Need full-stack developers for climate action platform",
-                skills: ["Docker", "Kubernetes", "AWS", "Python", "Vue.js", "PostgreSQL", "Terraform", "Jenkins"],
-                interests: ["DevOps", "Climate Tech", "Web Development", "Cloud Computing", "Sustainability"],
+              "maya.patel.dev@proton.me": {
+                bio: "Cloud-native DevOps engineer specializing in sustainable infrastructure. Former AWS Solutions Architect with 6+ years building carbon-efficient systems. Advocate for green technology and renewable energy in tech.",
+                looksToConnect: "Looking for passionate full-stack developers to build revolutionary climate action platform and carbon tracking solutions",
+                skills: ["Kubernetes", "Docker", "AWS", "Terraform", "Python", "Go", "Vue.js", "PostgreSQL", "Jenkins", "Prometheus", "Grafana", "Helm"],
+                interests: ["DevOps", "Climate Tech", "Sustainability", "Cloud Computing", "Green Infrastructure", "Renewable Energy"],
                 experience: [{
-                  title: "Senior DevOps Engineer",
-                  org: "GreenTech Solutions",
-                  startDate: "2020-06-01",
+                  title: "Senior DevOps Engineer", 
+                  org: "Stripe",
+                  startDate: "2021-06-01",
                   endDate: null,
-                  description: "Building sustainable cloud infrastructure"
+                  description: "Building resilient payment infrastructure and optimizing carbon efficiency of global systems"
+                }, {
+                  title: "Cloud Solutions Architect",
+                  org: "Amazon Web Services",
+                  startDate: "2019-01-01",
+                  endDate: "2021-05-01", 
+                  description: "Designed sustainable cloud architectures for Fortune 500 companies"
                 }],
                 projects: [{
-                  name: "Carbon Tracker",
-                  description: "Platform for tracking and reducing carbon footprints",
-                  tech: ["Vue.js", "Docker", "AWS"],
-                  repoUrl: "https://github.com/maya/carbontracker",
-                  demoUrl: "https://carbontrack.green"
+                  name: "EcoCloud Monitor",
+                  description: "Real-time carbon footprint tracking for cloud infrastructure with AI-powered optimization",
+                  tech: ["Kubernetes", "Python", "Vue.js", "PostgreSQL"],
+                  repoUrl: "https://github.com/maya/ecocloud",
+                  demoUrl: "https://ecocloud.green"
                 }]
               },
-              "james.kim@example.com": {
-                bio: "Blockchain developer passionate about Web3 and decentralized applications. 3+ years in DeFi and smart contracts.",
-                looksToConnect: "Looking for frontend developers and designers for a DeFi protocol",
-                skills: ["Solidity", "Web3", "React", "Node.js", "Ethereum", "JavaScript", "TypeScript", "Hardhat"],
-                interests: ["Web3", "Blockchain", "FinTech", "Cryptocurrency", "DeFi"],
+              "james.kim.blockchain@yahoo.com": {
+                bio: "Lead Solidity developer and DeFi protocol architect with 5+ years in Web3. Built smart contracts handling $500M+ TVL. Former blockchain lead at Coinbase, passionate about decentralized finance and Web3 innovation.",
+                looksToConnect: "Seeking frontend wizards and smart contract auditors to revolutionize decentralized insurance and build next-gen DeFi protocols",
+                skills: ["Solidity", "Web3", "Ethereum", "Polygon", "React", "TypeScript", "Hardhat", "Foundry", "OpenZeppelin", "DeFi Protocols", "Smart Contract Security"],
+                interests: ["DeFi", "Web3", "Blockchain", "Smart Contracts", "Cryptocurrency", "Decentralized Insurance", "Layer 2 Solutions"],
                 experience: [{
-                  title: "Blockchain Developer",
-                  org: "CryptoVentures LLC",
+                  title: "Principal Blockchain Engineer",
+                  org: "Coinbase",
                   startDate: "2021-09-01",
                   endDate: null,
-                  description: "Developing smart contracts and DeFi protocols"
+                  description: "Leading DeFi integrations and smart contract development for institutional products"
+                }, {
+                  title: "Smart Contract Developer",
+                  org: "Aave",
+                  startDate: "2020-03-01",
+                  endDate: "2021-08-01",
+                  description: "Built lending protocol smart contracts and governance mechanisms"
                 }],
                 projects: [{
-                  name: "DeFiSwap Protocol",
-                  description: "Decentralized exchange with automated market making",
-                  tech: ["Solidity", "React", "Web3"],
-                  repoUrl: "https://github.com/james/defiswap",
-                  demoUrl: "https://defiswap.finance"
+                  name: "InsureDAO Protocol",
+                  description: "Decentralized insurance protocol with parametric coverage and automated claims processing",
+                  tech: ["Solidity", "TypeScript", "React", "The Graph"],
+                  repoUrl: "https://github.com/james/insuredao",
+                  demoUrl: "https://insuredao.finance"
                 }]
               },
-              "emily.johnson@example.com": {
-                bio: "Data scientist and ML researcher with expertise in NLP and computer vision. PhD in Computer Science, 7+ years experience.",
-                looksToConnect: "Seeking software engineers for an AI research project in healthcare",
-                skills: ["Python", "PyTorch", "TensorFlow", "R", "SQL", "Pandas", "Jupyter", "Scikit-learn"],
-                interests: ["AI/ML", "Data Science", "Healthcare", "Research", "NLP"],
+              "emily.johnson.ai@stanford.edu": {
+                bio: "Principal AI researcher and computer vision expert with PhD from Stanford. 10+ years advancing state-of-the-art in medical AI. Published 50+ papers in top ML conferences. Leading breakthrough research in AI diagnostics.",
+                looksToConnect: "Recruiting brilliant software engineers and ML researchers for groundbreaking AI healthcare research that will save millions of lives",
+                skills: ["Python", "PyTorch", "TensorFlow", "JAX", "Computer Vision", "NLP", "MLOps", "Research", "Medical AI", "Deep Learning", "Transformers"],
+                interests: ["AI/ML Research", "Computer Vision", "Healthcare AI", "Medical Diagnostics", "Ethics in AI", "Research Publication"],
                 experience: [{
-                  title: "Senior Data Scientist",
-                  org: "BioAI Research Lab",
-                  startDate: "2019-01-01",
+                  title: "Principal Research Scientist",
+                  org: "Stanford AI Lab",
+                  startDate: "2020-01-01",
                   endDate: null,
-                  description: "Leading AI research in healthcare applications"
+                  description: "Leading AI research in medical diagnostics and computer vision applications"
+                }, {
+                  title: "Senior AI Researcher",
+                  org: "Google DeepMind",
+                  startDate: "2017-06-01",
+                  endDate: "2019-12-01",
+                  description: "Research on transformer architectures and multimodal AI systems"
                 }],
                 projects: [{
-                  name: "MedAssist AI",
-                  description: "AI-powered diagnostic assistance tool",
-                  tech: ["Python", "PyTorch", "Flask"],
-                  repoUrl: "https://github.com/emily/medassist",
-                  demoUrl: "https://medassist.ai"
+                  name: "DiagnosticAI Platform",
+                  description: "AI-powered platform for early cancer detection using advanced computer vision and multi-modal analysis",
+                  tech: ["PyTorch", "JAX", "FastAPI", "React", "Docker"],
+                  repoUrl: "https://github.com/emily/diagnosticai",
+                  demoUrl: "https://diagnosticai.stanford.edu"
                 }]
               },
-              "david.martinez@example.com": {
-                bio: "Cybersecurity expert and ethical hacker with 8+ years protecting digital assets. Certified ethical hacker and security consultant.",
-                looksToConnect: "Looking for developers to build secure applications and security tools",
-                skills: ["Python", "JavaScript", "Go", "Kali Linux", "Wireshark", "Metasploit", "AWS Security", "Penetration Testing"],
-                interests: ["Cybersecurity", "Ethical Hacking", "Privacy", "Security Tools", "Penetration Testing"],
+              "carlos.mendoza.security@gmail.com": {
+                bio: "Elite cybersecurity expert and certified ethical hacker with 10+ years protecting Fortune 500 companies. Former NSA contractor specializing in advanced persistent threats and zero-day research. CISSP and CEH certified.",
+                looksToConnect: "Seeking skilled developers to build next-generation security tools and automated threat detection systems",
+                skills: ["Penetration Testing", "Vulnerability Research", "Python", "Go", "Rust", "Reverse Engineering", "Malware Analysis", "Network Security", "Cloud Security", "Zero-day Research"],
+                interests: ["Cybersecurity", "Ethical Hacking", "Threat Intelligence", "Security Research", "Privacy", "Cryptography", "Incident Response"],
                 experience: [{
-                  title: "Senior Security Engineer",
-                  org: "SecureNet Inc",
+                  title: "Principal Security Researcher",
+                  org: "CrowdStrike",
+                  startDate: "2021-01-01",
+                  endDate: null,
+                  description: "Leading advanced threat research and developing cutting-edge security solutions"
+                }, {
+                  title: "Senior Penetration Tester",
+                  org: "FireEye (Mandiant)",
                   startDate: "2018-04-01",
-                  endDate: null,
-                  description: "Leading security assessments and penetration testing"
+                  endDate: "2020-12-01",
+                  description: "Conducted red team operations and advanced threat hunting for global enterprises"
                 }],
                 projects: [{
-                  name: "SecureScan",
-                  description: "Automated vulnerability scanner for web applications",
-                  tech: ["Python", "Go", "Docker"],
-                  repoUrl: "https://github.com/david/securescan",
-                  demoUrl: "https://securescan.tools"
+                  name: "ThreatHunter AI",
+                  description: "AI-powered threat detection system using machine learning for anomaly detection and attack prediction",
+                  tech: ["Python", "TensorFlow", "Go", "Elasticsearch"],
+                  repoUrl: "https://github.com/carlos/threathunter",
+                  demoUrl: "https://threathunter.security"
                 }]
               },
-              "lisa.wong@example.com": {
-                bio: "Product manager and UX designer bridging the gap between user needs and technical solutions. 5+ years in product strategy.",
-                looksToConnect: "Seeking developers and designers for a user-centric productivity app",
-                skills: ["Figma", "Sketch", "JavaScript", "React", "Product Strategy", "User Research", "Prototyping", "A/B Testing"],
-                interests: ["UI/UX Design", "Product Management", "User Research", "Design Systems", "EdTech"],
+              "lisa.wong.design@adobe.com": {
+                bio: "Senior Product Designer and Design Systems Lead at Adobe with 8+ years crafting user-centered experiences. Expert in design thinking methodology and data-driven design. Passionate about accessibility and inclusive design.",
+                looksToConnect: "Looking for talented developers and researchers to create revolutionary accessibility-first design tools and inclusive user experiences",
+                skills: ["Figma", "Adobe Creative Suite", "Sketch", "Principle", "JavaScript", "React", "Design Systems", "User Research", "A/B Testing", "Accessibility", "Prototyping"],
+                interests: ["Product Design", "Design Systems", "Accessibility", "User Research", "EdTech", "Inclusive Design", "Design Tools"],
                 experience: [{
-                  title: "Senior Product Manager",
-                  org: "ProductCorp",
+                  title: "Senior Product Designer",
+                  org: "Adobe",
                   startDate: "2020-02-01",
                   endDate: null,
-                  description: "Leading product strategy for consumer applications"
+                  description: "Leading design systems and accessibility initiatives for Creative Cloud products"
+                }, {
+                  title: "UX Design Lead",
+                  org: "Shopify",
+                  startDate: "2018-06-01",
+                  endDate: "2020-01-01",
+                  description: "Designed merchant experiences and led accessibility improvements across platform"
                 }],
                 projects: [{
-                  name: "FlowState",
-                  description: "Productivity app with focus-enhancing features",
-                  tech: ["React", "Node.js", "Figma"],
-                  repoUrl: "https://github.com/lisa/flowstate",
-                  demoUrl: "https://flowstate.app"
+                  name: "AccessiDesign Toolkit",
+                  description: "Comprehensive design system and toolkit for creating accessible digital experiences",
+                  tech: ["Figma Plugin", "React", "TypeScript", "WCAG"],
+                  repoUrl: "https://github.com/lisa/accessidesign",
+                  demoUrl: "https://accessidesign.tools"
+                }]
+              },
+              "fatima.al.zahra@mit.edu": {
+                bio: "Full-stack engineer and open-source advocate with computer science background from MIT. 6+ years building scalable web applications. Active contributor to major open-source projects with 10k+ GitHub stars.",
+                looksToConnect: "Seeking passionate developers to contribute to open-source educational technology and democratize access to quality learning",
+                skills: ["JavaScript", "TypeScript", "React", "Node.js", "Python", "PostgreSQL", "MongoDB", "Docker", "AWS", "GraphQL", "Open Source"],
+                interests: ["Open Source", "EdTech", "Web Development", "Community Building", "Educational Equity", "Developer Tools"],
+                experience: [{
+                  title: "Senior Full-Stack Engineer",
+                  org: "Khan Academy",
+                  startDate: "2021-08-01",
+                  endDate: null,
+                  description: "Building educational tools and learning platforms to make quality education accessible globally"
+                }, {
+                  title: "Software Engineer",
+                  org: "GitHub",
+                  startDate: "2019-06-01",
+                  endDate: "2021-07-01",
+                  description: "Developed developer tools and improved platform accessibility"
+                }],
+                projects: [{
+                  name: "LearnOpen Platform",
+                  description: "Open-source learning management system with collaborative coding environments",
+                  tech: ["React", "Node.js", "PostgreSQL", "Docker"],
+                  repoUrl: "https://github.com/fatima/learnopen",
+                  demoUrl: "https://learnopen.org"
+                }]
+              },
+              "raj.sharma.backend@google.com": {
+                bio: "Backend systems architect at Google with 9+ years designing distributed systems at scale. Expert in microservices, event-driven architecture, and high-performance computing. Built systems serving billions of requests.",
+                looksToConnect: "Looking for frontend engineers and DevOps specialists to build next-generation developer tools and cloud-native platforms",
+                skills: ["Go", "Java", "Python", "Kubernetes", "gRPC", "Apache Kafka", "PostgreSQL", "Redis", "Google Cloud", "Microservices", "System Design"],
+                interests: ["Distributed Systems", "Microservices", "Cloud Computing", "Performance Engineering", "Developer Tools", "System Architecture"],
+                experience: [{
+                  title: "Staff Software Engineer",
+                  org: "Google", 
+                  startDate: "2020-01-01",
+                  endDate: null,
+                  description: "Architecting backend systems for Google Cloud Platform and developer tools"
+                }, {
+                  title: "Senior Backend Engineer",
+                  org: "Netflix",
+                  startDate: "2017-03-01",
+                  endDate: "2019-12-01",
+                  description: "Built recommendation engine backend systems serving 200M+ global users"
+                }],
+                projects: [{
+                  name: "CloudFlow Engine",
+                  description: "High-performance serverless computing platform with auto-scaling and edge distribution",
+                  tech: ["Go", "Kubernetes", "gRPC", "Apache Kafka"],
+                  repoUrl: "https://github.com/raj/cloudflow",
+                  demoUrl: "https://cloudflow.dev"
+                }]
+              },
+              "zoe.nakamura.game@unity3d.com": {
+                bio: "Creative technologist and game developer with 7+ years creating immersive AR/VR experiences. Unity Certified Expert specializing in mixed reality and interactive installations. Passionate about gamification and educational games.",
+                looksToConnect: "Seeking creative developers and 3D artists to build revolutionary AR/VR educational experiences and interactive art installations",
+                skills: ["Unity3D", "C#", "Unreal Engine", "AR/VR Development", "3D Modeling", "WebGL", "JavaScript", "Blender", "ARCore", "ARKit", "Oculus SDK"],
+                interests: ["Game Development", "AR/VR", "Interactive Art", "Educational Games", "3D Graphics", "Mixed Reality", "Creative Technology"],
+                experience: [{
+                  title: "Senior AR/VR Developer",
+                  org: "Unity Technologies",
+                  startDate: "2021-05-01",
+                  endDate: null,
+                  description: "Creating AR/VR development tools and immersive educational experiences"
+                }, {
+                  title: "Game Developer",
+                  org: "Oculus (Meta)",
+                  startDate: "2019-02-01",
+                  endDate: "2021-04-01",
+                  description: "Developed VR games and experiences for Oculus platform"
+                }],
+                projects: [{
+                  name: "EduVerse AR",
+                  description: "Augmented reality educational platform making learning interactive and immersive",
+                  tech: ["Unity3D", "ARCore", "C#", "Firebase"],
+                  repoUrl: "https://github.com/zoe/eduverse",
+                  demoUrl: "https://eduverse.ar"
                 }]
               }
             };
