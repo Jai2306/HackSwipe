@@ -1252,7 +1252,150 @@ async function handleAuth(request, { params }) {
                 updatedAt: new Date()
               };
               await db.collection('posts').insertOne(post6);
+
+              // Additional diverse hackathon
+              const post7 = {
+                id: uuidv4(),
+                type: "HACKATHON",
+                leaderId: dummyUser.id,
+                title: "Design Thinking Hackathon",
+                location: "Los Angeles, CA",
+                websiteUrl: "https://designthinking-hack.com",
+                skillsNeeded: ["UI/UX Design", "Figma", "User Research", "Prototyping"],
+                notes: "24-hour design-focused hackathon. Create user-centered solutions for real-world problems with design thinking methodology.",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post7);
             }
+
+            if (dummyUser.email === "maya.patel@example.com") {
+              const post8 = {
+                id: uuidv4(),
+                type: "HACKATHON",
+                leaderId: dummyUser.id,
+                title: "Green Tech Innovation Challenge",
+                location: "Seattle, WA",
+                websiteUrl: "https://greentech-hack.org",
+                skillsNeeded: ["Python", "IoT", "Renewable Energy", "Data Analytics"],
+                notes: "3-day sustainability hackathon focusing on renewable energy solutions and environmental monitoring systems.",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post8);
+
+              const post9 = {
+                id: uuidv4(),
+                type: "PROJECT",
+                leaderId: dummyUser.id,
+                title: "Smart City Infrastructure",
+                location: "Remote",
+                websiteUrl: "https://smart-city.dev",
+                skillsNeeded: ["IoT", "Docker", "Kubernetes", "Microservices"],
+                notes: "Building next-generation smart city infrastructure with IoT sensors and edge computing for sustainable urban living.",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post9);
+            }
+          }
+
+          // Additional standalone posts for variety
+          const additionalPosts = [
+            {
+              id: uuidv4(),
+              type: "HACKATHON",
+              leaderId: dummyUsers[0].id, // Sarah Chen
+              title: "Healthcare AI Hackathon",
+              location: "Boston, MA",
+              websiteUrl: "https://healthcare-ai-hack.org",
+              skillsNeeded: ["Python", "Healthcare", "Machine Learning", "HIPAA"],
+              notes: "48-hour medical AI hackathon with real healthcare datasets. Build solutions for patient care and medical diagnosis.",
+              status: "OPEN",
+              visibility: "PUBLIC",
+              createdAt: new Date(),
+              updatedAt: new Date()
+            },
+            {
+              id: uuidv4(),
+              type: "PROJECT",
+              leaderId: dummyUsers[3].id, // James Kim
+              title: "DeFi Insurance Protocol",
+              location: "New York, NY (Hybrid)",
+              websiteUrl: "https://defi-insurance.finance",
+              skillsNeeded: ["Solidity", "Smart Contracts", "React", "Insurance"],
+              notes: "Revolutionary decentralized insurance protocol. Join us in building the future of risk management on blockchain.",
+              status: "OPEN",
+              visibility: "PUBLIC",
+              createdAt: new Date(),
+              updatedAt: new Date()
+            },
+            {
+              id: uuidv4(),
+              type: "HACKATHON",
+              leaderId: dummyUsers[4].id, // Emily Johnson
+              title: "EdTech Innovation Summit",
+              location: "Austin, TX",
+              websiteUrl: "https://edtech-summit.edu",
+              skillsNeeded: ["Education", "React", "Learning Analytics", "Gamification"],
+              notes: "Education technology hackathon focusing on personalized learning and student engagement. Transform education through tech!",
+              status: "OPEN",
+              visibility: "PUBLIC",
+              createdAt: new Date(),
+              updatedAt: new Date()
+            },
+            {
+              id: uuidv4(),
+              type: "PROJECT",
+              leaderId: dummyUsers[5].id, // David Martinez
+              title: "CyberGuard Security Suite",
+              location: "Denver, CO",
+              websiteUrl: "https://cyberguard.security",
+              skillsNeeded: ["Cybersecurity", "Python", "Network Security", "Incident Response"],
+              notes: "Open-source enterprise security suite with automated threat detection and response capabilities.",
+              status: "OPEN",
+              visibility: "PUBLIC",
+              createdAt: new Date(),
+              updatedAt: new Date()
+            },
+            {
+              id: uuidv4(),
+              type: "HACKATHON",
+              leaderId: dummyUsers[1].id, // Alex Rodriguez
+              title: "Mobile Gaming Revolution",
+              location: "San Francisco, CA",
+              websiteUrl: "https://mobile-gaming-hack.com",
+              skillsNeeded: ["Unity", "React Native", "Game Design", "AR/VR"],
+              notes: "Mobile gaming hackathon with focus on AR/VR integration. Create the next breakthrough in mobile entertainment!",
+              status: "OPEN",
+              visibility: "PUBLIC",
+              createdAt: new Date(),
+              updatedAt: new Date()
+            },
+            {
+              id: uuidv4(),
+              type: "PROJECT",
+              leaderId: dummyUsers[6].id, // Lisa Wong
+              title: "Accessibility Web Platform",
+              location: "Remote",
+              websiteUrl: "https://accessible-web.org",
+              skillsNeeded: ["React", "Accessibility", "WCAG", "Screen Readers"],
+              notes: "Building inclusive web experiences for users with disabilities. Help us make the internet accessible for everyone.",
+              status: "OPEN",
+              visibility: "PUBLIC",
+              createdAt: new Date(),
+              updatedAt: new Date()
+            }
+          ];
+
+          for (const post of additionalPosts) {
+            await db.collection('posts').insertOne(post);
           }
         }
 
