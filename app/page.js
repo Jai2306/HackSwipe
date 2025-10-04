@@ -1427,29 +1427,29 @@ export default function App() {
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl font-bold text-center mb-6">Your Dashboard</h2>
               
-              {/* Compact Stats Grid */}
-              <div className="grid gap-4 grid-cols-2 lg:grid-cols-4 mb-6">
-                <Card className="text-center aspect-square flex flex-col justify-center p-3">
-                  <Heart className="h-6 w-6 mx-auto text-red-500 mb-2" />
-                  <p className="text-2xl font-bold text-red-500">{matches.length}</p>
+              {/* Ultra Compact Stats Row */}
+              <div className="grid grid-cols-4 gap-3 mb-6">
+                <Card className="text-center flex flex-col justify-center p-2 h-16">
+                  <Heart className="h-4 w-4 mx-auto text-red-500 mb-1" />
+                  <p className="text-lg font-bold text-red-500">{matches.length}</p>
                   <p className="text-xs text-gray-600">Matches</p>
                 </Card>
                 
-                <Card className="text-center aspect-square flex flex-col justify-center p-3">
-                  <TrendingUp className="h-6 w-6 mx-auto text-blue-500 mb-2" />
-                  <p className="text-2xl font-bold text-blue-500">{userPosts.length}</p>
+                <Card className="text-center flex flex-col justify-center p-2 h-16">
+                  <TrendingUp className="h-4 w-4 mx-auto text-blue-500 mb-1" />
+                  <p className="text-lg font-bold text-blue-500">{userPosts.length}</p>
                   <p className="text-xs text-gray-600">Posts</p>
                 </Card>
                 
-                <Card className="text-center aspect-square flex flex-col justify-center p-3">
-                  <Compass className="h-6 w-6 mx-auto text-green-500 mb-2" />
-                  <p className="text-2xl font-bold text-green-500">{overviewStats.totalSwipes || 0}</p>
+                <Card className="text-center flex flex-col justify-center p-2 h-16">
+                  <Compass className="h-4 w-4 mx-auto text-green-500 mb-1" />
+                  <p className="text-lg font-bold text-green-500">{overviewStats.totalSwipes || 0}</p>
                   <p className="text-xs text-gray-600">Discovered</p>
                 </Card>
                 
-                <Card className="text-center aspect-square flex flex-col justify-center p-3">
-                  <Star className="h-6 w-6 mx-auto text-yellow-500 mb-2" />
-                  <p className="text-2xl font-bold text-yellow-500">{loginStreak}</p>
+                <Card className="text-center flex flex-col justify-center p-2 h-16">
+                  <Star className="h-4 w-4 mx-auto text-yellow-500 mb-1" />
+                  <p className="text-lg font-bold text-yellow-500">{loginStreak}</p>
                   <p className="text-xs text-gray-600">Streak</p>
                 </Card>
               </div>
