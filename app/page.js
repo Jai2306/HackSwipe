@@ -16,7 +16,7 @@ import {
   Heart, X, Compass, MessageCircle, BarChart3, User, Bell, Plus, 
   Github, Linkedin, ExternalLink, MapPin, Code, Award,
   Building, Send, Users, Search, Target,
-  Briefcase, Star, Mail, TrendingUp
+  Briefcase, Star, Mail, TrendingUp, Undo
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
