@@ -1757,7 +1757,19 @@ export default function App() {
           {/* Profile Tab */}
           <TabsContent value="profile" className="p-4">
             <div className="max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold text-center mb-6">Your Profile</h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">Your Profile</h2>
+                <Button
+                  onClick={() => {
+                    setEditingProfile(profile);
+                    setShowEditProfileDialog(true);
+                  }}
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                >
+                  <User className="h-4 w-4 mr-2" />
+                  Edit Profile
+                </Button>
+              </div>
               
               <Card>
                 <CardHeader>
