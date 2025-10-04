@@ -731,6 +731,84 @@ async function handleAuth(request, { params }) {
       return NextResponse.json({ message: messageWithSender });
     }
 
+    // Get user's own posts
+    if (path === 'posts/my-posts' && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      const posts = await db.collection('posts').find({ leaderId: user.id }).toArray();
+      
+      // Get inquiry counts for each post
+      const postsWithStats = await Promise.all(
+        posts.map(async (post) => {
+          const inquiryCount = await db.collection('inquiries').countDocuments({ postId: post.id });
+          const acceptedInquiries = await db.collection('inquiries').countDocuments({ 
+            postId: post.id, 
+            status: 'ACCEPTED' 
+          });
+          
+          return {
+            ...post,
+            inquiryCount,
+            acceptedCount: acceptedInquiries
+          };
+        })
+      );
+
+      return NextResponse.json({ posts: postsWithStats });
+    }
+
+    // Get notifications
+    if (path === 'notifications' && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      // Generate some dummy notifications based on user activity
+      const notifications = [
+        {
+          id: uuidv4(),
+          type: 'MATCH',
+          message: 'You have a new match!',
+          createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+          read: false
+        },
+        {
+          id: uuidv4(),
+          type: 'INQUIRY',
+          message: 'Someone is interested in your project',
+          createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
+          read: false
+        },
+        {
+          id: uuidv4(),
+          type: 'MESSAGE',
+          message: 'New message from Alex Rodriguez',
+          createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+          read: true
+        }
+      ];
+
+      return NextResponse.json({ notifications });
+    }
+
+    // Get login streak
+    if (path === 'streak' && method === 'GET') {
+      const user = await getCurrentUser(request);
+      if (!user) {
+        return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+      }
+
+      // For demo purposes, generate a streak based on user creation date
+      const daysSinceJoin = Math.floor((new Date() - new Date(user.createdAt)) / (1000 * 60 * 60 * 24));
+      const streak = Math.min(daysSinceJoin + 1, 30); // Cap at 30 days
+
+      return NextResponse.json({ streak });
+    }
+
     // Overview statistics
     if (path === 'overview' && method === 'GET') {
       const user = await getCurrentUser(request);
