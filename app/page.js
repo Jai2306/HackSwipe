@@ -2245,6 +2245,55 @@ export default function App() {
                   ))}
                 </div>
               </div>
+
+              {/* Social Links */}
+              <div className="space-y-4">
+                <Label className="text-base font-semibold">Social Links</Label>
+                
+                <div className="space-y-2">
+                  <Label className="flex items-center">
+                    <Github className="h-4 w-4 mr-2" />
+                    GitHub Profile
+                  </Label>
+                  <Input
+                    placeholder="https://github.com/yourusername"
+                    value={(() => {
+                      const githubSocial = (editingProfile.socials || []).find(s => s.type === 'GITHUB');
+                      return githubSocial ? githubSocial.url : '';
+                    })()}
+                    onChange={(e) => {
+                      const currentSocials = editingProfile.socials || [];
+                      const otherSocials = currentSocials.filter(s => s.type !== 'GITHUB');
+                      const newSocials = e.target.value.trim() 
+                        ? [...otherSocials, { type: 'GITHUB', url: e.target.value }]
+                        : otherSocials;
+                      setEditingProfile(prev => ({ ...prev, socials: newSocials }));
+                    }}
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label className="flex items-center">
+                    <Linkedin className="h-4 w-4 mr-2" />
+                    LinkedIn Profile
+                  </Label>
+                  <Input
+                    placeholder="https://linkedin.com/in/yourusername"
+                    value={(() => {
+                      const linkedinSocial = (editingProfile.socials || []).find(s => s.type === 'LINKEDIN');
+                      return linkedinSocial ? linkedinSocial.url : '';
+                    })()}
+                    onChange={(e) => {
+                      const currentSocials = editingProfile.socials || [];
+                      const otherSocials = currentSocials.filter(s => s.type !== 'LINKEDIN');
+                      const newSocials = e.target.value.trim() 
+                        ? [...otherSocials, { type: 'LINKEDIN', url: e.target.value }]
+                        : otherSocials;
+                      setEditingProfile(prev => ({ ...prev, socials: newSocials }));
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           )}
           
