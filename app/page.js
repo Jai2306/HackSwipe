@@ -30,11 +30,24 @@ export default function App() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('explore');
+  const [exploreTab, setExploreTab] = useState('people');
   const [authMode, setAuthMode] = useState('login');
   const [people, setPeople] = useState([]);
+  const [hackathons, setHackathons] = useState([]);
+  const [projects, setProjects] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [inquiries, setInquiries] = useState([]);
+  const [conversations, setConversations] = useState([]);
   const [currentPersonIndex, setCurrentPersonIndex] = useState(0);
+  const [currentHackathonIndex, setCurrentHackathonIndex] = useState(0);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showPostDialog, setShowPostDialog] = useState(false);
+  const [showMessageDialog, setShowMessageDialog] = useState(false);
+  const [selectedConversation, setSelectedConversation] = useState(null);
+  const [messageInput, setMessageInput] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [overviewStats, setOverviewStats] = useState({});
 
   // Auth form states
   const [email, setEmail] = useState('');
