@@ -1407,7 +1407,7 @@ async function handleAuth(request, { params }) {
               await db.collection('posts').insertOne(post2);
             }
 
-            if (dummyUser.email === "james.kim@example.com") {
+            if (dummyUser.email === "james.kim.blockchain@yahoo.com") {
               const post3 = {
                 id: uuidv4(),
                 type: "HACKATHON",
