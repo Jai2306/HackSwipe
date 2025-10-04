@@ -1080,10 +1080,119 @@ async function handleAuth(request, { params }) {
             };
 
             await db.collection('profiles').insertOne(profiles[dummyUser.email]);
+
+            // Create posts for some users
+            if (dummyUser.email === "sarah.chen@example.com") {
+              const post1 = {
+                id: uuidv4(),
+                type: "HACKATHON",
+                leaderId: dummyUser.id,
+                title: "AI for Climate Change Hackathon",
+                location: "San Francisco, CA",
+                websiteUrl: "https://ai4climate.org",
+                skillsNeeded: ["Python", "Machine Learning", "Data Science", "TensorFlow"],
+                notes: "48-hour hackathon focusing on using AI to combat climate change. $75K in prizes and mentorship from leading AI researchers!",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post1);
+            }
+
+            if (dummyUser.email === "alex.rodriguez@example.com") {
+              const post2 = {
+                id: uuidv4(),
+                type: "PROJECT",
+                leaderId: dummyUser.id,
+                title: "MindfulGaming - Wellness Gaming Platform",
+                location: "Remote",
+                websiteUrl: "https://mindful-gaming.dev",
+                skillsNeeded: ["React Native", "Unity", "UI/UX Design", "Psychology"],
+                notes: "Building a gaming platform that promotes mental wellness and mindfulness. Looking for passionate developers who want to make gaming healthier!",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post2);
+            }
+
+            if (dummyUser.email === "james.kim@example.com") {
+              const post3 = {
+                id: uuidv4(),
+                type: "HACKATHON",
+                leaderId: dummyUser.id,
+                title: "Web3 Social Impact Hackathon",
+                location: "New York, NY",
+                websiteUrl: "https://web3impact.org",
+                skillsNeeded: ["Solidity", "React", "Web3", "Smart Contracts"],
+                notes: "Revolutionary 3-day hackathon building decentralized applications for social good. Connect with Web3 pioneers and create the future!",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post3);
+            }
+
+            if (dummyUser.email === "emily.johnson@example.com") {
+              const post4 = {
+                id: uuidv4(),
+                type: "PROJECT",
+                leaderId: dummyUser.id,
+                title: "HealthAI - Medical Diagnosis Assistant",
+                location: "Boston, MA (Hybrid)",
+                websiteUrl: "https://health-ai.research.edu",
+                skillsNeeded: ["Python", "PyTorch", "Medical Data", "React", "API Development"],
+                notes: "Open-source AI project for medical diagnosis assistance. Collaborating with hospitals and research institutions. Join us in revolutionizing healthcare!",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post4);
+            }
+
+            if (dummyUser.email === "david.martinez@example.com") {
+              const post5 = {
+                id: uuidv4(),
+                type: "HACKATHON",
+                leaderId: dummyUser.id,
+                title: "CyberSec Challenge 2024",
+                location: "Denver, CO",
+                websiteUrl: "https://cybersec-challenge.com",
+                skillsNeeded: ["Cybersecurity", "Python", "Penetration Testing", "Network Security"],
+                notes: "Elite cybersecurity competition with real-world scenarios. Test your skills against the best hackers and security researchers. Prizes worth $100K!",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post5);
+            }
+
+            if (dummyUser.email === "lisa.wong@example.com") {
+              const post6 = {
+                id: uuidv4(),
+                type: "PROJECT",
+                leaderId: dummyUser.id,
+                title: "EduTech Innovation Platform",
+                location: "Los Angeles, CA (Remote)",
+                websiteUrl: "https://edutech-innovation.org",
+                skillsNeeded: ["React", "Node.js", "UI/UX Design", "Education Technology"],
+                notes: "Building the next generation of educational tools. Looking for developers and designers passionate about transforming education through technology.",
+                status: "OPEN",
+                visibility: "PUBLIC",
+                createdAt: new Date(),
+                updatedAt: new Date()
+              };
+              await db.collection('posts').insertOne(post6);
+            }
           }
         }
 
-        return NextResponse.json({ success: true, message: 'Dummy data created' });
+        return NextResponse.json({ success: true, message: 'Comprehensive dummy data created' });
       } catch (error) {
         console.error('Dummy data creation error:', error);
         return NextResponse.json({ error: 'Failed to create dummy data' }, { status: 500 });
