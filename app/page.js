@@ -2336,6 +2336,68 @@ export default function App() {
                     </Badge>
                   ))}
                 </div>
+                <div className="space-y-1">
+                  <Label className="text-sm">Add Custom Interest</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Enter a custom interest..."
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          const customInterest = e.target.value.trim();
+                          if (customInterest && !(editingProfile.interests || []).includes(customInterest)) {
+                            setEditingProfile(prev => ({
+                              ...prev,
+                              interests: [...(prev.interests || []), customInterest]
+                            }));
+                            e.target.value = '';
+                          }
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={(e) => {
+                        const input = e.target.parentElement.querySelector('input');
+                        const customInterest = input.value.trim();
+                        if (customInterest && !(editingProfile.interests || []).includes(customInterest)) {
+                          setEditingProfile(prev => ({
+                            ...prev,
+                            interests: [...(prev.interests || []), customInterest]
+                          }));
+                          input.value = '';
+                        }
+                      }}
+                    >
+                      Add
+                    </Button>
+                  </div>
+                </div>
+                {/* Display custom interests with remove option */}
+                {(editingProfile.interests || []).filter(interest => !INTERESTS.includes(interest)).length > 0 && (
+                  <div className="mt-2">
+                    <Label className="text-sm text-gray-600">Custom Interests:</Label>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {(editingProfile.interests || []).filter(interest => !INTERESTS.includes(interest)).map(interest => (
+                        <Badge
+                          key={interest}
+                          variant="default"
+                          className="text-xs cursor-pointer bg-green-100 text-green-800"
+                          onClick={() => {
+                            const currentInterests = editingProfile.interests || [];
+                            setEditingProfile(prev => ({
+                              ...prev,
+                              interests: currentInterests.filter(i => i !== interest)
+                            }));
+                          }}
+                        >
+                          {interest} ×
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Social Links */}
