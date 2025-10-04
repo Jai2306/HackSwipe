@@ -1312,29 +1312,41 @@ export default function App() {
               
               {hackathons[currentHackathonIndex] ? (
                 <div className="relative overflow-visible">
-                  {/* Next card peek from right side (5-10% visible) */}
+                  {/* DRAMATIC Next Card Peek - 30% visible from right */}
                   {hackathons[currentHackathonIndex + 1] && (
-                    <div className="absolute top-0 -right-6 w-full h-full bg-white rounded-2xl shadow-lg z-0 transform rotate-2 scale-95 opacity-30 border border-gray-200">
-                      <div className="h-48 bg-gradient-to-br from-orange-200 to-red-200 rounded-t-2xl"></div>
-                    </div>
-                  )}
-                  
-                  {/* Third card (deepest background) */}
-                  {hackathons[currentHackathonIndex + 2] && (
-                    <div className="absolute -top-1 -left-1 -right-1 -bottom-1 bg-white rounded-2xl shadow-md z-1 transform rotate-1 scale-97 opacity-50 border border-gray-200">
-                      <div className="h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-t-2xl"></div>
-                    </div>
-                  )}
-                  
-                  {/* Second card (middle) */}
-                  {hackathons[currentHackathonIndex + 1] && (
-                    <div className="absolute -top-2 -left-2 -right-2 -bottom-2 bg-white rounded-2xl shadow-lg z-2 transform rotate-0.5 scale-98 opacity-70 border border-gray-300">
-                      <div className="h-48 bg-gradient-to-br from-orange-300 to-red-300 rounded-t-2xl flex items-center justify-center">
-                        <div className="text-white text-xs font-medium bg-black bg-opacity-30 px-2 py-1 rounded">Next Hackathon</div>
+                    <div className="absolute top-0 right-[-120px] w-full h-full bg-white rounded-2xl shadow-xl z-0 transform rotate-3 scale-90 opacity-70 border-2 border-orange-300">
+                      <div className="h-48 bg-gradient-to-br from-orange-400 to-red-500 rounded-t-2xl flex items-center justify-center">
+                        <div className="text-white font-bold text-lg">NEXT →</div>
                       </div>
                       <div className="p-4">
-                        <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                        <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                        <div className="h-6 bg-orange-200 rounded mb-3"></div>
+                        <div className="h-4 bg-orange-100 rounded mb-2"></div>
+                        <div className="h-4 bg-orange-100 rounded w-3/4"></div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Prominent Second Card Behind Current */}
+                  {hackathons[currentHackathonIndex + 1] && (
+                    <div className="absolute top-4 left-4 right-4 bottom-4 bg-white rounded-2xl shadow-2xl z-1 transform rotate-2 scale-95 opacity-80 border-2 border-orange-200">
+                      <div className="h-48 bg-gradient-to-br from-orange-300 to-red-300 rounded-t-2xl flex items-center justify-center">
+                        <div className="text-white font-semibold text-sm bg-black bg-opacity-40 px-3 py-1 rounded-full">
+                          {hackathons[currentHackathonIndex + 1]?.title || 'Next Hackathon'}
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <div className="h-5 bg-orange-200 rounded mb-2"></div>
+                        <div className="h-4 bg-orange-100 rounded mb-2"></div>
+                        <div className="h-4 bg-orange-100 rounded w-2/3"></div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Third Card (Even More Visible) */}
+                  {hackathons[currentHackathonIndex + 2] && (
+                    <div className="absolute top-8 left-8 right-8 bottom-8 bg-white rounded-2xl shadow-lg z-0 transform rotate-1 scale-92 opacity-60 border border-gray-300">
+                      <div className="h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-t-2xl flex items-center justify-center">
+                        <div className="text-white text-xs font-medium bg-black bg-opacity-30 px-2 py-1 rounded">Card 3</div>
                       </div>
                     </div>
                   )}
