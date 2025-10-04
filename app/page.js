@@ -2324,6 +2324,227 @@ export default function App() {
                   />
                 </div>
               </div>
+
+              {/* Work Experience */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <Label className="text-base font-semibold">Work Experience</Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const currentExp = editingProfile.experience || [];
+                      setEditingProfile(prev => ({
+                        ...prev,
+                        experience: [...currentExp, {
+                          title: '',
+                          org: '',
+                          startDate: '',
+                          endDate: '',
+                          description: ''
+                        }]
+                      }));
+                    }}
+                  >
+                    <Plus className="h-4 w-4 mr-1" />
+                    Add Experience
+                  </Button>
+                </div>
+                
+                {(editingProfile.experience || []).map((exp, index) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label className="font-medium">Experience #{index + 1}</Label>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const currentExp = editingProfile.experience || [];
+                          setEditingProfile(prev => ({
+                            ...prev,
+                            experience: currentExp.filter((_, i) => i !== index)
+                          }));
+                        }}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <Label className="text-sm">Job Title</Label>
+                        <Input
+                          placeholder="Software Engineer"
+                          value={exp.title || ''}
+                          onChange={(e) => {
+                            const currentExp = [...(editingProfile.experience || [])];
+                            currentExp[index] = { ...currentExp[index], title: e.target.value };
+                            setEditingProfile(prev => ({ ...prev, experience: currentExp }));
+                          }}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-sm">Company</Label>
+                        <Input
+                          placeholder="Tech Company Inc"
+                          value={exp.org || ''}
+                          onChange={(e) => {
+                            const currentExp = [...(editingProfile.experience || [])];
+                            currentExp[index] = { ...currentExp[index], org: e.target.value };
+                            setEditingProfile(prev => ({ ...prev, experience: currentExp }));
+                          }}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <Label className="text-sm">Start Date</Label>
+                        <Input
+                          type="month"
+                          value={exp.startDate || ''}
+                          onChange={(e) => {
+                            const currentExp = [...(editingProfile.experience || [])];
+                            currentExp[index] = { ...currentExp[index], startDate: e.target.value };
+                            setEditingProfile(prev => ({ ...prev, experience: currentExp }));
+                          }}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-sm">End Date</Label>
+                        <Input
+                          type="month"
+                          value={exp.endDate || ''}
+                          onChange={(e) => {
+                            const currentExp = [...(editingProfile.experience || [])];
+                            currentExp[index] = { ...currentExp[index], endDate: e.target.value };
+                            setEditingProfile(prev => ({ ...prev, experience: currentExp }));
+                          }}
+                          placeholder="Leave empty if current"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <Label className="text-sm">Description</Label>
+                      <Textarea
+                        placeholder="Brief description of your role and achievements..."
+                        value={exp.description || ''}
+                        onChange={(e) => {
+                          const currentExp = [...(editingProfile.experience || [])];
+                          currentExp[index] = { ...currentExp[index], description: e.target.value };
+                          setEditingProfile(prev => ({ ...prev, experience: currentExp }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Projects */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <Label className="text-base font-semibold">Projects</Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const currentProjects = editingProfile.projects || [];
+                      setEditingProfile(prev => ({
+                        ...prev,
+                        projects: [...currentProjects, {
+                          name: '',
+                          description: '',
+                          tech: [],
+                          repoUrl: '',
+                          demoUrl: ''
+                        }]
+                      }));
+                    }}
+                  >
+                    <Plus className="h-4 w-4 mr-1" />
+                    Add Project
+                  </Button>
+                </div>
+                
+                {(editingProfile.projects || []).map((project, index) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label className="font-medium">Project #{index + 1}</Label>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const currentProjects = editingProfile.projects || [];
+                          setEditingProfile(prev => ({
+                            ...prev,
+                            projects: currentProjects.filter((_, i) => i !== index)
+                          }));
+                        }}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <Label className="text-sm">Project Name</Label>
+                      <Input
+                        placeholder="My Awesome Project"
+                        value={project.name || ''}
+                        onChange={(e) => {
+                          const currentProjects = [...(editingProfile.projects || [])];
+                          currentProjects[index] = { ...currentProjects[index], name: e.target.value };
+                          setEditingProfile(prev => ({ ...prev, projects: currentProjects }));
+                        }}
+                      />
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <Label className="text-sm">Description</Label>
+                      <Textarea
+                        placeholder="Brief description of the project and your role..."
+                        value={project.description || ''}
+                        onChange={(e) => {
+                          const currentProjects = [...(editingProfile.projects || [])];
+                          currentProjects[index] = { ...currentProjects[index], description: e.target.value };
+                          setEditingProfile(prev => ({ ...prev, projects: currentProjects }));
+                        }}
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <Label className="text-sm">GitHub Repository</Label>
+                        <Input
+                          placeholder="https://github.com/..."
+                          value={project.repoUrl || ''}
+                          onChange={(e) => {
+                            const currentProjects = [...(editingProfile.projects || [])];
+                            currentProjects[index] = { ...currentProjects[index], repoUrl: e.target.value };
+                            setEditingProfile(prev => ({ ...prev, projects: currentProjects }));
+                          }}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-sm">Live Demo</Label>
+                        <Input
+                          placeholder="https://myproject.com"
+                          value={project.demoUrl || ''}
+                          onChange={(e) => {
+                            const currentProjects = [...(editingProfile.projects || [])];
+                            currentProjects[index] = { ...currentProjects[index], demoUrl: e.target.value };
+                            setEditingProfile(prev => ({ ...prev, projects: currentProjects }));
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
           
