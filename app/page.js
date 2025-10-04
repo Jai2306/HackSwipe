@@ -2037,6 +2037,107 @@ export default function App() {
         </DialogContent>
       </Dialog>
 
+      {/* Edit Post Dialog */}
+      <Dialog open={showEditPostDialog} onOpenChange={setShowEditPostDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit Post</DialogTitle>
+            <DialogDescription>
+              Update your post information
+            </DialogDescription>
+          </DialogHeader>
+          
+          {editingPost && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Type <span className="text-red-500">*</span></Label>
+                <Select
+                  value={editingPost.type}
+                  onValueChange={(value) => setEditingPost(prev => ({ ...prev, type: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="HACKATHON">Hackathon</SelectItem>
+                    <SelectItem value="PROJECT">Project</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Title <span className="text-red-500">*</span></Label>
+                <Input
+                  placeholder="Enter title..."
+                  value={editingPost.title}
+                  onChange={(e) => setEditingPost(prev => ({ ...prev, title: e.target.value }))}
+                  className={!editingPost.title?.trim() ? 'border-red-300' : ''}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Location <span className="text-red-500">*</span></Label>
+                <Input
+                  placeholder="City or Remote"
+                  value={editingPost.location}
+                  onChange={(e) => setEditingPost(prev => ({ ...prev, location: e.target.value }))}
+                  className={!editingPost.location?.trim() ? 'border-red-300' : ''}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Website/Link</Label>
+                <Input
+                  placeholder="https://..."
+                  value={editingPost.websiteUrl || ''}
+                  onChange={(e) => setEditingPost(prev => ({ ...prev, websiteUrl: e.target.value }))}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Skills Needed</Label>
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {SKILLS.slice(0, 15).map(skill => (
+                    <Badge
+                      key={skill}
+                      variant={editingPost.skillsNeeded?.includes(skill) ? 'default' : 'outline'}
+                      className="cursor-pointer text-xs"
+                      onClick={() => {
+                        const skills = editingPost.skillsNeeded || [];
+                        const newSkills = skills.includes(skill)
+                          ? skills.filter(s => s !== skill)
+                          : [...skills, skill];
+                        setEditingPost(prev => ({ ...prev, skillsNeeded: newSkills }));
+                      }}
+                    >
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Notes</Label>
+                <Textarea
+                  placeholder="Additional details..."
+                  value={editingPost.notes || ''}
+                  onChange={(e) => setEditingPost(prev => ({ ...prev, notes: e.target.value }))}
+                />
+              </div>
+            </div>
+          )}
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowEditPostDialog(false)}>
+              Cancel
+            </Button>
+            <Button onClick={editPost}>
+              Update Post
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 px-4 py-2 z-50">
         <div className="flex justify-around max-w-lg mx-auto">
