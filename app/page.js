@@ -1191,12 +1191,21 @@ export default function App() {
               <h3 className="text-xl font-bold text-center mb-4">Discover Hackathons</h3>
               
               {hackathons[currentHackathonIndex] ? (
-                <motion.div
-                  key={currentHackathonIndex}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="bg-white rounded-2xl shadow-xl overflow-hidden"
-                >
+                <div className="relative">
+                  {/* Next hackathon preview (background card) */}
+                  {hackathons[currentHackathonIndex + 1] && (
+                    <div className="absolute top-2 left-2 right-2 bottom-2 bg-gray-100 rounded-2xl shadow-md z-0 transform scale-95 opacity-50">
+                      <div className="h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-t-2xl"></div>
+                    </div>
+                  )}
+                  
+                  {/* Current hackathon (foreground card) */}
+                  <motion.div
+                    key={currentHackathonIndex}
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden"
+                  >
                   <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center relative">
                     <div className="text-center text-white">
                       <Target className="h-12 w-12 mx-auto mb-2" />
