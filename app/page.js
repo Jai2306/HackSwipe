@@ -49,6 +49,7 @@ export default function App() {
   const [currentPersonIndex, setCurrentPersonIndex] = useState(0);
   const [currentHackathonIndex, setCurrentHackathonIndex] = useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [swipeDirection, setSwipeDirection] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showPostDialog, setShowPostDialog] = useState(false);
   const [showMessageDialog, setShowMessageDialog] = useState(false);
