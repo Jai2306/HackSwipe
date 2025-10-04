@@ -2068,6 +2068,18 @@ export default function App() {
                   <Plus className="h-4 w-4 mr-2" />
                   New Chat
                 </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full mt-2"
+                  onClick={() => {
+                    setShowMessageDialog(false);
+                    setShowGroupChatDialog(true);
+                  }}
+                >
+                  <Users className="h-4 w-4 mr-2" />
+                  Group Chat
+                </Button>
               </div>
               
               <ScrollArea className="h-[520px]">
