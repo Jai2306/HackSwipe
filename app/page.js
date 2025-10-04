@@ -1411,7 +1411,16 @@ export default function App() {
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {matches.map(match => (
                     <Card key={match.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                      <div className="h-32 bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
+                      <div 
+                        className="h-32 bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity"
+                        onClick={() => {
+                          if (match.otherUser) {
+                            setSelectedUserProfile(match.otherUser);
+                            setShowProfileDialog(true);
+                          }
+                        }}
+                        title="Click to view profile"
+                      >
                         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
                           <User className="h-8 w-8 text-gray-400" />
                         </div>
@@ -1431,10 +1440,33 @@ export default function App() {
                           </div>
                         )}
                         
-                        <Button size="sm" className="w-full">
-                          <MessageCircle className="h-4 w-4 mr-2" />
-                          Message
-                        </Button>
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            className="flex-1"
+                            onClick={() => {
+                              if (match.otherUser) {
+                                startDirectMessage(match.otherUser.id);
+                                setShowMessageDialog(true);
+                              }
+                            }}
+                          >
+                            <MessageCircle className="h-4 w-4 mr-2" />
+                            Message
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => {
+                              if (match.otherUser) {
+                                setSelectedUserProfile(match.otherUser);
+                                setShowProfileDialog(true);
+                              }
+                            }}
+                          >
+                            <User className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </CardContent>
                     </Card>
                   ))}
