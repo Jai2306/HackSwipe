@@ -883,7 +883,7 @@ export default function App() {
               </Button>
               
               {showNotifications && (
-                <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border z-50">
+                <div className="notifications-dropdown absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border z-50">
                   <div className="p-3 border-b">
                     <h3 className="font-semibold">Notifications</h3>
                   </div>
