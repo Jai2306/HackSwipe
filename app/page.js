@@ -2152,6 +2152,140 @@ export default function App() {
         </DialogContent>
       </Dialog>
 
+      {/* Edit Profile Dialog */}
+      <Dialog open={showEditProfileDialog} onOpenChange={setShowEditProfileDialog}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Your Profile</DialogTitle>
+            <DialogDescription>
+              Update your profile information and preferences
+            </DialogDescription>
+          </DialogHeader>
+          
+          {editingProfile && (
+            <div className="space-y-6">
+              {/* Basic Info */}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Bio</Label>
+                  <Textarea
+                    placeholder="Tell us about yourself..."
+                    value={editingProfile.bio || ''}
+                    onChange={(e) => setEditingProfile(prev => ({ ...prev, bio: e.target.value }))}
+                    className="min-h-[100px]"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label>What are you looking for?</Label>
+                  <Textarea
+                    placeholder="Looking for a frontend dev for an AI app..."
+                    value={editingProfile.looksToConnect || ''}
+                    onChange={(e) => setEditingProfile(prev => ({ ...prev, looksToConnect: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              {/* Skills */}
+              <div className="space-y-2">
+                <Label>Skills</Label>
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {SKILLS.map(skill => (
+                    <Badge
+                      key={skill}
+                      variant={(editingProfile.skills || []).includes(skill) ? 'default' : 'outline'}
+                      className="cursor-pointer text-xs"
+                      onClick={() => {
+                        const currentSkills = editingProfile.skills || [];
+                        if (currentSkills.includes(skill)) {
+                          setEditingProfile(prev => ({
+                            ...prev,
+                            skills: currentSkills.filter(s => s !== skill)
+                          }));
+                        } else {
+                          setEditingProfile(prev => ({
+                            ...prev,
+                            skills: [...currentSkills, skill]
+                          }));
+                        }
+                      }}
+                    >
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* Interests */}
+              <div className="space-y-2">
+                <Label>Interests</Label>
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {INTERESTS.map(interest => (
+                    <Badge
+                      key={interest}
+                      variant={(editingProfile.interests || []).includes(interest) ? 'default' : 'outline'}
+                      className="cursor-pointer text-xs"
+                      onClick={() => {
+                        const currentInterests = editingProfile.interests || [];
+                        if (currentInterests.includes(interest)) {
+                          setEditingProfile(prev => ({
+                            ...prev,
+                            interests: currentInterests.filter(i => i !== interest)
+                          }));
+                        } else {
+                          setEditingProfile(prev => ({
+                            ...prev,
+                            interests: [...currentInterests, interest]
+                          }));
+                        }
+                      }}
+                    >
+                      {interest}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowEditProfileDialog(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={async () => {
+                if (!editingProfile) return;
+                
+                const token = localStorage.getItem('token');
+                try {
+                  const response = await fetch('/api/profile', {
+                    method: 'PUT',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(editingProfile)
+                  });
+
+                  if (response.ok) {
+                    const data = await response.json();
+                    setProfile(data.profile);
+                    setShowEditProfileDialog(false);
+                    setEditingProfile(null);
+                  } else {
+                    console.error('Failed to update profile');
+                  }
+                } catch (error) {
+                  console.error('Error updating profile:', error);
+                }
+              }}
+            >
+              Save Changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 px-4 py-2 z-50">
         <div className="flex justify-around max-w-lg mx-auto">
