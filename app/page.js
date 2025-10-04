@@ -353,6 +353,9 @@ export default function App() {
       index = currentProjectIndex;
     }
 
+    // Set swipe direction for animation
+    setSwipeDirection(direction);
+
     const token = localStorage.getItem('token');
 
     try {
@@ -377,17 +380,23 @@ export default function App() {
           setMatches(prev => [...prev, data.match]);
         }
 
-        // Move to next item
-        if (type === 'PERSON') {
-          setCurrentPersonIndex(prev => prev + 1);
-        } else if (type === 'HACKATHON') {
-          setCurrentHackathonIndex(prev => prev + 1);
-        } else if (type === 'PROJECT') {
-          setCurrentProjectIndex(prev => prev + 1);
-        }
+        // Wait for animation to complete before moving to next item
+        setTimeout(() => {
+          // Move to next item
+          if (type === 'PERSON') {
+            setCurrentPersonIndex(prev => prev + 1);
+          } else if (type === 'HACKATHON') {
+            setCurrentHackathonIndex(prev => prev + 1);
+          } else if (type === 'PROJECT') {
+            setCurrentProjectIndex(prev => prev + 1);
+          }
+          // Reset swipe direction
+          setSwipeDirection(null);
+        }, 300);
       }
     } catch (error) {
       console.error('Swipe error:', error);
+      setSwipeDirection(null);
     }
   };
 
