@@ -102,6 +102,81 @@ export default function App() {
     checkAuth();
   }, []);
 
+  // Initialize dummy data
+  useEffect(() => {
+    if (user && profile) {
+      initializeDummyData();
+    }
+  }, [user, profile]);
+
+  const initializeDummyData = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      // Create dummy users with profiles
+      const dummyUsers = [
+        {
+          name: "Sarah Chen",
+          email: "sarah.chen@example.com",
+          skills: ["React", "Node.js", "Python", "Machine Learning"],
+          interests: ["AI/ML", "FinTech", "Social Impact"],
+          bio: "Full-stack developer passionate about AI and social impact. Looking to build the next generation of intelligent applications.",
+          looksToConnect: "Seeking backend developers for a fintech AI project"
+        },
+        {
+          name: "Alex Rodriguez",
+          email: "alex.rodriguez@example.com", 
+          skills: ["Flutter", "Swift", "Kotlin", "Firebase"],
+          interests: ["Mobile Development", "Gaming", "AR/VR"],
+          bio: "Mobile app developer with 5+ years experience. Love creating immersive gaming experiences.",
+          looksToConnect: "Looking for UI/UX designers for a mobile gaming startup"
+        },
+        {
+          name: "Maya Patel",
+          email: "maya.patel@example.com",
+          skills: ["Vue.js", "PostgreSQL", "Docker", "AWS"],
+          interests: ["Web Development", "DevOps", "Climate Tech"],
+          bio: "DevOps engineer focused on sustainable technology solutions. Building green tech for a better future.",
+          looksToConnect: "Need frontend developers for climate action platform"
+        }
+      ];
+
+      // Create dummy posts
+      const dummyPosts = [
+        {
+          type: "HACKATHON",
+          title: "AI for Good Hackathon 2024",
+          location: "San Francisco",
+          websiteUrl: "https://ai4good.org",
+          skillsNeeded: ["Python", "TensorFlow", "React", "Node.js"],
+          notes: "48-hour hackathon focused on using AI to solve social problems. $50K in prizes!"
+        },
+        {
+          type: "PROJECT", 
+          title: "EcoTrack - Carbon Footprint Tracker",
+          location: "Remote",
+          websiteUrl: "https://ecotrack.dev",
+          skillsNeeded: ["React Native", "Python", "Machine Learning"],
+          notes: "Open-source mobile app to help users track and reduce their carbon footprint. Looking for passionate developers!"
+        },
+        {
+          type: "HACKATHON",
+          title: "FinTech Innovation Challenge",
+          location: "New York",
+          websiteUrl: "https://fintechhack.com",
+          skillsNeeded: ["Blockchain", "Solidity", "React", "Node.js"],
+          notes: "Revolutionary hackathon for the future of finance. Build the next DeFi protocol!"
+        }
+      ];
+
+      // Note: In a real app, these would be created via API calls
+      // For now, we'll just add them to local state when data loads
+    } catch (error) {
+      console.error('Error initializing dummy data:', error);
+    }
+  };
+
   const checkAuth = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
