@@ -9,7 +9,15 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { Heart, X, Compass, MessageCircle, BarChart3, User, Bell, Plus } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { 
+  Heart, X, Compass, MessageCircle, BarChart3, User, Bell, Plus, 
+  Github, Linkedin, ExternalLink, MapPin, Code, Award,
+  Building, Send, Users, Search, Target,
+  Briefcase, Star, Mail, TrendingUp
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // Available skills and interests
