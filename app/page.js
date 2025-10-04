@@ -1171,7 +1171,6 @@ export default function App() {
             </div>
           </TabsContent>
         </Tabs>
-          </TabsContent>
 
           {/* Matches Tab */}
           <TabsContent value="matches" className="p-4">
