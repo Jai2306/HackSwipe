@@ -1171,6 +1171,7 @@ export default function App() {
             </div>
           </TabsContent>
         </Tabs>
+            </div>
           </TabsContent>
 
           {/* Matches Tab */}
