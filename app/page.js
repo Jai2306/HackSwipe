@@ -1672,23 +1672,39 @@ export default function App() {
                   )}
                   
                   {/* Current hackathon (foreground card) with swipe animation */}
-                  <motion.div
-                    key={`hackathon-${currentHackathonIndex}`}
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ 
-                      scale: 1, 
-                      opacity: 1, 
-                      x: swipeDirection.hackathons === 'right' ? 300 : swipeDirection.hackathons === 'left' ? -300 : swipeDirection.hackathons === 'undo' ? 0 : 0,
-                      rotate: swipeDirection.hackathons === 'right' ? 15 : swipeDirection.hackathons === 'left' ? -15 : 0,
-                      transition: {
-                        type: "spring",
-                        stiffness: 100,
-                        damping: 20,
-                        duration: 0.4
-                      }
-                    }}
-                    className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
-                  >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`hackathon-${currentHackathonIndex}`}
+                      initial={{ 
+                        scale: swipeDirection.hackathons === 'undo' ? 0.9 : 0.8, 
+                        opacity: swipeDirection.hackathons === 'undo' ? 0.8 : 0,
+                        x: swipeDirection.hackathons === 'undo' ? -200 : 0,
+                        rotate: swipeDirection.hackathons === 'undo' ? -10 : 0
+                      }}
+                      animate={{ 
+                        scale: 1, 
+                        opacity: 1, 
+                        x: swipeDirection.hackathons === 'right' ? 300 : swipeDirection.hackathons === 'left' ? -300 : 0,
+                        rotate: swipeDirection.hackathons === 'right' ? 15 : swipeDirection.hackathons === 'left' ? -15 : 0,
+                        transition: {
+                          type: "spring",
+                          stiffness: 80,
+                          damping: 15,
+                          duration: 0.6
+                        }
+                      }}
+                      exit={{ 
+                        x: swipeDirection.hackathons === 'right' ? 400 : swipeDirection.hackathons === 'left' ? -400 : 0,
+                        rotate: swipeDirection.hackathons === 'right' ? 20 : swipeDirection.hackathons === 'left' ? -20 : 0,
+                        opacity: 0,
+                        scale: 0.8,
+                        transition: { 
+                          duration: 0.3,
+                          ease: "easeInOut"
+                        }
+                      }}
+                      className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
+                    >
                   <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center relative">
                     <div className="text-center text-white">
                       <Target className="h-12 w-12 mx-auto mb-2" />
