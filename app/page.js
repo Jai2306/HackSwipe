@@ -1758,7 +1758,6 @@ export default function App() {
                     </div>
                   </div>
                 </motion.div>
-                  </AnimatePresence>
                   
                   {/* Undo button moved to be next to X button */}
                 </div>
@@ -1962,7 +1961,6 @@ export default function App() {
                     </div>
                   </div>
                 </motion.div>
-                  </AnimatePresence>
                   
                   {/* Undo button moved to be next to X button */}
                 </div>
