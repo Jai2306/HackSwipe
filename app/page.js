@@ -1246,13 +1246,13 @@ export default function App() {
                       }
                     }}
                     exit={{ 
-                      x: swipeDirection.people === 'right' ? 400 : swipeDirection.people === 'left' ? -400 : 0,
-                      rotate: swipeDirection.people === 'right' ? 20 : swipeDirection.people === 'left' ? -20 : 0,
+                      x: swipeDirection.people === 'right' ? 300 : swipeDirection.people === 'left' ? -300 : 0,
+                      rotate: swipeDirection.people === 'right' ? 15 : swipeDirection.people === 'left' ? -15 : 0,
                       opacity: swipeDirection.people === 'undo' ? 1 : 0,
-                      scale: swipeDirection.people !== 'undo' ? 0.8 : 1,
+                      scale: swipeDirection.people !== 'undo' ? 0.9 : 1,
                       transition: { 
-                        duration: 0.4,
-                        ease: "easeInOut"
+                        duration: 0.3,
+                        ease: "easeOut"
                       }
                     }}
                     className="relative z-10 bg-white rounded-2xl shadow-lg overflow-hidden cursor-grab active:cursor-grabbing"
