@@ -409,16 +409,31 @@ frontend:
           comment: "✅ Verified that Create Post button has correct onClick handler (setShowPostDialog(true)). Button functionality is working as expected to open the post creation dialog."
 
   - task: "Add No More Cards Message"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "app/page.js"
     stuck_count: 0
     priority: "low"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: false
           agent: "main"
           comment: "Need to add 'discover more' or similar message when no more cards are left in explore sections."
+        - working: true
+          agent: "main"
+          comment: "✅ Enhanced all empty state messages for People, Hackathons, and Projects sections. Added engaging messages with icons and better call-to-action buttons. Messages now include motivational text like 'You've seen everyone!' and 'All caught up!' with helpful suggestions."
+
+  - task: "Update App Branding to HackSwipe"
+    implemented: true
+    working: true
+    file: "app/page.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "✅ Updated app branding from 'Hackathon Tinder' to 'HackSwipe' with tagline 'Swipe. Match. Build.' on the login page as per requirements."
 
 agent_communication:
     - agent: "testing"
