@@ -1228,10 +1228,10 @@ export default function App() {
                     <motion.div
                     key={currentPersonIndex}
                     initial={{ 
-                      scale: swipeDirection === 'undo' ? 0.9 : 0.8, 
-                      opacity: swipeDirection === 'undo' ? 0.8 : 0, 
-                      x: swipeDirection === 'undo' ? -200 : 0,
-                      rotate: swipeDirection === 'undo' ? -10 : 0
+                      scale: swipeDirection.people === 'undo' ? 0.9 : 0.8, 
+                      opacity: swipeDirection.people === 'undo' ? 0.8 : 0, 
+                      x: swipeDirection.people === 'undo' ? -200 : 0,
+                      rotate: swipeDirection.people === 'undo' ? -10 : 0
                     }}
                     animate={{ 
                       scale: 1, 
@@ -1240,16 +1240,16 @@ export default function App() {
                       rotate: 0,
                       transition: {
                         type: "spring",
-                        stiffness: swipeDirection === 'undo' ? 150 : 100,
-                        damping: swipeDirection === 'undo' ? 20 : 25,
-                        duration: swipeDirection === 'undo' ? 0.6 : 0.3
+                        stiffness: swipeDirection.people === 'undo' ? 150 : 100,
+                        damping: swipeDirection.people === 'undo' ? 20 : 25,
+                        duration: swipeDirection.people === 'undo' ? 0.6 : 0.3
                       }
                     }}
                     exit={{ 
-                      x: swipeDirection === 'right' ? 400 : swipeDirection === 'left' ? -400 : 0,
-                      rotate: swipeDirection === 'right' ? 20 : swipeDirection === 'left' ? -20 : 0,
-                      opacity: swipeDirection === 'undo' ? 1 : 0,
-                      scale: swipeDirection !== 'undo' ? 0.8 : 1,
+                      x: swipeDirection.people === 'right' ? 400 : swipeDirection.people === 'left' ? -400 : 0,
+                      rotate: swipeDirection.people === 'right' ? 20 : swipeDirection.people === 'left' ? -20 : 0,
+                      opacity: swipeDirection.people === 'undo' ? 1 : 0,
+                      scale: swipeDirection.people !== 'undo' ? 0.8 : 1,
                       transition: { 
                         duration: 0.4,
                         ease: "easeInOut"
