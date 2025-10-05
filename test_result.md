@@ -357,10 +357,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Enhanced Profile Editing API"
-    - "Enhanced Profile Retrieval API"
-    - "Enhanced Profile Data Persistence"
-    - "Enhanced Profile Structure Validation"
+    - "Fix Swipe Animation System"
+    - "Fix Card Transition Animations"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
