@@ -1225,10 +1225,14 @@ export default function App() {
                       }
                     }}
                     exit={{ 
-                      x: swipeDirection === 'right' ? 300 : swipeDirection === 'left' ? -300 : 0,
-                      rotate: swipeDirection === 'right' ? 15 : swipeDirection === 'left' ? -15 : 0,
+                      x: swipeDirection === 'right' ? 400 : swipeDirection === 'left' ? -400 : 0,
+                      rotate: swipeDirection === 'right' ? 20 : swipeDirection === 'left' ? -20 : 0,
                       opacity: swipeDirection === 'undo' ? 1 : 0,
-                      transition: { duration: 0.3 }
+                      scale: swipeDirection !== 'undo' ? 0.8 : 1,
+                      transition: { 
+                        duration: 0.4,
+                        ease: "easeInOut"
+                      }
                     }}
                     className="relative z-10 bg-white rounded-2xl shadow-lg overflow-hidden cursor-grab active:cursor-grabbing"
                   >
