@@ -6,7 +6,7 @@ import sys
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://hackmate-4.preview.emergentagent.com/api"
+BASE_URL = "https://projectswipe.preview.emergentagent.com/api"
 TEST_USER_EMAIL = "test.user.enhanced@example.com"
 TEST_USER_PASSWORD = "testpass123"
 TEST_USER_NAME = "Enhanced Test User"

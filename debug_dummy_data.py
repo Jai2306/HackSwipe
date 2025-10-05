@@ -3,7 +3,7 @@
 import requests
 import json
 
-BASE_URL = "https://hackmate-4.preview.emergentagent.com/api"
+BASE_URL = "https://projectswipe.preview.emergentagent.com/api"
 
 def debug_dummy_data():
     # Register a new user
