@@ -366,10 +366,7 @@ export default function App() {
       animationType = 'projects';
     }
 
-    // Set swipe direction for animation for specific type
-    setSwipeDirection(prev => ({ ...prev, [animationType]: direction }));
-
-    // Store rejected item for undo functionality
+    // Store rejected item for undo functionality BEFORE changing index
     if (direction === 'left' && currentItem) {
       if (type === 'PERSON') {
         setLastRejectedPerson({ ...currentItem, index: currentPersonIndex });
@@ -386,6 +383,23 @@ export default function App() {
         setTimeout(() => setShowUndo(prev => ({ ...prev, projects: false })), 3000);
       }
     }
+
+    // Set swipe direction and immediately move to next item for smooth transition
+    setSwipeDirection(prev => ({ ...prev, [animationType]: direction }));
+    
+    // Move to next item immediately so AnimatePresence can start the transition
+    if (type === 'PERSON') {
+      setCurrentPersonIndex(prev => prev + 1);
+    } else if (type === 'HACKATHON') {
+      setCurrentHackathonIndex(prev => prev + 1);
+    } else if (type === 'PROJECT') {
+      setCurrentProjectIndex(prev => prev + 1);
+    }
+
+    // Clear the swipe direction after animation completes
+    setTimeout(() => {
+      setSwipeDirection(prev => ({ ...prev, [animationType]: null }));
+    }, 400);
 
     const token = localStorage.getItem('token');
 
@@ -409,22 +423,6 @@ export default function App() {
         if (data.match) {
           setMatches(prev => [...prev, data.match]);
         }
-
-        // Wait for animation to start, then move to next item quickly
-        setTimeout(() => {
-          // Move to next item first
-          if (type === 'PERSON') {
-            setCurrentPersonIndex(prev => prev + 1);
-          } else if (type === 'HACKATHON') {
-            setCurrentHackathonIndex(prev => prev + 1);
-          } else if (type === 'PROJECT') {
-            setCurrentProjectIndex(prev => prev + 1);
-          }
-          // Reset swipe direction after a short delay
-          setTimeout(() => {
-            setSwipeDirection(prev => ({ ...prev, [animationType]: null }));
-          }, 50);
-        }, 300);
       }
     } catch (error) {
       console.error('Swipe error:', error);
