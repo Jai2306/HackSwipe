@@ -1621,18 +1621,33 @@ export default function App() {
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentProjectIndex}
-                      initial={{ scale: 0.8, opacity: 0, x: 0 }}
+                      initial={{ 
+                        scale: swipeDirection.projects === 'undo' ? 0.9 : 0.8, 
+                        opacity: swipeDirection.projects === 'undo' ? 0.8 : 0, 
+                        x: swipeDirection.projects === 'undo' ? -200 : 0,
+                        rotate: swipeDirection.projects === 'undo' ? -10 : 0
+                      }}
                       animate={{ 
                         scale: 1, 
                         opacity: 1, 
                         x: 0,
-                        rotate: 0
+                        rotate: 0,
+                        transition: {
+                          type: "spring",
+                          stiffness: swipeDirection.projects === 'undo' ? 150 : 100,
+                          damping: swipeDirection.projects === 'undo' ? 20 : 25,
+                          duration: swipeDirection.projects === 'undo' ? 0.6 : 0.3
+                        }
                       }}
                       exit={{ 
-                        x: swipeDirection === 'right' ? 300 : -300,
-                        rotate: swipeDirection === 'right' ? 15 : -15,
-                        opacity: 0,
-                        transition: { duration: 0.3 }
+                        x: swipeDirection.projects === 'right' ? 400 : swipeDirection.projects === 'left' ? -400 : 0,
+                        rotate: swipeDirection.projects === 'right' ? 20 : swipeDirection.projects === 'left' ? -20 : 0,
+                        opacity: swipeDirection.projects === 'undo' ? 1 : 0,
+                        scale: swipeDirection.projects !== 'undo' ? 0.8 : 1,
+                        transition: { 
+                          duration: 0.4,
+                          ease: "easeInOut"
+                        }
                       }}
                       className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
                     >
