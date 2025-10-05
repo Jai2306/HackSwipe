@@ -1537,60 +1537,47 @@ export default function App() {
               <h3 className="text-xl font-bold text-center mb-4">Discover Projects</h3>
               
               {projects[currentProjectIndex] ? (
-                <div className="relative overflow-visible h-[600px]">
-                  {/* DRAMATIC Multi-Card Stack - VERY VISIBLE */}
+                <div className="relative overflow-visible">
+                  {/* Subtle Multi-Card Stack - Proportional and Balanced */}
                   
-                  {/* Fourth Card (Deepest) - CLEARLY VISIBLE */}
-                  <div className="absolute top-12 left-12 right-12 bottom-12 bg-white rounded-2xl shadow-2xl z-0 transform rotate-2 scale-88 opacity-60 border-4 border-gray-300">
-                    <div className="h-48 bg-gradient-to-br from-gray-400 to-gray-500 rounded-t-2xl flex items-center justify-center">
-                      <div className="text-white font-bold text-lg bg-black bg-opacity-50 px-4 py-2 rounded-full">CARD 4</div>
+                  {/* Third Card (Deepest) - Subtle presence */}
+                  {projects[currentProjectIndex + 2] && (
+                    <div className="absolute top-6 left-6 right-6 bottom-6 bg-white rounded-2xl shadow-lg z-0 transform rotate-1 scale-94 opacity-50 border border-gray-200">
+                      <div className="h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-t-2xl"></div>
                     </div>
-                    <div className="p-4">
-                      <div className="h-6 bg-gray-300 rounded mb-3"></div>
-                      <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                      <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-                    </div>
-                  </div>
+                  )}
                   
-                  {/* Third Card - VERY OBVIOUS */}
-                  <div className="absolute top-8 left-8 right-8 bottom-8 bg-white rounded-2xl shadow-2xl z-1 transform rotate-1 scale-92 opacity-75 border-4 border-green-300">
-                    <div className="h-48 bg-gradient-to-br from-green-400 to-teal-500 rounded-t-2xl flex items-center justify-center">
-                      <div className="text-white font-bold text-lg bg-black bg-opacity-50 px-4 py-2 rounded-full">CARD 3</div>
-                    </div>
-                    <div className="p-4">
-                      <div className="h-6 bg-green-300 rounded mb-3"></div>
-                      <div className="h-4 bg-green-200 rounded mb-2"></div>
-                      <div className="h-4 bg-green-200 rounded w-3/4"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Second Card - CLEARLY BEHIND MAIN CARD */}
-                  <div className="absolute top-4 left-4 right-4 bottom-4 bg-white rounded-2xl shadow-2xl z-2 transform rotate-0.5 scale-96 opacity-85 border-4 border-green-400">
-                    <div className="h-48 bg-gradient-to-br from-green-500 to-teal-600 rounded-t-2xl flex items-center justify-center">
-                      <div className="text-white font-bold text-xl bg-black bg-opacity-50 px-4 py-2 rounded-full">
-                        {projects[currentProjectIndex + 1]?.title || 'NEXT PROJECT'}
+                  {/* Second Card - Clear but proportional */}
+                  {projects[currentProjectIndex + 1] && (
+                    <div className="absolute top-3 left-3 right-3 bottom-3 bg-white rounded-2xl shadow-xl z-1 transform rotate-0.5 scale-97 opacity-70 border-2 border-green-200">
+                      <div className="h-48 bg-gradient-to-br from-green-300 to-teal-300 rounded-t-2xl flex items-center justify-center">
+                        <div className="text-white text-sm font-medium bg-black bg-opacity-30 px-3 py-1 rounded-full">
+                          {projects[currentProjectIndex + 1]?.title || 'Next Project'}
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <div className="h-4 bg-green-200 rounded mb-2"></div>
+                        <div className="h-3 bg-green-100 rounded mb-2"></div>
+                        <div className="h-3 bg-green-100 rounded w-3/4"></div>
                       </div>
                     </div>
-                    <div className="p-4">
-                      <div className="h-6 bg-green-300 rounded mb-3"></div>
-                      <div className="h-5 bg-green-200 rounded mb-2"></div>
-                      <div className="h-5 bg-green-200 rounded w-3/4"></div>
-                    </div>
-                  </div>
+                  )}
                   
-                  {/* MASSIVE NEXT Card Peek from Right Side - SUPER VISIBLE */}
-                  <div className="absolute top-0 right-[-150px] w-full h-full bg-white rounded-2xl shadow-2xl z-1 transform rotate-3 scale-85 opacity-80 border-4 border-teal-400">
-                    <div className="h-48 bg-gradient-to-br from-teal-500 to-green-600 rounded-t-2xl flex items-center justify-center">
-                      <div className="text-white font-black text-2xl bg-black bg-opacity-60 px-6 py-3 rounded-full shadow-lg">
-                        NEXT →
+                  {/* Next Card Peek from Right Side - Proportional */}
+                  {projects[currentProjectIndex + 1] && (
+                    <div className="absolute top-0 right-[-80px] w-full h-full bg-white rounded-2xl shadow-lg z-0 transform rotate-2 scale-92 opacity-60 border-2 border-green-300">
+                      <div className="h-48 bg-gradient-to-br from-green-300 to-teal-400 rounded-t-2xl flex items-center justify-center">
+                        <div className="text-white font-semibold text-sm bg-black bg-opacity-40 px-3 py-1 rounded-full">
+                          Next →
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <div className="h-4 bg-green-200 rounded mb-2"></div>
+                        <div className="h-3 bg-green-150 rounded mb-2"></div>
+                        <div className="h-3 bg-green-150 rounded w-2/3"></div>
                       </div>
                     </div>
-                    <div className="p-4">
-                      <div className="h-8 bg-teal-300 rounded mb-4"></div>
-                      <div className="h-6 bg-teal-200 rounded mb-3"></div>
-                      <div className="h-6 bg-teal-200 rounded w-2/3"></div>
-                    </div>
-                  </div>
+                  )}
                   
                   {/* Current project (foreground card) with swipe animation */}
                   <AnimatePresence mode="wait">
