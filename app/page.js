@@ -1987,31 +1987,34 @@ export default function App() {
                     <motion.div
                       key={`project-${currentProjectIndex}`}
                       initial={{ 
-                        scale: swipeDirection.projects === 'undo' ? 0.9 : 0.8, 
+                        scale: swipeDirection.projects === 'undo' ? 0.9 : 0.85,
                         opacity: swipeDirection.projects === 'undo' ? 0.8 : 0,
-                        x: swipeDirection.projects === 'undo' ? -200 : 0,
-                        rotate: swipeDirection.projects === 'undo' ? -10 : 0
+                        x: swipeDirection.projects === 'undo' ? -300 : 100,
+                        rotate: swipeDirection.projects === 'undo' ? -15 : 5,
+                        z: swipeDirection.projects === 'undo' ? 5 : -10
                       }}
                       animate={{ 
                         scale: 1, 
                         opacity: 1, 
                         x: 0,
                         rotate: 0,
+                        z: 0,
                         transition: {
                           type: "spring",
-                          stiffness: 100,
-                          damping: 20,
-                          duration: 0.4
+                          stiffness: 120,
+                          damping: 25,
+                          duration: 0.5,
+                          delay: swipeDirection.projects === 'undo' ? 0 : 0.1
                         }
                       }}
                       exit={{ 
-                        x: swipeDirection.projects === 'right' ? 400 : swipeDirection.projects === 'left' ? -400 : 0,
-                        rotate: swipeDirection.projects === 'right' ? 20 : swipeDirection.projects === 'left' ? -20 : 0,
+                        x: swipeDirection.projects === 'right' ? 500 : swipeDirection.projects === 'left' ? -500 : 0,
+                        rotate: swipeDirection.projects === 'right' ? 25 : swipeDirection.projects === 'left' ? -25 : 0,
                         opacity: 0,
-                        scale: 0.8,
+                        scale: 0.7,
                         transition: { 
-                          duration: 0.3,
-                          ease: "easeOut"
+                          duration: 0.4,
+                          ease: "easeInOut"
                         }
                       }}
                       className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
