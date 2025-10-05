@@ -1568,13 +1568,14 @@ export default function App() {
                         }
                       }}
                       exit={{ 
-                        x: swipeDirection.people === 'right' ? 500 : swipeDirection.people === 'left' ? -500 : 0,
-                        rotate: swipeDirection.people === 'right' ? 25 : swipeDirection.people === 'left' ? -25 : 0,
+                        x: swipeDirection.people === 'right' ? 600 : swipeDirection.people === 'left' ? -600 : 0,
+                        y: swipeDirection.people === 'right' ? -50 : swipeDirection.people === 'left' ? 50 : 0,
+                        rotate: swipeDirection.people === 'right' ? 30 : swipeDirection.people === 'left' ? -30 : 0,
                         opacity: 0,
-                        scale: 0.7,
+                        scale: 0.8,
                         transition: { 
-                          duration: 0.4,
-                          ease: "easeInOut"
+                          duration: 0.5,
+                          ease: "easeOut"
                         }
                       }}
                       className="relative z-10 bg-white rounded-2xl shadow-lg overflow-hidden cursor-grab active:cursor-grabbing"
