@@ -775,10 +775,10 @@ export default function App() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Hackathon Tinder
+              HackSwipe
             </CardTitle>
             <CardDescription>
-              Connect with developers, find projects, join hackathons
+              Swipe. Match. Build.
             </CardDescription>
           </CardHeader>
           
