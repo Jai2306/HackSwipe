@@ -1548,8 +1548,8 @@ export default function App() {
                         opacity: 0,
                         scale: 0.8,
                         transition: { 
-                          duration: 0.3,
-                          ease: "easeInOut"
+                          duration: 0.2,
+                          ease: "easeOut"
                         }
                       }}
                       className="relative z-10 bg-white rounded-2xl shadow-lg overflow-hidden cursor-grab active:cursor-grabbing"
