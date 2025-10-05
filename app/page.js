@@ -923,6 +923,223 @@ export default function App() {
                   </div>
                 </div>
               )}
+
+              {onboardingStep === 4 && (
+                <div className="space-y-6">
+                  <h3 className="text-lg font-medium mb-4">Social Profiles (Optional)</h3>
+                  
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="github">GitHub Profile</Label>
+                      <div className="flex">
+                        <span className="inline-flex items-center px-3 text-sm text-gray-500 bg-gray-50 border border-r-0 border-gray-300 rounded-l-md">
+                          github.com/
+                        </span>
+                        <Input
+                          id="github"
+                          placeholder="username"
+                          value={profileData.socials?.find(s => s.platform === 'GitHub')?.url?.replace('https://github.com/', '') || ''}
+                          onChange={(e) => {
+                            const newSocials = profileData.socials?.filter(s => s.platform !== 'GitHub') || [];
+                            if (e.target.value.trim()) {
+                              newSocials.push({
+                                platform: 'GitHub',
+                                url: `https://github.com/${e.target.value.trim()}`
+                              });
+                            }
+                            setProfileData(prev => ({ ...prev, socials: newSocials }));
+                          }}
+                          className="rounded-l-none"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="linkedin">LinkedIn Profile</Label>
+                      <div className="flex">
+                        <span className="inline-flex items-center px-3 text-sm text-gray-500 bg-gray-50 border border-r-0 border-gray-300 rounded-l-md">
+                          linkedin.com/in/
+                        </span>
+                        <Input
+                          id="linkedin"
+                          placeholder="username"
+                          value={profileData.socials?.find(s => s.platform === 'LinkedIn')?.url?.replace('https://linkedin.com/in/', '') || ''}
+                          onChange={(e) => {
+                            const newSocials = profileData.socials?.filter(s => s.platform !== 'LinkedIn') || [];
+                            if (e.target.value.trim()) {
+                              newSocials.push({
+                                platform: 'LinkedIn',
+                                url: `https://linkedin.com/in/${e.target.value.trim()}`
+                              });
+                            }
+                            setProfileData(prev => ({ ...prev, socials: newSocials }));
+                          }}
+                          className="rounded-l-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {onboardingStep === 5 && (
+                <div className="space-y-6">
+                  <h3 className="text-lg font-medium mb-4">Work Experience (Optional)</h3>
+                  
+                  {profileData.experience?.length > 0 && (
+                    <div className="space-y-4">
+                      {profileData.experience.map((exp, index) => (
+                        <Card key={index} className="p-4">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <h4 className="font-medium">{exp.title}</h4>
+                              <p className="text-sm text-gray-600">{exp.organization}</p>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                const newExperience = profileData.experience.filter((_, i) => i !== index);
+                                setProfileData(prev => ({ ...prev, experience: newExperience }));
+                              }}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                  
+                  <div className="space-y-4 border-t pt-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Job Title</Label>
+                        <Input
+                          placeholder="e.g., Software Engineer"
+                          value={profileData.newExperience?.title || ''}
+                          onChange={(e) => setProfileData(prev => ({ 
+                            ...prev, 
+                            newExperience: { ...prev.newExperience, title: e.target.value }
+                          }))}
+                        />
+                      </div>
+                      <div>
+                        <Label>Company</Label>
+                        <Input
+                          placeholder="e.g., Google"
+                          value={profileData.newExperience?.organization || ''}
+                          onChange={(e) => setProfileData(prev => ({ 
+                            ...prev, 
+                            newExperience: { ...prev.newExperience, organization: e.target.value }
+                          }))}
+                        />
+                      </div>
+                    </div>
+                    
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        if (profileData.newExperience?.title && profileData.newExperience?.organization) {
+                          const newExp = {
+                            title: profileData.newExperience.title,
+                            organization: profileData.newExperience.organization,
+                            startDate: new Date().getFullYear().toString(),
+                            endDate: 'Present',
+                            description: ''
+                          };
+                          setProfileData(prev => ({
+                            ...prev,
+                            experience: [...(prev.experience || []), newExp],
+                            newExperience: {}
+                          }));
+                        }
+                      }}
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Experience
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {onboardingStep === 6 && (
+                <div className="space-y-6">
+                  <h3 className="text-lg font-medium mb-4">Projects (Optional)</h3>
+                  
+                  {profileData.projects?.length > 0 && (
+                    <div className="space-y-4">
+                      {profileData.projects.map((project, index) => (
+                        <Card key={index} className="p-4">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <h4 className="font-medium">{project.name}</h4>
+                              <p className="text-sm text-gray-600">{project.description}</p>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                const newProjects = profileData.projects.filter((_, i) => i !== index);
+                                setProfileData(prev => ({ ...prev, projects: newProjects }));
+                              }}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                  
+                  <div className="space-y-4 border-t pt-4">
+                    <div>
+                      <Label>Project Name</Label>
+                      <Input
+                        placeholder="e.g., AI Chat App"
+                        value={profileData.newProject?.name || ''}
+                        onChange={(e) => setProfileData(prev => ({ 
+                          ...prev, 
+                          newProject: { ...prev.newProject, name: e.target.value }
+                        }))}
+                      />
+                    </div>
+                    <div>
+                      <Label>Description</Label>
+                      <Textarea
+                        placeholder="Brief description of your project..."
+                        value={profileData.newProject?.description || ''}
+                        onChange={(e) => setProfileData(prev => ({ 
+                          ...prev, 
+                          newProject: { ...prev.newProject, description: e.target.value }
+                        }))}
+                      />
+                    </div>
+                    
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        if (profileData.newProject?.name && profileData.newProject?.description) {
+                          const newProj = {
+                            name: profileData.newProject.name,
+                            description: profileData.newProject.description,
+                            repoUrl: '',
+                            demoUrl: ''
+                          };
+                          setProfileData(prev => ({
+                            ...prev,
+                            projects: [...(prev.projects || []), newProj],
+                            newProject: {}
+                          }));
+                        }
+                      }}
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Project
+                    </Button>
+                  </div>
+                </div>
+              )}
             </CardContent>
             
             <CardFooter className="flex justify-between">
