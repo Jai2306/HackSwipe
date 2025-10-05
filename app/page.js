@@ -1521,7 +1521,7 @@ export default function App() {
                   )}
                   
                   {/* Current person (foreground card) with swipe and undo animation */}
-                  <AnimatePresence mode="wait">
+                  <AnimatePresence>
                     <motion.div
                       key={`person-${currentPersonIndex}`}
                       initial={{ 
@@ -1735,7 +1735,7 @@ export default function App() {
                   )}
                   
                   {/* Current hackathon (foreground card) with swipe animation */}
-                  <AnimatePresence mode="wait">
+                  <AnimatePresence>
                     <motion.div
                       key={`hackathon-${currentHackathonIndex}`}
                       initial={{ 
@@ -1955,7 +1955,7 @@ export default function App() {
                   )}
                   
                   {/* Current project (foreground card) with swipe animation */}
-                  <AnimatePresence mode="wait">
+                  <AnimatePresence>
                     <motion.div
                       key={`project-${currentProjectIndex}`}
                       initial={{ 
