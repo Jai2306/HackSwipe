@@ -1644,13 +1644,13 @@ export default function App() {
                         }
                       }}
                       exit={{ 
-                        x: swipeDirection.projects === 'right' ? 400 : swipeDirection.projects === 'left' ? -400 : 0,
-                        rotate: swipeDirection.projects === 'right' ? 20 : swipeDirection.projects === 'left' ? -20 : 0,
+                        x: swipeDirection.projects === 'right' ? 300 : swipeDirection.projects === 'left' ? -300 : 0,
+                        rotate: swipeDirection.projects === 'right' ? 15 : swipeDirection.projects === 'left' ? -15 : 0,
                         opacity: swipeDirection.projects === 'undo' ? 1 : 0,
-                        scale: swipeDirection.projects !== 'undo' ? 0.8 : 1,
+                        scale: swipeDirection.projects !== 'undo' ? 0.9 : 1,
                         transition: { 
-                          duration: 0.4,
-                          ease: "easeInOut"
+                          duration: 0.3,
+                          ease: "easeOut"
                         }
                       }}
                       className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
