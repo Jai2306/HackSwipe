@@ -1457,35 +1457,19 @@ export default function App() {
                   )}
                   
                   {/* Current person (foreground card) with swipe and undo animation */}
-                  <AnimatePresence>
-                    <motion.div
-                    key={`person-${currentPersonIndex}-${swipeDirection.people || 'static'}`}
-                    initial={{ 
-                      scale: swipeDirection.people === 'undo' ? 0.9 : 0.8, 
-                      opacity: swipeDirection.people === 'undo' ? 0.8 : 0, 
-                      x: swipeDirection.people === 'undo' ? -200 : 0,
-                      rotate: swipeDirection.people === 'undo' ? -10 : 0
-                    }}
+                  <motion.div
+                    key={`person-${currentPersonIndex}`}
+                    initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ 
                       scale: 1, 
                       opacity: 1, 
-                      x: swipeDirection.people ? (swipeDirection.people === 'right' ? 300 : swipeDirection.people === 'left' ? -300 : 0) : 0,
-                      rotate: swipeDirection.people ? (swipeDirection.people === 'right' ? 15 : swipeDirection.people === 'left' ? -15 : 0) : 0,
+                      x: swipeDirection.people === 'right' ? 300 : swipeDirection.people === 'left' ? -300 : swipeDirection.people === 'undo' ? 0 : 0,
+                      rotate: swipeDirection.people === 'right' ? 15 : swipeDirection.people === 'left' ? -15 : 0,
                       transition: {
                         type: "spring",
                         stiffness: 100,
-                        damping: 25,
+                        damping: 20,
                         duration: 0.4
-                      }
-                    }}
-                    exit={{ 
-                      x: swipeDirection.people === 'right' ? 400 : swipeDirection.people === 'left' ? -400 : 0,
-                      rotate: swipeDirection.people === 'right' ? 20 : swipeDirection.people === 'left' ? -20 : 0,
-                      opacity: 0,
-                      scale: 0.8,
-                      transition: { 
-                        duration: 0.3,
-                        ease: "easeOut"
                       }
                     }}
                     className="relative z-10 bg-white rounded-2xl shadow-lg overflow-hidden cursor-grab active:cursor-grabbing"
