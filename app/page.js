@@ -1965,13 +1965,13 @@ export default function App() {
                       animate={{ 
                         scale: 1, 
                         opacity: 1, 
-                        x: swipeDirection.projects === 'right' ? 300 : swipeDirection.projects === 'left' ? -300 : 0,
-                        rotate: swipeDirection.projects === 'right' ? 15 : swipeDirection.projects === 'left' ? -15 : 0,
+                        x: 0,
+                        rotate: 0,
                         transition: {
                           type: "spring",
-                          stiffness: 80,
-                          damping: 15,
-                          duration: 0.6
+                          stiffness: 100,
+                          damping: 20,
+                          duration: 0.4
                         }
                       }}
                       exit={{ 
@@ -1980,7 +1980,7 @@ export default function App() {
                         opacity: 0,
                         scale: 0.8,
                         transition: { 
-                          duration: 0.2,
+                          duration: 0.3,
                           ease: "easeOut"
                         }
                       }}
