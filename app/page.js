@@ -1459,6 +1459,25 @@ export default function App() {
                     )}
                     
                     <div className="flex justify-center space-x-4 mt-6">
+                      {/* Undo Button - Next to X Button */}
+                      {showUndo.hackathons && lastRejectedHackathon && (
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0, x: -20 }}
+                          animate={{ scale: 1, opacity: 1, x: 0 }}
+                          exit={{ scale: 0, opacity: 0, x: -20 }}
+                          transition={{ type: "spring", duration: 0.4 }}
+                        >
+                          <Button
+                            variant="outline"
+                            size="lg"
+                            className="rounded-full w-16 h-16 border-orange-300 text-orange-500 hover:bg-orange-50 hover:scale-110 hover:border-orange-400 transition-all duration-200"
+                            onClick={() => handleUndo('HACKATHON')}
+                          >
+                            <Undo className="h-5 w-5" />
+                          </Button>
+                        </motion.div>
+                      )}
+
                       <Button
                         variant="outline"
                         size="lg"
