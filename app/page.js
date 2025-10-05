@@ -1170,21 +1170,35 @@ export default function App() {
                     </div>
                   )}
                   
-                  {/* Second Card - Clear but proportional */}
-                  {people[currentPersonIndex + 1] && (
-                    <div className="absolute top-3 left-3 right-3 bottom-3 bg-white rounded-2xl shadow-xl z-1 transform rotate-0.5 scale-97 opacity-70 border-2 border-indigo-200">
-                      <div className="h-48 bg-gradient-to-br from-indigo-300 to-purple-300 rounded-t-2xl flex items-center justify-center">
-                        <div className="text-white text-sm font-medium bg-black bg-opacity-30 px-3 py-1 rounded-full">
-                          {people[currentPersonIndex + 1]?.name || 'Next Person'}
+                  {/* Second Card - Clear but proportional with animation */}
+                  <AnimatePresence>
+                    {people[currentPersonIndex + 1] && (
+                      <motion.div 
+                        key={`second-${currentPersonIndex + 1}`}
+                        initial={{ top: 6, left: 6, right: 6, bottom: 6, scale: 0.94, opacity: 0.5 }}
+                        animate={{ 
+                          top: 12, 
+                          left: 12, 
+                          right: 12, 
+                          bottom: 12,
+                          scale: 0.97, 
+                          opacity: 0.70,
+                          transition: { duration: 0.3, ease: "easeOut" }
+                        }}
+                        className="absolute bg-white rounded-2xl shadow-xl z-1 transform rotate-0.5 border-2 border-indigo-200">
+                        <div className="h-48 bg-gradient-to-br from-indigo-300 to-purple-300 rounded-t-2xl flex items-center justify-center">
+                          <div className="text-white text-sm font-medium bg-black bg-opacity-30 px-3 py-1 rounded-full">
+                            {people[currentPersonIndex + 1]?.name || 'Next Person'}
+                          </div>
                         </div>
-                      </div>
-                      <div className="p-4">
-                        <div className="h-4 bg-indigo-200 rounded mb-2"></div>
-                        <div className="h-3 bg-indigo-100 rounded mb-2"></div>
-                        <div className="h-3 bg-indigo-100 rounded w-3/4"></div>
-                      </div>
-                    </div>
-                  )}
+                        <div className="p-4">
+                          <div className="h-4 bg-indigo-200 rounded mb-2"></div>
+                          <div className="h-3 bg-indigo-100 rounded mb-2"></div>
+                          <div className="h-3 bg-indigo-100 rounded w-3/4"></div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   
                   {/* Next Card Peek from Right Side - Proportional */}
                   {people[currentPersonIndex + 1] && (
