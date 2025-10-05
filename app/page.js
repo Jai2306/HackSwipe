@@ -49,7 +49,11 @@ export default function App() {
   const [currentPersonIndex, setCurrentPersonIndex] = useState(0);
   const [currentHackathonIndex, setCurrentHackathonIndex] = useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-  const [swipeDirection, setSwipeDirection] = useState(null);
+  const [swipeDirection, setSwipeDirection] = useState({
+    people: null,
+    hackathons: null,
+    projects: null
+  });
   
   // Undo functionality state
   const [lastRejectedPerson, setLastRejectedPerson] = useState(null);
