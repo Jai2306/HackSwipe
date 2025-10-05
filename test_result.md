@@ -140,6 +140,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "✅ Login working correctly. Validates credentials, creates sessions with Bearer tokens, returns user data without password hash."
+        - working: true
+          agent: "testing"
+          comment: "✅ Re-tested after HackSwipe animation changes. Authentication flow working perfectly, unaffected by animation system updates. Login API fully compatible with new frontend animation states."
 
   - task: "Get Current User API"
     implemented: true
