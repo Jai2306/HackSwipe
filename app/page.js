@@ -410,7 +410,7 @@ export default function App() {
           setMatches(prev => [...prev, data.match]);
         }
 
-        // Wait for animation to complete before moving to next item
+        // Wait for animation to start, then move to next item quickly
         setTimeout(() => {
           // Move to next item first
           if (type === 'PERSON') {
@@ -420,11 +420,11 @@ export default function App() {
           } else if (type === 'PROJECT') {
             setCurrentProjectIndex(prev => prev + 1);
           }
-          // Reset swipe direction after index change
+          // Reset swipe direction after a short delay
           setTimeout(() => {
             setSwipeDirection(prev => ({ ...prev, [animationType]: null }));
-          }, 100);
-        }, 600);
+          }, 50);
+        }, 300);
       }
     } catch (error) {
       console.error('Swipe error:', error);
