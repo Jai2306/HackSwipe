@@ -1152,63 +1152,60 @@ export default function App() {
                     <h3 className="text-xl font-bold text-center mb-4">Discover People</h3>
               
               {currentPerson ? (
-                <div className="relative overflow-visible">
-                  {/* Fifth Card (Deepest - barely visible) */}
-                  {people[currentPersonIndex + 4] && (
-                    <div className="absolute top-20 left-20 right-20 bottom-20 bg-white rounded-2xl shadow-sm z-0 transform rotate-0 scale-88 opacity-30 border border-gray-200">
-                      <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 rounded-t-2xl"></div>
-                    </div>
-                  )}
+                <div className="relative overflow-visible h-[600px]">
+                  {/* DRAMATIC Multi-Card Stack - VERY VISIBLE */}
                   
-                  {/* Fourth Card */}
-                  {people[currentPersonIndex + 3] && (
-                    <div className="absolute top-15 left-15 right-15 bottom-15 bg-white rounded-2xl shadow-md z-1 transform rotate-0.5 scale-90 opacity-45 border border-gray-250">
-                      <div className="h-48 bg-gradient-to-br from-gray-250 to-gray-350 rounded-t-2xl"></div>
+                  {/* Fourth Card (Deepest) - CLEARLY VISIBLE */}
+                  <div className="absolute top-12 left-12 right-12 bottom-12 bg-white rounded-2xl shadow-2xl z-0 transform rotate-2 scale-88 opacity-60 border-4 border-gray-300">
+                    <div className="h-48 bg-gradient-to-br from-gray-400 to-gray-500 rounded-t-2xl flex items-center justify-center">
+                      <div className="text-white font-bold text-lg bg-black bg-opacity-50 px-4 py-2 rounded-full">CARD 4</div>
                     </div>
-                  )}
+                    <div className="p-4">
+                      <div className="h-6 bg-gray-300 rounded mb-3"></div>
+                      <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
                   
-                  {/* Third Card - More visible continuity */}
-                  {people[currentPersonIndex + 2] && (
-                    <div className="absolute top-10 left-10 right-10 bottom-10 bg-white rounded-2xl shadow-lg z-2 transform rotate-1 scale-92 opacity-60 border border-indigo-100">
-                      <div className="h-48 bg-gradient-to-br from-indigo-200 to-purple-200 rounded-t-2xl flex items-center justify-center">
-                        <div className="text-white text-xs font-medium bg-black bg-opacity-20 px-2 py-1 rounded">{people[currentPersonIndex + 2]?.name || 'Coming Up'}</div>
-                      </div>
-                      <div className="p-4">
-                        <div className="h-4 bg-indigo-150 rounded mb-2"></div>
-                        <div className="h-3 bg-indigo-100 rounded w-2/3"></div>
-                      </div>
+                  {/* Third Card - VERY OBVIOUS */}
+                  <div className="absolute top-8 left-8 right-8 bottom-8 bg-white rounded-2xl shadow-2xl z-1 transform rotate-1 scale-92 opacity-75 border-4 border-purple-300">
+                    <div className="h-48 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-t-2xl flex items-center justify-center">
+                      <div className="text-white font-bold text-lg bg-black bg-opacity-50 px-4 py-2 rounded-full">CARD 3</div>
                     </div>
-                  )}
+                    <div className="p-4">
+                      <div className="h-6 bg-purple-300 rounded mb-3"></div>
+                      <div className="h-4 bg-purple-200 rounded mb-2"></div>
+                      <div className="h-4 bg-purple-200 rounded w-3/4"></div>
+                    </div>
+                  </div>
                   
-                  {/* Second Card - Clear preview of what's next */}
-                  {people[currentPersonIndex + 1] && (
-                    <div className="absolute top-5 left-5 right-5 bottom-5 bg-white rounded-2xl shadow-xl z-3 transform rotate-0.5 scale-95 opacity-75 border-2 border-indigo-200">
-                      <div className="h-48 bg-gradient-to-br from-indigo-300 to-purple-300 rounded-t-2xl flex items-center justify-center">
-                        <div className="text-white font-semibold text-sm bg-black bg-opacity-30 px-3 py-1 rounded-full">
-                          {people[currentPersonIndex + 1]?.name || 'Next Person'}
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <div className="h-5 bg-indigo-200 rounded mb-2"></div>
-                        <div className="h-4 bg-indigo-100 rounded mb-2"></div>
-                        <div className="h-4 bg-indigo-100 rounded w-3/4"></div>
+                  {/* Second Card - CLEARLY BEHIND MAIN CARD */}
+                  <div className="absolute top-4 left-4 right-4 bottom-4 bg-white rounded-2xl shadow-2xl z-2 transform rotate-0.5 scale-96 opacity-85 border-4 border-blue-400">
+                    <div className="h-48 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-t-2xl flex items-center justify-center">
+                      <div className="text-white font-bold text-xl bg-black bg-opacity-50 px-4 py-2 rounded-full">
+                        {people[currentPersonIndex + 1]?.name || 'NEXT PERSON'}
                       </div>
                     </div>
-                  )}
+                    <div className="p-4">
+                      <div className="h-6 bg-blue-300 rounded mb-3"></div>
+                      <div className="h-5 bg-blue-200 rounded mb-2"></div>
+                      <div className="h-5 bg-blue-200 rounded w-3/4"></div>
+                    </div>
+                  </div>
                   
-                  {/* Next Card Peek from Right Side */}
-                  {people[currentPersonIndex + 1] && (
-                    <div className="absolute top-0 right-[-100px] w-full h-full bg-white rounded-2xl shadow-xl z-1 transform rotate-2 scale-88 opacity-50 border-2 border-blue-300">
-                      <div className="h-48 bg-gradient-to-br from-blue-300 to-indigo-400 rounded-t-2xl flex items-center justify-center">
-                        <div className="text-white font-bold text-base">NEXT →</div>
-                      </div>
-                      <div className="p-4">
-                        <div className="h-5 bg-blue-200 rounded mb-2"></div>
-                        <div className="h-4 bg-blue-150 rounded mb-2"></div>
-                        <div className="h-4 bg-blue-150 rounded w-2/3"></div>
+                  {/* MASSIVE NEXT Card Peek from Right Side - SUPER VISIBLE */}
+                  <div className="absolute top-0 right-[-150px] w-full h-full bg-white rounded-2xl shadow-2xl z-1 transform rotate-3 scale-85 opacity-80 border-4 border-green-400">
+                    <div className="h-48 bg-gradient-to-br from-green-400 to-teal-600 rounded-t-2xl flex items-center justify-center">
+                      <div className="text-white font-black text-2xl bg-black bg-opacity-60 px-6 py-3 rounded-full shadow-lg">
+                        NEXT →
                       </div>
                     </div>
-                  )}
+                    <div className="p-4">
+                      <div className="h-8 bg-green-300 rounded mb-4"></div>
+                      <div className="h-6 bg-green-200 rounded mb-3"></div>
+                      <div className="h-6 bg-green-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
                   
                   {/* Current person (foreground card) with swipe animation */}
                   <AnimatePresence mode="wait">
