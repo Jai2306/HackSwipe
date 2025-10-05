@@ -1465,11 +1465,28 @@ export default function App() {
                 <div className="relative overflow-visible">
                   {/* Subtle Multi-Card Stack - Proportional and Balanced */}
                   
-                  {/* Third Card (Deepest) - Subtle presence */}
+                  {/* Third Card (Deepest) - Moves forward in queue when swiping */}
                   {people[currentPersonIndex + 2] && (
-                    <div className="absolute top-6 left-6 right-6 bottom-6 bg-white rounded-2xl shadow-lg z-0 transform rotate-1 scale-94 opacity-50 border border-gray-200">
+                    <motion.div
+                      key={`person-third-${currentPersonIndex + 2}`}
+                      initial={{ scale: 0.9, opacity: 0.4, y: 20, x: 30 }}
+                      animate={{ 
+                        scale: swipeDirection.people ? 0.94 : 0.9,
+                        opacity: swipeDirection.people ? 0.5 : 0.4,
+                        y: swipeDirection.people ? 6 : 20,
+                        x: swipeDirection.people ? 20 : 30,
+                        transition: {
+                          type: "spring",
+                          stiffness: 80,
+                          damping: 25,
+                          duration: 0.5,
+                          delay: swipeDirection.people ? 0.2 : 0
+                        }
+                      }}
+                      className="absolute top-6 left-6 right-6 bottom-6 z-0 bg-white rounded-2xl shadow"
+                    >
                       <div className="h-48 bg-gradient-to-br from-gray-300 to-gray-400 rounded-t-2xl"></div>
-                    </div>
+                    </motion.div>
                   )}
                   
                   {/* Second Card (Background) - Slides forward when front card is swiped */}
