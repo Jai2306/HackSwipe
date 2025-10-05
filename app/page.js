@@ -2010,13 +2010,14 @@ export default function App() {
                         }
                       }}
                       exit={{ 
-                        x: swipeDirection.projects === 'right' ? 500 : swipeDirection.projects === 'left' ? -500 : 0,
-                        rotate: swipeDirection.projects === 'right' ? 25 : swipeDirection.projects === 'left' ? -25 : 0,
+                        x: swipeDirection.projects === 'right' ? 600 : swipeDirection.projects === 'left' ? -600 : 0,
+                        y: swipeDirection.projects === 'right' ? -50 : swipeDirection.projects === 'left' ? 50 : 0,
+                        rotate: swipeDirection.projects === 'right' ? 30 : swipeDirection.projects === 'left' ? -30 : 0,
                         opacity: 0,
-                        scale: 0.7,
+                        scale: 0.8,
                         transition: { 
-                          duration: 0.4,
-                          ease: "easeInOut"
+                          duration: 0.5,
+                          ease: "easeOut"
                         }
                       }}
                       className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
