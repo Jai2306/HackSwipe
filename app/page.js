@@ -1356,6 +1356,68 @@ export default function App() {
                             </Badge>
                           ))}
                         </div>
+                        
+                        <div className="space-y-2">
+                          <Label className="text-sm">Add Custom Skills</Label>
+                          <div className="flex gap-2">
+                            <Input
+                              placeholder="Enter custom skill..."
+                              value={postData.customSkillInput || ''}
+                              onChange={(e) => setPostData(prev => ({ ...prev, customSkillInput: e.target.value }))}
+                              onKeyPress={(e) => {
+                                if (e.key === 'Enter' && postData.customSkillInput?.trim()) {
+                                  const customSkill = postData.customSkillInput.trim();
+                                  if (!postData.skillsNeeded.includes(customSkill)) {
+                                    setPostData(prev => ({
+                                      ...prev,
+                                      skillsNeeded: [...prev.skillsNeeded, customSkill],
+                                      customSkillInput: ''
+                                    }));
+                                  }
+                                }
+                              }}
+                              className="flex-1"
+                            />
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                const customSkill = postData.customSkillInput?.trim();
+                                if (customSkill && !postData.skillsNeeded.includes(customSkill)) {
+                                  setPostData(prev => ({
+                                    ...prev,
+                                    skillsNeeded: [...prev.skillsNeeded, customSkill],
+                                    customSkillInput: ''
+                                  }));
+                                }
+                              }}
+                            >
+                              <Plus className="h-4 w-4" />
+                            </Button>
+                          </div>
+                          
+                          {postData.skillsNeeded.length > 0 && (
+                            <div className="flex flex-wrap gap-1">
+                              <Label className="text-xs text-gray-500 w-full mb-1">Selected Skills:</Label>
+                              {postData.skillsNeeded.map((skill, index) => (
+                                <Badge
+                                  key={skill}
+                                  variant="default"
+                                  className="text-xs cursor-pointer"
+                                  onClick={() => {
+                                    setPostData(prev => ({
+                                      ...prev,
+                                      skillsNeeded: prev.skillsNeeded.filter(s => s !== skill)
+                                    }));
+                                  }}
+                                >
+                                  {skill} <X className="h-3 w-3 ml-1" />
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       </div>
                       
                       <div className="space-y-2">
