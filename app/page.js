@@ -1499,27 +1499,7 @@ export default function App() {
                 </motion.div>
                   </AnimatePresence>
                   
-                  {/* Small Undo Button - Side of Card */}
-                  {showUndo.hackathons && lastRejectedHackathon && (
-                    <motion.div
-                      initial={{ scale: 0, opacity: 0, x: -50 }}
-                      animate={{ scale: 1, opacity: 1, x: 0 }}
-                      exit={{ scale: 0, opacity: 0, x: -50 }}
-                      transition={{ type: "spring", duration: 0.4 }}
-                      className="absolute left-[-70px] top-1/2 transform -translate-y-1/2 z-30"
-                    >
-                      <div className="bg-white rounded-lg shadow-lg border-2 border-red-300 p-2 w-16 h-20 cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-200"
-                           onClick={() => handleUndo('HACKATHON')}>
-                        <div className="h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded flex items-center justify-center mb-1">
-                          <Target className="h-4 w-4 text-white" />
-                        </div>
-                        <div className="text-xs text-center text-gray-600 truncate mb-1">{lastRejectedHackathon.title}</div>
-                        <div className="flex items-center justify-center">
-                          <Undo className="h-3 w-3 text-red-500" />
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
+                  {/* Undo button moved to be next to X button */}
                 </div>
               ) : (
                 <Card>
