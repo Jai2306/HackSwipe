@@ -1424,13 +1424,13 @@ export default function App() {
                         }
                       }}
                       exit={{ 
-                        x: swipeDirection.hackathons === 'right' ? 400 : swipeDirection.hackathons === 'left' ? -400 : 0,
-                        rotate: swipeDirection.hackathons === 'right' ? 20 : swipeDirection.hackathons === 'left' ? -20 : 0,
+                        x: swipeDirection.hackathons === 'right' ? 300 : swipeDirection.hackathons === 'left' ? -300 : 0,
+                        rotate: swipeDirection.hackathons === 'right' ? 15 : swipeDirection.hackathons === 'left' ? -15 : 0,
                         opacity: swipeDirection.hackathons === 'undo' ? 1 : 0,
-                        scale: swipeDirection.hackathons !== 'undo' ? 0.8 : 1,
+                        scale: swipeDirection.hackathons !== 'undo' ? 0.9 : 1,
                         transition: { 
-                          duration: 0.4,
-                          ease: "easeInOut"
+                          duration: 0.3,
+                          ease: "easeOut"
                         }
                       }}
                       className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
