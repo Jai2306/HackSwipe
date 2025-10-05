@@ -1858,39 +1858,23 @@ export default function App() {
                   )}
                   
                   {/* Current project (foreground card) with swipe animation */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentProjectIndex}
-                      initial={{ 
-                        scale: swipeDirection.projects === 'undo' ? 0.9 : 0.8, 
-                        opacity: swipeDirection.projects === 'undo' ? 0.8 : 0, 
-                        x: swipeDirection.projects === 'undo' ? -200 : 0,
-                        rotate: swipeDirection.projects === 'undo' ? -10 : 0
-                      }}
-                      animate={{ 
-                        scale: 1, 
-                        opacity: 1, 
-                        x: 0,
-                        rotate: 0,
-                        transition: {
-                          type: "spring",
-                          stiffness: swipeDirection.projects === 'undo' ? 150 : 100,
-                          damping: swipeDirection.projects === 'undo' ? 20 : 25,
-                          duration: swipeDirection.projects === 'undo' ? 0.6 : 0.3
-                        }
-                      }}
-                      exit={{ 
-                        x: swipeDirection.projects === 'right' ? 300 : swipeDirection.projects === 'left' ? -300 : 0,
-                        rotate: swipeDirection.projects === 'right' ? 15 : swipeDirection.projects === 'left' ? -15 : 0,
-                        opacity: swipeDirection.projects === 'undo' ? 1 : 0,
-                        scale: swipeDirection.projects !== 'undo' ? 0.9 : 1,
-                        transition: { 
-                          duration: 0.3,
-                          ease: "easeOut"
-                        }
-                      }}
-                      className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
-                    >
+                  <motion.div
+                    key={`project-${currentProjectIndex}`}
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ 
+                      scale: 1, 
+                      opacity: 1, 
+                      x: swipeDirection.projects === 'right' ? 300 : swipeDirection.projects === 'left' ? -300 : swipeDirection.projects === 'undo' ? 0 : 0,
+                      rotate: swipeDirection.projects === 'right' ? 15 : swipeDirection.projects === 'left' ? -15 : 0,
+                      transition: {
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 20,
+                        duration: 0.4
+                      }
+                    }}
+                    className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
+                  >
                   <div className="h-48 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
                     <div className="text-center text-white">
                       <Code className="h-12 w-12 mx-auto mb-2" />
