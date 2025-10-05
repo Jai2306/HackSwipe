@@ -1991,11 +1991,12 @@ export default function App() {
                     <motion.div
                       key={`project-${currentProjectIndex}`}
                       initial={{ 
-                        scale: swipeDirection.projects === 'undo' ? 0.9 : 0.85,
-                        opacity: swipeDirection.projects === 'undo' ? 0.8 : 0,
-                        x: swipeDirection.projects === 'undo' ? -300 : 100,
-                        rotate: swipeDirection.projects === 'undo' ? -15 : 5,
-                        z: swipeDirection.projects === 'undo' ? 5 : -10
+                        scale: swipeDirection.projects === 'undo' ? 0.9 : 0.94,
+                        opacity: swipeDirection.projects === 'undo' ? 0.8 : 0.7,
+                        x: swipeDirection.projects === 'undo' ? -300 : 80,
+                        y: swipeDirection.projects === 'undo' ? 0 : 10,
+                        rotate: swipeDirection.projects === 'undo' ? -15 : 3,
+                        z: swipeDirection.projects === 'undo' ? 5 : -5
                       }}
                       animate={{ 
                         scale: 1, 
