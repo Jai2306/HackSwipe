@@ -412,7 +412,7 @@ export default function App() {
 
         // Wait for animation to complete before moving to next item
         setTimeout(() => {
-          // Move to next item
+          // Move to next item first
           if (type === 'PERSON') {
             setCurrentPersonIndex(prev => prev + 1);
           } else if (type === 'HACKATHON') {
@@ -420,9 +420,11 @@ export default function App() {
           } else if (type === 'PROJECT') {
             setCurrentProjectIndex(prev => prev + 1);
           }
-          // Reset swipe direction for specific type
-          setSwipeDirection(prev => ({ ...prev, [animationType]: null }));
-        }, 400);
+          // Reset swipe direction after index change
+          setTimeout(() => {
+            setSwipeDirection(prev => ({ ...prev, [animationType]: null }));
+          }, 100);
+        }, 600);
       }
     } catch (error) {
       console.error('Swipe error:', error);
