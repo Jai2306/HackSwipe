@@ -1517,6 +1517,42 @@ export default function App() {
                       </div>
                     )}
                     
+                    {currentPerson.profile?.interests && currentPerson.profile.interests.length > 0 && (
+                      <div className="mb-4">
+                        <p className="text-sm font-medium text-gray-800 mb-2">Interests</p>
+                        <div className="flex flex-wrap gap-1">
+                          {currentPerson.profile.interests.slice(0, 4).map(interest => (
+                            <Badge key={interest} variant="outline" className="text-xs border-purple-200 text-purple-600">
+                              {interest}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {currentPerson.profile?.experience && currentPerson.profile.experience.length > 0 && (
+                      <div className="mb-4">
+                        <p className="text-sm font-medium text-gray-800 mb-1">Current Role</p>
+                        <p className="text-sm text-gray-600">
+                          {currentPerson.profile.experience[0].title} at {currentPerson.profile.experience[0].organization}
+                        </p>
+                      </div>
+                    )}
+                    
+                    {currentPerson.profile?.socials && currentPerson.profile.socials.length > 0 && (
+                      <div className="mb-4">
+                        <div className="flex gap-2">
+                          {currentPerson.profile.socials.map((social, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {social.platform === 'GitHub' && <Github className="h-3 w-3 mr-1" />}
+                              {social.platform === 'LinkedIn' && <Linkedin className="h-3 w-3 mr-1" />}
+                              {social.platform}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {currentPerson.profile?.looksToConnect && (
                       <div className="mb-4">
                         <p className="text-sm font-medium text-gray-800 mb-1">Looking for</p>
