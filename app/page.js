@@ -434,24 +434,24 @@ export default function App() {
   const handleUndo = (type) => {
     if (type === 'PERSON' && lastRejectedPerson) {
       // Set swipe direction to 'undo' for left-to-right animation
-      setSwipeDirection('undo');
+      setSwipeDirection(prev => ({ ...prev, people: 'undo' }));
       setCurrentPersonIndex(lastRejectedPerson.index);
       setLastRejectedPerson(null);
       setShowUndo(prev => ({ ...prev, people: false }));
       // Clear animation after it completes
-      setTimeout(() => setSwipeDirection(null), 500);
+      setTimeout(() => setSwipeDirection(prev => ({ ...prev, people: null })), 600);
     } else if (type === 'HACKATHON' && lastRejectedHackathon) {
-      setSwipeDirection('undo');
+      setSwipeDirection(prev => ({ ...prev, hackathons: 'undo' }));
       setCurrentHackathonIndex(lastRejectedHackathon.index);
       setLastRejectedHackathon(null);
       setShowUndo(prev => ({ ...prev, hackathons: false }));
-      setTimeout(() => setSwipeDirection(null), 500);
+      setTimeout(() => setSwipeDirection(prev => ({ ...prev, hackathons: null })), 600);
     } else if (type === 'PROJECT' && lastRejectedProject) {
-      setSwipeDirection('undo');
+      setSwipeDirection(prev => ({ ...prev, projects: 'undo' }));
       setCurrentProjectIndex(lastRejectedProject.index);
       setLastRejectedProject(null);
       setShowUndo(prev => ({ ...prev, projects: false }));
-      setTimeout(() => setSwipeDirection(null), 500);
+      setTimeout(() => setSwipeDirection(prev => ({ ...prev, projects: null })), 600);
     }
   };
 
