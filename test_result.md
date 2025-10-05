@@ -384,11 +384,11 @@ frontend:
 
   - task: "Fix Card Transition Animations"
     implemented: true
-    working: true
+    working: "NA"
     file: "app/page.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: false
           agent: "main"
@@ -396,6 +396,9 @@ frontend:
         - working: true
           agent: "main"
           comment: "✅ Fixed card transition animations by updating AnimatePresence configurations and motion.div properties. Improved exit animations with proper scaling, rotation, and opacity transitions. Enhanced card sliding and stacking visual effects."
+        - working: "NA"
+          agent: "main"
+          comment: "CRITICAL UPDATE: Card transition animations updated with immediate index changes. AnimatePresence now handles smooth transitions with old card exit animation and new card entrance animation simultaneously. Exit animations include proper x, rotate, opacity, and scale transitions. Initial animations for entrance cards. NEEDS TESTING to verify smooth Tinder-like experience with no stuck cards."
 
   - task: "Fix Create Post Button Redirect"
     implemented: true
