@@ -855,7 +855,7 @@ export default function App() {
             <CardHeader>
               <CardTitle>Set Your Profile</CardTitle>
               <CardDescription>
-                Step {onboardingStep} of 3 - Let's get you connected with the right people!
+                Step {onboardingStep} of 6 - Let's get you connected with the right people!
               </CardDescription>
             </CardHeader>
             
