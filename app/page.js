@@ -1337,12 +1337,15 @@ export default function App() {
               ) : (
                 <Card>
                   <CardContent className="text-center py-12">
-                    <p className="text-gray-500">No more people to discover!</p>
+                    <User className="h-12 w-12 mx-auto text-gray-300 mb-4" />
+                    <p className="text-gray-700 font-medium mb-2">You've seen everyone!</p>
+                    <p className="text-gray-500 text-sm mb-4">Discover more amazing people by inviting friends or checking back later.</p>
                     <Button 
                       onClick={loadAppData} 
-                      className="mt-4"
+                      className="mt-2"
+                      variant="outline"
                     >
-                      Refresh
+                      Refresh Feed
                     </Button>
                   </CardContent>
                 </Card>
