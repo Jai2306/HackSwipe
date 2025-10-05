@@ -1472,20 +1472,27 @@ export default function App() {
                     </div>
                   )}
                   
-                  {/* Second Card - Clear but proportional with animation */}
+                  {/* Second Card (Background) - Slides forward when front card is swiped */}
                   <AnimatePresence>
                     {people[currentPersonIndex + 1] && (
                       <motion.div 
                         key={`second-${currentPersonIndex + 1}`}
-                        initial={{ top: 6, left: 6, right: 6, bottom: 6, scale: 0.94, opacity: 0.5 }}
+                        initial={{ top: 6, left: 6, right: 6, bottom: 6, scale: 0.94, opacity: 0.5, x: 20 }}
                         animate={{ 
-                          top: 12, 
-                          left: 12, 
-                          right: 12, 
-                          bottom: 12,
-                          scale: 0.97, 
-                          opacity: 0.70,
-                          transition: { duration: 0.3, ease: "easeOut" }
+                          top: swipeDirection.people ? 0 : 12, 
+                          left: swipeDirection.people ? 0 : 12, 
+                          right: swipeDirection.people ? 0 : 12, 
+                          bottom: swipeDirection.people ? 0 : 12,
+                          scale: swipeDirection.people ? 1 : 0.97, 
+                          opacity: swipeDirection.people ? 1 : 0.70,
+                          x: swipeDirection.people ? 0 : 20,
+                          transition: {
+                            type: "spring",
+                            stiffness: 100,
+                            damping: 20,
+                            duration: 0.4,
+                            delay: swipeDirection.people ? 0.1 : 0
+                          }
                         }}
                         className="absolute bg-white rounded-2xl shadow-xl z-1 transform rotate-0.5 border-2 border-indigo-200">
                         <div className="h-48 bg-gradient-to-br from-indigo-300 to-purple-300 rounded-t-2xl flex items-center justify-center">
