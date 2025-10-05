@@ -1547,11 +1547,12 @@ export default function App() {
                     <motion.div
                       key={`person-${currentPersonIndex}`}
                       initial={{ 
-                        scale: swipeDirection.people === 'undo' ? 0.9 : 0.85,
-                        opacity: swipeDirection.people === 'undo' ? 0.8 : 0,
-                        x: swipeDirection.people === 'undo' ? -300 : 100,
-                        rotate: swipeDirection.people === 'undo' ? -15 : 5,
-                        z: swipeDirection.people === 'undo' ? 5 : -10
+                        scale: swipeDirection.people === 'undo' ? 0.9 : 0.94,
+                        opacity: swipeDirection.people === 'undo' ? 0.8 : 0.7,
+                        x: swipeDirection.people === 'undo' ? -300 : 80,
+                        y: swipeDirection.people === 'undo' ? 0 : 10,
+                        rotate: swipeDirection.people === 'undo' ? -15 : 3,
+                        z: swipeDirection.people === 'undo' ? 5 : -5
                       }}
                       animate={{ 
                         scale: 1, 
