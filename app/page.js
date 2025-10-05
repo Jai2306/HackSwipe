@@ -1750,13 +1750,14 @@ export default function App() {
                 <Card>
                   <CardContent className="text-center py-12">
                     <Code className="h-12 w-12 mx-auto text-gray-300 mb-4" />
-                    <p className="text-gray-500">No more projects to discover!</p>
+                    <p className="text-gray-700 font-medium mb-2">You're all set!</p>
+                    <p className="text-gray-500 text-sm mb-4">New projects are posted daily. Come back to discover more exciting collaborations!</p>
                     <Button 
                       onClick={loadAppData} 
-                      className="mt-4"
+                      className="mt-2"
                       variant="outline"
                     >
-                      Refresh
+                      Discover More Projects
                     </Button>
                   </CardContent>
                 </Card>
