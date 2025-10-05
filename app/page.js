@@ -347,24 +347,27 @@ export default function App() {
   };
 
   const handleSwipe = async (direction, type = 'PERSON') => {
-    let targetId, index, currentItem;
+    let targetId, index, currentItem, animationType;
     
     if (type === 'PERSON') {
       targetId = people[currentPersonIndex]?.id;
       index = currentPersonIndex;
       currentItem = people[currentPersonIndex];
+      animationType = 'people';
     } else if (type === 'HACKATHON') {
       targetId = hackathons[currentHackathonIndex]?.id;
       index = currentHackathonIndex;
       currentItem = hackathons[currentHackathonIndex];
+      animationType = 'hackathons';
     } else if (type === 'PROJECT') {
       targetId = projects[currentProjectIndex]?.id;
       index = currentProjectIndex;
       currentItem = projects[currentProjectIndex];
+      animationType = 'projects';
     }
 
-    // Set swipe direction for animation
-    setSwipeDirection(direction);
+    // Set swipe direction for animation for specific type
+    setSwipeDirection(prev => ({ ...prev, [animationType]: direction }));
 
     // Store rejected item for undo functionality
     if (direction === 'left' && currentItem) {
@@ -417,9 +420,9 @@ export default function App() {
           } else if (type === 'PROJECT') {
             setCurrentProjectIndex(prev => prev + 1);
           }
-          // Reset swipe direction
-          setSwipeDirection(null);
-        }, 300);
+          // Reset swipe direction for specific type
+          setSwipeDirection(prev => ({ ...prev, [animationType]: null }));
+        }, 400);
       }
     } catch (error) {
       console.error('Swipe error:', error);
