@@ -1152,18 +1152,34 @@ export default function App() {
                 </Button>
               )}
               
-              <Button 
-                onClick={() => {
-                  if (onboardingStep < 3) {
-                    setOnboardingStep(prev => prev + 1);
-                  } else {
-                    completeOnboarding();
-                  }
-                }}
-                className="ml-auto"
-              >
-                {onboardingStep === 3 ? 'Complete Profile' : 'Next'}
-              </Button>
+              <div className="flex gap-3 ml-auto">
+                {onboardingStep > 3 && onboardingStep < 6 && (
+                  <Button 
+                    variant="ghost"
+                    onClick={() => {
+                      if (onboardingStep < 6) {
+                        setOnboardingStep(prev => prev + 1);
+                      } else {
+                        completeOnboarding();
+                      }
+                    }}
+                  >
+                    Do Later
+                  </Button>
+                )}
+                
+                <Button 
+                  onClick={() => {
+                    if (onboardingStep < 6) {
+                      setOnboardingStep(prev => prev + 1);
+                    } else {
+                      completeOnboarding();
+                    }
+                  }}
+                >
+                  {onboardingStep === 6 ? 'Complete Profile' : 'Next'}
+                </Button>
+              </div>
             </CardFooter>
           </Card>
         </div>
