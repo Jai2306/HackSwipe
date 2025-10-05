@@ -366,11 +366,11 @@ test_plan:
 frontend:
   - task: "Fix Swipe Animation System"
     implemented: true
-    working: true
+    working: "NA"
     file: "app/page.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: false
           agent: "main"
@@ -378,6 +378,9 @@ frontend:
         - working: true
           agent: "main"
           comment: "✅ Fixed swipe animation system by implementing separate animation states for each card type (people, hackathons, projects). Updated handleSwipe and handleUndo functions to use individual animation states. Added proper undo animation logic to all three sections with left-to-right animations. Improved animation timing and transitions."
+        - working: "NA"
+          agent: "main"
+          comment: "CRITICAL FIX APPLIED: Immediate index change when user swipes - currentPersonIndex changes IMMEDIATELY instead of after delay. Proper AnimatePresence flow with old card exit animation and new card entrance animation. Clean animation logic with only exit animations for outgoing cards. Better timing with swipeDirection clearing after 400ms. User reported issue: 'when I press right swipe it does swipe to the right but just stays there the second card behind it does not come ahead' - this should now be fixed. NEEDS COMPREHENSIVE TESTING."
 
   - task: "Fix Card Transition Animations"
     implemented: true
