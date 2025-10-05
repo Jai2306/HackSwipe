@@ -362,6 +362,55 @@ test_plan:
   test_all: false
   test_priority: "high_first"
 
+frontend:
+  - task: "Fix Swipe Animation System"
+    implemented: false
+    working: false
+    file: "app/page.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "User reported that swipe animations (card going left/right) and undo animations (card coming back left-to-right) are not working. Issue identified: shared swipeDirection state across all card types, timing conflicts between handleSwipe and handleUndo functions, and missing undo animation logic in hackathons/projects sections."
+
+  - task: "Fix Card Transition Animations"
+    implemented: false
+    working: false
+    file: "app/page.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "General card transitions (current card animating out, next card sliding in) are not working properly. Need to fix AnimatePresence and motion.div configurations."
+
+  - task: "Fix Create Post Button Redirect"
+    implemented: false
+    working: false
+    file: "app/page.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Create your first post button redirect not working properly."
+
+  - task: "Add No More Cards Message"
+    implemented: false
+    working: false
+    file: "app/page.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Need to add 'discover more' or similar message when no more cards are left in explore sections."
+
 agent_communication:
     - agent: "testing"
       message: "Comprehensive backend testing completed. All core functionality working correctly. Fixed bcryptjs dependency issue during testing. All 11 backend tasks are fully functional with proper error handling, UUID usage, and MongoDB integration. Ready for frontend integration or deployment."
@@ -371,3 +420,5 @@ agent_communication:
       message: "Enhanced dummy data testing completed successfully. ✅ Dummy data creation working with 10 diverse users and enhanced profiles. ✅ Enhanced projects (HealthAI, EduTech) and hackathons (Web3 Social Impact, CyberSec Challenge) created with detailed descriptions. ✅ Professional company affiliations (Google, Meta, Stanford, Adobe) integrated. ✅ Data consistency maintained between users, profiles, and posts. Enhanced users may not appear in people endpoint due to existing swipe history or filtering logic, but they are successfully created as project/hackathon leaders."
     - agent: "testing"
       message: "Enhanced profile editing functionality comprehensive testing completed successfully. ✅ PUT /api/profile endpoint handles all enhanced fields including work experience (title, org, startDate, endDate, description), projects (name, description, repoUrl, demoUrl), social links (LinkedIn, GitHub), and custom skills/interests. ✅ GET /api/auth/me returns complete enhanced profile data with user information. ✅ Profile data persistence validated across multiple requests with 100% consistency. ✅ Enhanced profile structure properly handles multiple work experience entries, projects with URLs, social media links array, and extended skills/interests arrays. All 4 major test suites passed with 100% success rate. Backend profile editing system is production-ready."
+    - agent: "main"
+      message: "Identified swipe animation issues: shared swipeDirection state causing conflicts between sections, missing undo animation logic in hackathons/projects, timing conflicts between handleSwipe and handleUndo functions. Starting fix implementation with separate animation states for each card type."
