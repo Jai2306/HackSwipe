@@ -1764,31 +1764,34 @@ export default function App() {
                     <motion.div
                       key={`hackathon-${currentHackathonIndex}`}
                       initial={{ 
-                        scale: swipeDirection.hackathons === 'undo' ? 0.9 : 0.8, 
+                        scale: swipeDirection.hackathons === 'undo' ? 0.9 : 0.85,
                         opacity: swipeDirection.hackathons === 'undo' ? 0.8 : 0,
-                        x: swipeDirection.hackathons === 'undo' ? -200 : 0,
-                        rotate: swipeDirection.hackathons === 'undo' ? -10 : 0
+                        x: swipeDirection.hackathons === 'undo' ? -300 : 100,
+                        rotate: swipeDirection.hackathons === 'undo' ? -15 : 5,
+                        z: swipeDirection.hackathons === 'undo' ? 5 : -10
                       }}
                       animate={{ 
                         scale: 1, 
                         opacity: 1, 
                         x: 0,
                         rotate: 0,
+                        z: 0,
                         transition: {
                           type: "spring",
-                          stiffness: 100,
-                          damping: 20,
-                          duration: 0.4
+                          stiffness: 120,
+                          damping: 25,
+                          duration: 0.5,
+                          delay: swipeDirection.hackathons === 'undo' ? 0 : 0.1
                         }
                       }}
                       exit={{ 
-                        x: swipeDirection.hackathons === 'right' ? 400 : swipeDirection.hackathons === 'left' ? -400 : 0,
-                        rotate: swipeDirection.hackathons === 'right' ? 20 : swipeDirection.hackathons === 'left' ? -20 : 0,
+                        x: swipeDirection.hackathons === 'right' ? 500 : swipeDirection.hackathons === 'left' ? -500 : 0,
+                        rotate: swipeDirection.hackathons === 'right' ? 25 : swipeDirection.hackathons === 'left' ? -25 : 0,
                         opacity: 0,
-                        scale: 0.8,
+                        scale: 0.7,
                         transition: { 
-                          duration: 0.3,
-                          ease: "easeOut"
+                          duration: 0.4,
+                          ease: "easeInOut"
                         }
                       }}
                       className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
